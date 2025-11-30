@@ -1,0 +1,79 @@
+name: Frontend CI/CD
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/**'
+      - 'api/**'
+      - 'utils/**'
+      - 'app.js'
+      - 'package.json'
+      - 'Dockerfile'
+      - 'docker-compose.yml'
+      - '.github/workflows/deploy.yml'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/arm64
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/ktb-community-frontend:latest
+            ${{ secrets.DOCKER_USERNAME }}/ktb-community-frontend:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            mkdir -p /home/${{ secrets.EC2_USERNAME }}/ktb-frontend
+            cd /home/${{ secrets.EC2_USERNAME }}/ktb-frontend
+
+            wget -O docker-compose.yml https://raw.githubusercontent.com/100-hours-a-week/3-jiny-shin-community-FE/main/docker-compose.yml
+
+            docker compose down || true
+
+            docker compose pull
+
+            docker compose up -d
+
+            timeout 30 docker compose logs -f || true
+
+            echo "Waiting for health check..."
+            for i in {1..6}; do
+              if curl -f http://localhost:3000/health > /dev/null 2>&1; then
+                echo "✅ Frontend health check passed!"
+                docker compose ps
+                exit 0
+              fi
+              echo "Waiting for frontend to start... ($i/6)"
+              sleep 5
+            done
+
+            echo "❌ Frontend health check failed!"
+            docker compose logs
+            docker compose ps
+            exit 1
