@@ -52,6 +52,10 @@ jobs:
             mkdir -p /home/${{ secrets.EC2_USERNAME }}/ktb-frontend
             cd /home/${{ secrets.EC2_USERNAME }}/ktb-frontend
 
+            echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" > .env
+            echo "NODE_ENV=production" >> .env
+            echo "TZ=Asia/Seoul" >> .env
+
             wget -O docker-compose.yml https://raw.githubusercontent.com/100-hours-a-week/3-jiny-shin-community-FE/main/docker-compose.yml
 
             docker compose down || true
