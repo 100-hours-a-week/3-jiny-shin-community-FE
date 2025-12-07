@@ -1,30 +1,135 @@
+/**
+ * Input Component
+ * anoo 디자인 시스템
+ */
+
 .input-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.2rem;
+  margin-bottom: var(--space-lg);
 }
 
-.input-group label {
-  font-weight: 600;
-  margin-bottom: 0.4rem;
-  font-size: 0.9rem;
+.input-group label,
+.input-label {
+  font-size: var(--form-label-size);
+  font-weight: var(--form-label-weight);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--space-xs);
+  color: var(--color-text);
 }
 
-.input-group input {
-  border: 1px solid #222;
-  border-radius: 6px;
-  height: 40px;
-  padding: 0 10px;
-  font-size: 0.9rem;
+.input-label .required {
+  color: var(--color-danger);
+}
+
+.input-group input,
+.input-field {
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  height: 48px;
+  padding: 0 var(--space-md);
+  font-size: var(--font-base);
+  font-family: inherit;
+  background-color: var(--color-surface);
+  transition: all var(--transition-default);
+}
+
+.input-group input:focus,
+.input-field:focus {
   outline: none;
-}
-
-.input-group input:focus {
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-bg);
 }
 
+.input-group input::placeholder,
+.input-field::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+/* Textarea */
+.textarea-field {
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--form-input-size);
+  font-weight: var(--form-input-weight);
+  font-family: inherit;
+  background-color: var(--color-surface);
+  resize: vertical;
+  min-height: 120px;
+  line-height: var(--line-height-relaxed);
+  transition: all var(--transition-default);
+}
+
+.textarea-field:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-bg);
+}
+
+.textarea-field::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+/* Error State */
+.input-group input.error,
+.input-field.error,
+.textarea-field.error {
+  border-color: var(--color-danger);
+}
+
+.input-group input.error:focus,
+.input-field.error:focus,
+.textarea-field.error:focus {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px var(--color-danger-light);
+}
+
+/* Helper Text */
 .helper-text {
-  font-size: 0.8rem;
-  color: #e64b3c;
-  margin-top: 0.3rem;
+  font-size: var(--font-xs);
+  color: var(--color-danger);
+  margin-top: var(--space-2xs);
+  min-height: 16px;
+}
+
+.helper-text:empty {
+  display: none;
+}
+
+/* Input Helper */
+.input-helper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-2xs);
+}
+
+.error-message {
+  font-size: var(--font-xs);
+  color: var(--color-danger);
+}
+
+.char-count {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+  margin-left: auto;
+}
+
+.help-text {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* Visually Hidden */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

@@ -1,4 +1,7 @@
-/* Global Styles - 전역 스타일 */
+/**
+ * Global Styles - anoo Design System
+ * Deep Teal 기반 모노톤 컬러 시스템
+ */
 
 *,
 *::before,
@@ -7,150 +10,454 @@
 }
 
 :root {
-  /* Colors */
-  --color-primary: #7f6aee;
-  --color-primary-dark: #6854d8;
-  --color-primary-light: #aca0eb;
-  --color-primary-shadow: rgba(127, 106, 238, 0.3);
-  --color-danger: #e64b3c;
-  --color-black: #000;
-  --color-white: #fff;
-  --color-gray-100: #f9f9fb;
+  /* ========================================
+   * Colors - Deep Teal Mono-tone System
+   * ======================================== */
+
+  /* Primary - Deep Teal */
+  --color-primary: #024951;
+  --color-primary-light: #0a6c74;
+  --color-primary-bg: #e0f2f4;
+
+  /* Backgrounds */
+  --color-bg: #fafafa;
+  --color-surface: #ffffff;
+
+  /* Text (3단계만) */
+  --color-text: #1a1a1a;
+  --color-text-secondary: #666666;
+  --color-text-tertiary: #999999;
+
+  /* Borders */
+  --color-border: #e5e5e5;
+  --color-border-light: #f0f0f0;
+
+  /* Semantic Colors */
+  --color-danger: #dc2626;
+  --color-danger-light: #fee2e2;
+  --color-success: #024951;
+  --color-like-active: #e11d48;
+
+  /* Legacy support (이전 코드 호환) */
+  --color-primary-dark: #013a40;
+  --color-primary-shadow: rgba(2, 73, 81, 0.3);
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-gray-100: #fafafa;
   --color-gray-200: #f5f5f5;
-  --color-gray-300: #ddd;
-  --color-gray-400: #555;
-  --color-text: #222;
+  --color-gray-300: #e5e5e5;
+  --color-gray-400: #666666;
 
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
+  /* ========================================
+   * Spacing - 4px Base Unit
+   * ======================================== */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 20px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 48px;
 
-  /* Border Radius */
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  /* Legacy spacing (이전 코드 호환) */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* ========================================
+   * Border Radius
+   * ======================================== */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* ========================================
+   * Shadows (절제된 사용)
+   * ======================================== */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* ========================================
+   * Typography
+   * ======================================== */
+  --font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, sans-serif;
+  --font-family-logo: 'Bricolage Grotesque', sans-serif;
+
+  /* ========================================
+   * Typography Scale (익명 커뮤니티 최적화)
+   * 철학: Bold 최소화, Weight로 구분, 차분한 느낌
+   * ======================================== */
 
   /* Font Sizes */
-  --font-xs: 0.8rem;
-  --font-sm: 0.85rem;
-  --font-base: 0.9rem;
-  --font-md: 0.95rem;
-  --font-lg: 1rem;
-  --font-xl: 1.1rem;
-  --font-2xl: 1.2rem;
-  --font-3xl: 1.5rem;
+  --font-xs: 13px;      /* Caption, 타임스탬프 */
+  --font-sm: 14px;      /* Label, 부가 정보 */
+  --font-base: 16px;    /* Body 1, 입력 필드 */
+  --font-md: 18px;      /* 카드 제목 */
+  --font-lg: 20px;      /* H3, 섹션 소제목 */
+  --font-xl: 24px;      /* H2, 페이지 제목 */
+  --font-2xl: 28px;     /* H1, 최상단 타이틀 */
+
+  /* Font Weights (Bold 최소화) */
+  --weight-regular: 400;    /* 본문 기본 */
+  --weight-medium: 500;     /* 부제, UI 컴포넌트, Label */
+  --weight-semibold: 600;   /* 제목, 중요 정보 */
+  --weight-bold: 700;       /* 절대 강조 (사용 최소화) */
+
+  /* Line Heights */
+  --line-height-tight: 1.3;     /* H1 */
+  --line-height-snug: 1.35;     /* H2 */
+  --line-height-normal: 1.4;    /* H3, Caption */
+  --line-height-relaxed: 1.55;  /* 본문 (한국어 긴 글 최적화) */
+
+  /* ========================================
+   * Semantic Typography Tokens
+   * ======================================== */
+
+  /* Headings */
+  --heading-1-size: var(--font-2xl);
+  --heading-1-weight: var(--weight-semibold);
+  --heading-1-line-height: var(--line-height-tight);
+
+  --heading-2-size: var(--font-xl);
+  --heading-2-weight: var(--weight-semibold);
+  --heading-2-line-height: var(--line-height-snug);
+
+  --heading-3-size: var(--font-lg);
+  --heading-3-weight: var(--weight-medium);
+  --heading-3-line-height: var(--line-height-normal);
+
+  /* Body */
+  --body-size: var(--font-base);
+  --body-weight: var(--weight-regular);
+  --body-line-height: var(--line-height-relaxed);
+
+  --body-small-size: 15px;
+  --body-small-weight: var(--weight-regular);
+
+  /* Caption */
+  --caption-size: var(--font-xs);
+  --caption-weight: var(--weight-regular);
+
+  /* Form Elements */
+  --form-title-size: var(--font-xl);
+  --form-title-weight: var(--weight-semibold);
+  --form-label-size: 15px;
+  --form-label-weight: var(--weight-medium);
+  --form-input-size: var(--font-base);
+  --form-input-weight: var(--weight-regular);
+  --form-hint-size: var(--font-xs);
+  --form-hint-weight: var(--weight-regular);
+
+  /* Button */
+  --button-size: var(--font-base);
+  --button-weight: var(--weight-medium);
+
+  /* ========================================
+   * Transitions
+   * ======================================== */
+  --transition-fast: 0.15s ease;
+  --transition-default: 0.2s ease;
+  --transition-slow: 0.3s ease;
+
+  /* ========================================
+   * Layout
+   * ======================================== */
+  --content-max-width: 640px;
+  --content-padding-top: var(--space-xl);
+  --content-padding-x: var(--space-lg);
+  --content-padding-bottom: var(--space-2xl);
+
+  /* ========================================
+   * Z-index Scale
+   * ======================================== */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-fixed: 300;
+  --z-modal-backdrop: 400;
+  --z-modal: 500;
+  --z-toast: 600;
+}
+
+/* ========================================
+ * Base Styles
+ * ======================================== */
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-y: scroll; /* 스크롤바 항상 표시 - 레이아웃 밀림 방지 */
 }
 
 body {
-  background-color: var(--color-gray-200);
+  font-family: var(--font-family);
+  font-size: var(--body-size);
+  font-weight: var(--body-weight);
+  line-height: var(--body-line-height);
   color: var(--color-text);
+  background-color: var(--color-bg);
+  margin: 0;
+  padding: 0;
 }
 
+/* ========================================
+ * App Layout
+ * ======================================== */
 #app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-#app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
 }
 
 #main-content {
   flex: 1;
+  padding-bottom: 80px; /* Bottom Nav 높이 + 여유 */
 }
 
-/* 공통 레이아웃 */
+/* ========================================
+ * Container
+ * ======================================== */
 .container {
-  max-width: 1200px;
+  max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 var(--space-lg);
 }
 
-/* 유틸리티 클래스 */
+/* ========================================
+ * Logo Style
+ * ======================================== */
+.logo {
+  font-family: var(--font-family-logo);
+  font-weight: 600;
+  font-size: 24px;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+
+/* ========================================
+ * Typography Classes
+ * ======================================== */
+/* H1: 28px / 600 / 1.3 - 페이지 최상단 타이틀 */
+.text-h1 {
+  font-size: var(--heading-1-size);
+  font-weight: var(--heading-1-weight);
+  line-height: var(--heading-1-line-height);
+}
+
+/* H2: 24px / 600 / 1.35 - 섹션 제목, 페이지 제목 */
+.text-h2 {
+  font-size: var(--heading-2-size);
+  font-weight: var(--heading-2-weight);
+  line-height: var(--heading-2-line-height);
+}
+
+/* H3: 20px / 500 / 1.4 - 카드 제목, 글 제목 프리뷰 */
+.text-h3 {
+  font-size: var(--heading-3-size);
+  font-weight: var(--heading-3-weight);
+  line-height: var(--heading-3-line-height);
+}
+
+/* Body 1: 16px / 400 / 1.55 - 장문(일기/고민글) 기본 본문 */
+.text-body {
+  font-size: var(--body-size);
+  font-weight: var(--body-weight);
+  line-height: var(--body-line-height);
+}
+
+/* Body 2: 15px / 400 / 1.5 - 댓글, 부가 설명 */
+.text-body-sm {
+  font-size: var(--body-small-size);
+  font-weight: var(--body-small-weight);
+  line-height: 1.5;
+}
+
+/* Caption: 13px / 400 / 1.4 - 타임스탬프, 부가 텍스트 */
+.text-caption {
+  font-size: var(--caption-size);
+  font-weight: var(--caption-weight);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-tertiary);
+}
+
+/* Label: 15px / 500 / 1.4 - 입력 필드 제목 */
+.text-label {
+  font-size: var(--form-label-size);
+  font-weight: var(--form-label-weight);
+  line-height: var(--line-height-normal);
+}
+
+/* Hint: 13px / 400 / 1.4 - 도움말, 제한사항 안내 */
+.text-hint {
+  font-size: var(--form-hint-size);
+  font-weight: var(--form-hint-weight);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-tertiary);
+}
+
+/* ========================================
+ * Utility Classes
+ * ======================================== */
 .text-center {
   text-align: center;
 }
 
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-danger {
+  color: var(--color-danger);
+}
+
+/* Margins */
 .mt-1 {
-  margin-top: var(--spacing-sm);
+  margin-top: var(--space-xs);
 }
 .mt-2 {
-  margin-top: var(--spacing-md);
+  margin-top: var(--space-md);
 }
 .mt-3 {
-  margin-top: var(--spacing-lg);
+  margin-top: var(--space-xl);
+}
+.mt-4 {
+  margin-top: var(--space-2xl);
 }
 
 .mb-1 {
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--space-xs);
 }
 .mb-2 {
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--space-md);
 }
 .mb-3 {
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--space-xl);
+}
+.mb-4 {
+  margin-bottom: var(--space-2xl);
 }
 
-/* Welcome Section (index.html) */
+/* Gaps */
+.gap-1 {
+  gap: var(--space-xs);
+}
+.gap-2 {
+  gap: var(--space-md);
+}
+.gap-3 {
+  gap: var(--space-xl);
+}
+
+/* ========================================
+ * Welcome Section (index.html / Landing)
+ * ======================================== */
 .welcome-section {
-  max-width: 800px;
-  margin: 4rem auto;
-  padding: 3rem 1.5rem;
+  max-width: 400px;
+  margin: var(--space-3xl) auto;
+  padding: var(--space-2xl) var(--space-lg);
   text-align: center;
-  background: white;
-  border-radius: var(--radius-lg);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-light);
 }
 
 .welcome-title {
-  font-size: 2rem;
-  font-weight: 700;
+  font-family: var(--font-family-logo);
+  font-size: 32px;
+  font-weight: 600;
   color: var(--color-primary);
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-xs);
+  letter-spacing: -0.02em;
+}
+
+.welcome-subtitle {
+  font-size: var(--font-base);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2xl);
+  line-height: 1.5;
 }
 
 .welcome-desc {
-  font-size: 1.1rem;
-  color: var(--color-gray-400);
-  margin-bottom: 2rem;
+  font-size: var(--font-base);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2xl);
   line-height: 1.6;
 }
 
 .welcome-actions {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: var(--space-sm);
 }
 
 .welcome-actions .btn {
-  min-width: 150px;
+  width: 100%;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .welcome-section {
-    margin: 2rem auto;
-    padding: 2rem 1rem;
+    margin: var(--space-xl) var(--space-md);
+    padding: var(--space-xl) var(--space-md);
   }
 
   .welcome-title {
-    font-size: 1.5rem;
+    font-size: 28px;
   }
+}
 
-  .welcome-desc {
-    font-size: 1rem;
-  }
+/* ========================================
+ * Transitions
+ * ======================================== */
+.transition-default {
+  transition: all var(--transition-default);
+}
 
-  .welcome-actions {
-    flex-direction: column;
-  }
+/* ========================================
+ * Focus States (Accessibility)
+ * ======================================== */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
 
-  .welcome-actions .btn {
-    width: 100%;
-  }
+/* ========================================
+ * Selection
+ * ======================================== */
+::selection {
+  background-color: var(--color-primary-bg);
+  color: var(--color-primary);
+}
+
+/* ========================================
+ * Scrollbar (Optional)
+ * ======================================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
 }

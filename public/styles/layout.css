@@ -11,9 +11,9 @@
 
 .layout__content {
   width: 100%;
-  max-width: 960px;
+  max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: 1.5rem 1rem 2.5rem;
+  padding: var(--content-padding-top) var(--content-padding-x) var(--content-padding-bottom);
 }
 
 .layout__placeholder {
@@ -43,13 +43,11 @@
   line-height: 1.6;
 }
 
-@media (max-width: 992px) {
-  .layout__content {
-    max-width: 720px;
-  }
-}
-
 @media (max-width: 768px) {
+  .layout__content {
+    padding: var(--space-md) var(--space-md) var(--space-2xl);
+  }
+
   .layout__placeholder {
     padding: 1.5rem;
   }

@@ -1,56 +1,177 @@
+/**
+ * Button Component
+ * anoo 디자인 시스템
+ */
+
 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
   border: none;
-  border-radius: 6px;
-  font-size: 0.95rem;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: var(--button-size);
+  font-weight: var(--button-weight);
   cursor: pointer;
-  padding: 0.6rem 1.2rem;
-  transition: background-color 0.2s ease;
+  padding: 12px 16px;
+  transition: all var(--transition-default);
+  text-decoration: none;
+  white-space: nowrap;
 }
 
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* Primary Button - Deep Teal 배경 */
 .btn--primary {
-  background-color: #aca0eb;
+  background-color: var(--color-primary);
   color: white;
 }
+
 .btn--primary:hover {
-  background-color: var(--color-primary);
+  background-color: var(--color-primary-light);
 }
+
 .btn--primary:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-.btn--black {
-  background-color: #000;
-  color: #fff;
+/* Secondary Button - 연한 틸 배경 */
+.btn--secondary {
+  background-color: var(--color-primary-bg);
+  color: var(--color-primary);
 }
-.btn--black:hover {
-  background-color: #333;
+
+.btn--secondary:hover {
+  background-color: #cce9ec;
 }
-.btn--black:focus-visible {
-  outline: 2px solid #fff;
+
+.btn--secondary:focus-visible {
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
+
+/* Outline Button - 테두리만 */
 .btn--outline {
-  border: 1px solid var(--color-primary);
-  color: var(--color-primary);
   background: transparent;
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-secondary);
 }
+
 .btn--outline:hover {
-  background-color: var(--color-primary);
-  color: white;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: var(--color-primary-bg);
 }
+
 .btn--outline:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
+
+/* Danger Button - 빨간 배경 */
 .btn--danger {
-  background-color: #e64b3c;
+  background-color: var(--color-danger);
   color: white;
 }
+
 .btn--danger:hover {
-  background-color: #d63a2a;
+  background-color: #b91c1c;
 }
+
 .btn--danger:focus-visible {
-  outline: 2px solid #e64b3c;
+  outline: 2px solid var(--color-danger);
   outline-offset: 2px;
+}
+
+/* Ghost Button - 투명 배경 */
+.btn--ghost {
+  background: transparent;
+  color: var(--color-primary);
+  border: none;
+}
+
+.btn--ghost:hover {
+  background-color: var(--color-primary-bg);
+}
+
+.btn--ghost:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Size Variants */
+.btn--small {
+  padding: 8px 12px;
+  font-size: 15px;
+}
+
+.btn--large {
+  padding: 16px 24px;
+  font-size: var(--font-base);
+}
+
+/* Full Width */
+.btn--full {
+  width: 100%;
+}
+
+/* Icon Button */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-default);
+}
+
+.btn-icon:hover {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.btn-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Text Button (Danger) */
+.btn-text-danger {
+  background: none;
+  border: none;
+  color: var(--color-danger);
+  font-size: var(--font-sm);
+  cursor: pointer;
+  padding: var(--space-xs) var(--space-sm);
+  transition: all var(--transition-default);
+}
+
+.btn-text-danger:hover {
+  text-decoration: underline;
 }
