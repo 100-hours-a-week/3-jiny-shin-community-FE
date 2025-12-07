@@ -5,7 +5,7 @@ on:
     branches: [main]
     paths:
       - 'public/**'
-      - 'api/**'
+      - 'services/**'
       - 'utils/**'
       - 'app.js'
       - 'package.json'
