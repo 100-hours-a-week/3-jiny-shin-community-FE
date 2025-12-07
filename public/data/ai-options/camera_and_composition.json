@@ -1,0 +1,148 @@
+{
+  "camera_and_composition": [
+    {
+      "category": "Camera Shot Types",
+      "items": [
+        {
+          "name": "Close-up",
+          "description": "Tight framing focusing on details"
+        },
+        {
+          "name": "Extreme Close-up",
+          "description": "Very tight framing on specific feature"
+        },
+        {
+          "name": "Medium Shot",
+          "description": "Waist-up framing showing body language"
+        },
+        {
+          "name": "Medium Close-up",
+          "description": "Head and shoulders framing"
+        },
+        {
+          "name": "Wide Shot",
+          "description": "Full scene view showing environment and context"
+        },
+        {
+          "name": "Extreme Wide Shot",
+          "description": "Vast establishing shot showing full environment"
+        },
+        {
+          "name": "Full Body Shot",
+          "description": "Complete figure from head to toe"
+        },
+        {
+          "name": "Three-Quarter View",
+          "description": "Face turned slightly away from camera"
+        },
+        { "name": "Profile Shot", "description": "Side view of subject" },
+        {
+          "name": "Macro",
+          "description": "Extreme close-up revealing tiny details"
+        },
+        {
+          "name": "Headshot",
+          "description": "Professional head and shoulders portrait"
+        },
+        {
+          "name": "Portrait",
+          "description": "Classic portrait framing with shallow depth of field"
+        }
+      ]
+    },
+    {
+      "category": "Camera Angles",
+      "items": [
+        {
+          "name": "Low Angle",
+          "description": "Shot from below looking up, making subject appear powerful"
+        },
+        { "name": "High Angle", "description": "Shot from above looking down" },
+        {
+          "name": "Bird's Eye",
+          "description": "Overhead view looking directly down"
+        },
+        {
+          "name": "Worm's Eye View",
+          "description": "Extreme low angle from ground level"
+        },
+        {
+          "name": "Dutch Angle",
+          "description": "Tilted camera creating dynamic, unsettling feel"
+        },
+        {
+          "name": "Eye Level",
+          "description": "Neutral angle at subject's eye level"
+        },
+        {
+          "name": "Over-the-shoulder",
+          "description": "Shot from behind subject's shoulder"
+        },
+        {
+          "name": "Point of View",
+          "description": "First-person perspective as if through subject’s eyes"
+        }
+      ]
+    },
+    {
+      "category": "Lens & Optical Effects",
+      "items": [
+        {
+          "name": "Fisheye",
+          "description": "Ultra-wide angle with curved distortion"
+        },
+        {
+          "name": "Telephoto Compression",
+          "description": "Compressed perspective from long lens"
+        },
+        {
+          "name": "Tilt-Shift",
+          "description": "Miniature effect with selective focus"
+        }
+      ]
+    },
+    {
+      "category": "Composition Techniques",
+      "items": [
+        {
+          "name": "Rule of Thirds",
+          "description": "Subject placed at intersection points"
+        },
+        {
+          "name": "Centered Composition",
+          "description": "Subject placed directly in center"
+        },
+        {
+          "name": "Symmetrical",
+          "description": "Perfect symmetry in composition"
+        },
+        {
+          "name": "Leading Lines",
+          "description": "Lines guiding eye to subject"
+        },
+        {
+          "name": "Natural Frame",
+          "description": "Subject framed by environmental elements"
+        },
+        {
+          "name": "Negative Space",
+          "description": "Lots of empty space around subject"
+        }
+      ]
+    },
+    {
+      "category": "Depth & Focus Styles",
+      "items": [
+        {
+          "name": "Shallow Depth of Field",
+          "description": "Blurred background with sharp subject"
+        },
+        { "name": "Deep Focus", "description": "Everything in sharp focus" },
+        {
+          "name": "Split Diopter",
+          "description": "Both foreground and background in focus"
+        }
+      ]
+    }
+  ]
+}

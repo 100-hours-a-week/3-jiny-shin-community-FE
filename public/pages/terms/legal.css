@@ -1,0 +1,183 @@
+/* 법적 문서 페이지 공통 스타일 */
+
+.legal-container {
+  min-height: 100vh;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+  display: flex;
+  flex-direction: column;
+}
+
+.legal-header {
+  padding: var(--space-xl) 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.legal-logo {
+  font-size: var(--heading-1-size);
+  text-decoration: none;
+}
+
+.legal-content {
+  flex: 1;
+  padding: var(--space-2xl) 0;
+  line-height: var(--line-height-relaxed);
+}
+
+.legal-content h1 {
+  font-size: var(--heading-1-size);
+  font-weight: var(--heading-1-weight);
+  line-height: var(--heading-1-line-height);
+  color: var(--color-text);
+  margin-bottom: var(--space-md);
+}
+
+.legal-date {
+  font-size: var(--caption-size);
+  font-weight: var(--caption-weight);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-xl);
+}
+
+.legal-content h2 {
+  font-size: var(--heading-2-size);
+  font-weight: var(--heading-2-weight);
+  line-height: var(--heading-2-line-height);
+  color: var(--color-text);
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-md);
+}
+
+.legal-content h3 {
+  font-size: var(--heading-3-size);
+  font-weight: var(--heading-3-weight);
+  line-height: var(--heading-3-line-height);
+  color: var(--color-text);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-sm);
+}
+
+.legal-content p {
+  font-size: var(--body-size);
+  font-weight: var(--body-weight);
+  line-height: var(--body-line-height);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+.legal-content hr {
+  border: none;
+  border-top: 1px solid var(--color-border-light);
+  margin: var(--space-xl) 0;
+}
+
+.legal-content ol,
+.legal-content ul {
+  color: var(--color-text-secondary);
+  padding-left: var(--space-xl);
+  margin-bottom: var(--space-md);
+}
+
+.legal-content li {
+  margin-bottom: var(--space-sm);
+}
+
+.legal-content ul {
+  list-style-type: disc;
+}
+
+.legal-content ol {
+  list-style-type: decimal;
+}
+
+.legal-content a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.legal-content a:hover {
+  color: var(--color-primary-light);
+}
+
+/* 표 스타일 */
+.legal-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-md) 0;
+  font-size: var(--font-sm);
+}
+
+.legal-content th,
+.legal-content td {
+  border: 1px solid var(--color-border);
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+}
+
+.legal-content th {
+  background-color: var(--color-bg);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+}
+
+.legal-content td {
+  color: var(--color-text-secondary);
+}
+
+.legal-contact {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-border-light);
+}
+
+/* 푸터 */
+.legal-footer {
+  padding: var(--space-xl) 0;
+  border-top: 1px solid var(--color-border-light);
+  text-align: center;
+  color: var(--color-text-tertiary);
+  font-size: var(--font-sm);
+}
+
+.legal-footer a {
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+}
+
+.legal-footer a:hover {
+  color: var(--color-primary);
+}
+
+.legal-footer a.active {
+  color: var(--color-primary);
+  font-weight: var(--weight-semibold);
+}
+
+.legal-footer .divider {
+  margin: 0 var(--space-sm);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .legal-container {
+    padding: 0 var(--space-md);
+  }
+
+  .legal-content h1 {
+    font-size: var(--heading-2-size);
+  }
+
+  .legal-content h2 {
+    font-size: var(--heading-3-size);
+  }
+
+  .legal-content table {
+    font-size: var(--font-xs);
+  }
+
+  .legal-content th,
+  .legal-content td {
+    padding: var(--space-xs) var(--space-sm);
+  }
+}

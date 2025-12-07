@@ -1,0 +1,180 @@
+/**
+ * Onboarding Page
+ * anoo 디자인 시스템 - 로그인/회원가입과 동일한 레이아웃
+ */
+
+.onboarding {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  padding: var(--space-xl);
+  padding-bottom: calc(var(--space-xl) + env(safe-area-inset-bottom));
+}
+
+/* Content area */
+.onboarding__content {
+  width: 100%;
+  max-width: 320px;
+  text-align: center;
+}
+
+/* Slides Container */
+.onboarding__slides {
+  position: relative;
+  min-height: 280px;
+  margin-bottom: var(--space-xl);
+}
+
+/* Individual Slide */
+.onboarding__slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.4s ease;
+}
+
+.onboarding__slide.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.onboarding__slide.prev {
+  transform: translateX(-100%);
+}
+
+/* Icon */
+.onboarding__icon {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary-bg);
+  border-radius: 50%;
+  margin-bottom: var(--space-xl);
+}
+
+.slide-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--color-primary);
+  stroke-width: 1.5;
+}
+
+/* Text */
+.onboarding__title {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-sm);
+  line-height: 1.4;
+}
+
+.onboarding__desc {
+  font-size: var(--font-base);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Dots */
+.onboarding__dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-xl);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-border);
+  transition: all var(--transition-default);
+  cursor: pointer;
+}
+
+.dot.active {
+  width: 24px;
+  border-radius: 4px;
+  background: var(--color-primary);
+}
+
+/* Actions */
+.onboarding__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.onboarding__next {
+  width: 100%;
+}
+
+.onboarding__skip {
+  background: none;
+  border: none;
+  font-size: var(--font-sm);
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  padding: var(--space-sm);
+  transition: color var(--transition-default);
+}
+
+.onboarding__skip:hover {
+  color: var(--color-text-secondary);
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.onboarding__slide.active .onboarding__icon {
+  animation: fadeInUp 0.5s ease 0.1s both;
+}
+
+.onboarding__slide.active .onboarding__title {
+  animation: fadeInUp 0.5s ease 0.2s both;
+}
+
+.onboarding__slide.active .onboarding__desc {
+  animation: fadeInUp 0.5s ease 0.3s both;
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .onboarding {
+    padding: var(--space-lg);
+  }
+
+  .onboarding__slides {
+    min-height: 260px;
+  }
+
+  .onboarding__icon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .slide-icon {
+    width: 40px;
+    height: 40px;
+  }
+}

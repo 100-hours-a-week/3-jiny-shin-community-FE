@@ -1,0 +1,107 @@
+{
+  "poses": [
+    {
+      "category": "Standing Poses",
+      "items": [
+        { "name": "Standing", "description": "Upright standing position" },
+        {
+          "name": "Relaxed Standing",
+          "description": "Casual relaxed standing"
+        },
+        { "name": "Power Pose", "description": "Confident assertive stance" },
+        { "name": "Arms Crossed", "description": "Standing with folded arms" },
+        {
+          "name": "Hands in Pockets",
+          "description": "Casual hands in pockets"
+        },
+        { "name": "Contrapposto", "description": "Classic weight shift pose" }
+      ]
+    },
+    {
+      "category": "Sitting Poses",
+      "items": [
+        {
+          "name": "Sitting",
+          "description": "Seated position on chair or surface"
+        },
+        { "name": "Cross-Legged", "description": "Sitting with legs crossed" },
+        { "name": "Floor Sitting", "description": "Sitting on the ground" },
+        { "name": "Perched", "description": "Sitting on edge of surface" },
+        { "name": "Lounging", "description": "Relaxed lounging position" },
+        { "name": "Meditation", "description": "Cross-legged meditation pose" }
+      ]
+    },
+    {
+      "category": "Leaning Poses",
+      "items": [
+        { "name": "Leaning", "description": "Leaning against wall or surface" },
+        { "name": "Wall Lean", "description": "Leaning against a wall" },
+        {
+          "name": "Forward Lean",
+          "description": "Leaning forward with interest"
+        },
+        { "name": "Backward Lean", "description": "Leaning back casually" }
+      ]
+    },
+    {
+      "category": "Lying Poses",
+      "items": [
+        { "name": "Lying Down", "description": "Horizontal resting position" },
+        { "name": "Side Lying", "description": "Lying on one side" },
+        { "name": "Lying on Back", "description": "Supine position facing up" },
+        {
+          "name": "Lying on Stomach",
+          "description": "Prone position facing down"
+        }
+      ]
+    },
+    {
+      "category": "Movement & Action",
+      "items": [
+        { "name": "Walking", "description": "Mid-stride walking motion" },
+        { "name": "Running", "description": "Dynamic running motion" },
+        { "name": "Jumping", "description": "Mid-air jumping action" },
+        {
+          "name": "Crouching",
+          "description": "Low crouching or squatting position"
+        },
+        { "name": "Kneeling", "description": "On one or both knees" },
+        { "name": "Mid-Turn", "description": "Caught mid-turn movement" },
+        { "name": "Stepping Forward", "description": "Taking a step forward" }
+      ]
+    },
+    {
+      "category": "Gestures & Upper Body Actions",
+      "items": [
+        { "name": "Reaching", "description": "Reaching for something" },
+        { "name": "Pointing", "description": "Pointing gesture" },
+        { "name": "Waving", "description": "Hand wave gesture" },
+        { "name": "Stretching", "description": "Full body stretch" },
+        { "name": "Dance Pose", "description": "Elegant dance position" },
+        { "name": "Action Hero", "description": "Dynamic heroic stance" }
+      ]
+    },
+    {
+      "category": "Arms & Hands Placement",
+      "items": [
+        {
+          "name": "Defensive Stance",
+          "description": "Guarded protective position"
+        },
+        { "name": "Arms Behind Back", "description": "Hands clasped behind" },
+        { "name": "Chin Rest", "description": "Hand resting under chin" }
+      ]
+    },
+    {
+      "category": "Head & Gaze",
+      "items": [
+        { "name": "Head Tilt", "description": "Slight head tilt" },
+        { "name": "Looking Away", "description": "Gaze directed off-camera" },
+        {
+          "name": "Over Shoulder Look",
+          "description": "Looking back over shoulder"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#024951" />
+    <title>시작하기 - anoo</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/icon/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icon/favicon-96x96.png" sizes="96x96" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/component/button/button.css" />
+    <link rel="stylesheet" href="/pages/onboarding/onboarding.css" />
+  </head>
+  <body>
+    <div class="onboarding">
+      <div class="onboarding__content">
+        <!-- Slides -->
+        <div class="onboarding__slides" id="slides">
+          <!-- Slide 1 -->
+          <div class="onboarding__slide active" data-slide="0">
+            <div class="onboarding__icon">
+              <i data-lucide="lock" class="slide-icon"></i>
+            </div>
+            <h2 class="onboarding__title">
+              오늘 하루,<br />누구한테도 말하지 못한<br />이야기가 있나요?
+            </h2>
+            <p class="onboarding__desc">
+              익명으로 기록하세요.<br />솔직해져도 괜찮아요.
+            </p>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="onboarding__slide" data-slide="1">
+            <div class="onboarding__icon">
+              <i data-lucide="sparkles" class="slide-icon"></i>
+            </div>
+            <h2 class="onboarding__title">예쁜 사진이 없어도 괜찮아요</h2>
+            <p class="onboarding__desc">글만 쓰면 AI가 그려드려요.</p>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="onboarding__slide" data-slide="2">
+            <div class="onboarding__icon">
+              <i data-lucide="heart" class="slide-icon"></i>
+            </div>
+            <h2 class="onboarding__title">
+              다른 사람 하루도<br />구경해보세요
+            </h2>
+            <p class="onboarding__desc">부담 없이 가볍게.</p>
+          </div>
+        </div>
+
+        <!-- Dots -->
+        <div class="onboarding__dots" id="dots">
+          <span class="dot active" data-dot="0"></span>
+          <span class="dot" data-dot="1"></span>
+          <span class="dot" data-dot="2"></span>
+        </div>
+
+        <!-- Actions -->
+        <div class="onboarding__actions">
+          <button class="btn btn--primary onboarding__next" id="nextBtn">
+            다음
+          </button>
+          <button class="onboarding__skip" id="skipBtn">건너뛰기</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="module" src="/pages/onboarding/onboarding.js"></script>
+  </body>
+</html>

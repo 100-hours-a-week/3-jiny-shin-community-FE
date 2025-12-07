@@ -1,0 +1,159 @@
+{
+  "lighting": [
+    {
+      "category": "Natural Light",
+      "items": [
+        {
+          "name": "Golden Hour",
+          "description": "Warm, soft light during sunrise or sunset with golden tones"
+        },
+        {
+          "name": "Natural Light",
+          "description": "Soft, diffused natural daylight"
+        },
+        {
+          "name": "Overcast Day",
+          "description": "Soft, even lighting from cloudy sky"
+        },
+        {
+          "name": "Blue Hour",
+          "description": "Cool twilight tones just before sunrise or after sunset"
+        },
+        {
+          "name": "Harsh Sunlight",
+          "description": "Direct midday sun with strong shadows"
+        },
+        {
+          "name": "Dappled Light",
+          "description": "Light filtering through leaves creating patterns"
+        }
+      ]
+    },
+    {
+      "category": "Studio & Artificial Light",
+      "items": [
+        {
+          "name": "Studio Lighting",
+          "description": "Professional studio setup with controlled lighting"
+        },
+        {
+          "name": "Softbox Setup",
+          "description": "Soft, flattering light from diffused source"
+        },
+        {
+          "name": "Ring Light",
+          "description": "Even, flattering light popular for portraits"
+        },
+        {
+          "name": "Rembrandt Lighting",
+          "description": "Classic portrait lighting with triangle under eye"
+        },
+        {
+          "name": "Butterfly Lighting",
+          "description": "Glamour lighting from above creating butterfly shadow"
+        },
+        {
+          "name": "Split Lighting",
+          "description": "Half face lit, half in shadow for dramatic effect"
+        }
+      ]
+    },
+    {
+      "category": "Cinematic & Dramatic",
+      "items": [
+        {
+          "name": "Dramatic Shadows",
+          "description": "High contrast lighting with deep shadows"
+        },
+        {
+          "name": "Cinematic",
+          "description": "Film-style lighting with dramatic atmosphere"
+        },
+        {
+          "name": "Backlit",
+          "description": "Light source behind the subject creating silhouette effect"
+        },
+        {
+          "name": "Rim Light",
+          "description": "Highlights edges of subject from behind"
+        },
+        {
+          "name": "Low Key",
+          "description": "Dark, moody lighting with minimal illumination"
+        },
+        {
+          "name": "High Key",
+          "description": "Bright, even lighting with minimal shadows"
+        }
+      ]
+    },
+    {
+      "category": "Classical Light Styles",
+      "items": [
+        {
+          "name": "Chiaroscuro",
+          "description": "Strong contrast between light and dark areas"
+        },
+        {
+          "name": "Candlelight",
+          "description": "Warm, flickering intimate lighting"
+        },
+        {
+          "name": "Firelight",
+          "description": "Warm orange glow from fire source"
+        }
+      ]
+    },
+    {
+      "category": "Night & Urban Light",
+      "items": [
+        {
+          "name": "Moonlight",
+          "description": "Cool, ethereal moonlit atmosphere"
+        },
+        {
+          "name": "Neon Glow",
+          "description": "Vibrant neon lights with colorful ambient glow"
+        },
+        {
+          "name": "Street Lamp",
+          "description": "Urban night lighting from street lamps"
+        },
+        {
+          "name": "Neon Sign",
+          "description": "Colorful glow from neon signage"
+        },
+        {
+          "name": "LED Strip",
+          "description": "Modern colored LED accent lighting"
+        }
+      ]
+    },
+    {
+      "category": "Atmospheric Light",
+      "items": [
+        {
+          "name": "Foggy Atmosphere",
+          "description": "Diffused light through fog or mist"
+        },
+        {
+          "name": "Volumetric Light",
+          "description": "Visible light rays through atmosphere"
+        }
+      ]
+    },
+    {
+      "category": "Colorful & Special Effects",
+      "items": [
+        {
+          "name": "Rainbow Light",
+          "description": "Prismatic colorful light spectrum"
+        },
+        {
+          "name": "Underwater Light",
+          "description": "Filtered blue-green aquatic lighting"
+        }
+      ]
+    }
+  ]
+}

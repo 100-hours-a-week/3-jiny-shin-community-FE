@@ -1,0 +1,135 @@
+{
+  "clothing": [
+    {
+      "category": "Casual Wear",
+      "items": [
+        { "name": "Casual", "description": "Everyday casual wear" },
+        {
+          "name": "T-Shirt & Jeans",
+          "description": "Classic casual combination"
+        },
+        { "name": "Hoodie", "description": "Comfortable hooded sweatshirt" },
+        { "name": "Sweater", "description": "Cozy knit sweater" },
+        { "name": "Cardigan", "description": "Button-up knit cardigan" },
+        { "name": "Polo Shirt", "description": "Smart casual polo" }
+      ]
+    },
+    {
+      "category": "Formal & Business",
+      "items": [
+        { "name": "Formal", "description": "Business or formal attire" },
+        { "name": "Business Suit", "description": "Professional suit and tie" },
+        { "name": "Blazer", "description": "Smart blazer jacket" },
+        { "name": "Dress Shirt", "description": "Formal button-down shirt" },
+        { "name": "Tuxedo", "description": "Black tie formal wear" },
+        {
+          "name": "Business Casual",
+          "description": "Smart but relaxed office wear"
+        }
+      ]
+    },
+    {
+      "category": "Dresses & Skirts",
+      "items": [
+        { "name": "Dress", "description": "Casual or formal dress" },
+        { "name": "Evening Gown", "description": "Formal evening dress" },
+        { "name": "Cocktail Dress", "description": "Semi-formal short dress" },
+        { "name": "Sundress", "description": "Light summer dress" },
+        { "name": "Maxi Dress", "description": "Long flowing dress" },
+        { "name": "Skirt", "description": "Various skirt styles" }
+      ]
+    },
+    {
+      "category": "Active & Sportswear",
+      "items": [
+        { "name": "Athletic", "description": "Sports or workout clothing" },
+        { "name": "Yoga Wear", "description": "Flexible yoga attire" },
+        { "name": "Running Gear", "description": "Running attire" },
+        { "name": "Swimwear", "description": "Swimming attire" },
+        { "name": "Sports Uniform", "description": "Team sports attire" }
+      ]
+    },
+    {
+      "category": "Street & Urban Fashion",
+      "items": [
+        { "name": "Streetwear", "description": "Urban street fashion style" },
+        { "name": "Hypebeast", "description": "High-end streetwear" },
+        { "name": "Urban Layers", "description": "Layered street style" },
+        { "name": "Denim Jacket", "description": "Classic jean jacket" },
+        { "name": "Bomber Jacket", "description": "Classic bomber style" }
+      ]
+    },
+    {
+      "category": "Luxury & High Fashion",
+      "items": [
+        { "name": "Elegant", "description": "Sophisticated, upscale fashion" },
+        {
+          "name": "Haute Couture",
+          "description": "High fashion designer wear"
+        },
+        { "name": "Designer Wear", "description": "Luxury brand clothing" },
+        { "name": "Silk Attire", "description": "Luxurious silk garments" }
+      ]
+    },
+    {
+      "category": "Vintage & Retro Fashion",
+      "items": [
+        {
+          "name": "Vintage",
+          "description": "Retro or period-appropriate clothing"
+        },
+        { "name": "1950s Style", "description": "Classic 50s fashion" },
+        { "name": "1970s Style", "description": "Groovy 70s fashion" },
+        { "name": "1980s Style", "description": "Bold 80s fashion" },
+        { "name": "1990s Style", "description": "90s grunge and minimalist" }
+      ]
+    },
+    {
+      "category": "Traditional & Cultural Clothing",
+      "items": [
+        {
+          "name": "Traditional Wear",
+          "description": "Cultural traditional clothing"
+        },
+        { "name": "Kimono", "description": "Traditional Japanese garment" },
+        { "name": "Hanbok", "description": "Traditional Korean attire" },
+        { "name": "Saree", "description": "Traditional Indian garment" },
+        { "name": "Cheongsam", "description": "Traditional Chinese dress" }
+      ]
+    },
+    {
+      "category": "Outerwear",
+      "items": [
+        { "name": "Winter Coat", "description": "Heavy winter outerwear" },
+        { "name": "Leather Jacket", "description": "Classic leather jacket" },
+        { "name": "Trench Coat", "description": "Classic trench style" },
+        { "name": "Raincoat", "description": "Weather protection coat" }
+      ]
+    },
+    {
+      "category": "Fantasy & Sci-Fi",
+      "items": [
+        { "name": "Fantasy Armor", "description": "Medieval or fantasy armor" },
+        { "name": "Royal Robes", "description": "Regal royal garments" },
+        { "name": "Futuristic", "description": "Sci-fi inspired fashion" },
+        {
+          "name": "Cyberpunk Fashion",
+          "description": "Tech-enhanced urban wear"
+        }
+      ]
+    },
+    {
+      "category": "Subculture Fashion",
+      "items": [
+        {
+          "name": "Military Style",
+          "description": "Military-inspired fashion"
+        },
+        { "name": "Punk", "description": "Punk rock fashion" },
+        { "name": "Gothic", "description": "Gothic fashion style" },
+        { "name": "Bohemian", "description": "Boho chic style" },
+        { "name": "Minimalist", "description": "Clean simple fashion" }
+      ]
+    }
+  ]
+}

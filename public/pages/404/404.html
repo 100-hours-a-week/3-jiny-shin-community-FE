@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#024951" />
+    <title>404 - anoo</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/icon/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icon/favicon-96x96.png" sizes="96x96" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/component/header/header.css" />
+    <link rel="stylesheet" href="/component/bottom-nav/bottom-nav.css" />
+    <link rel="stylesheet" href="/component/button/button.css" />
+    <link rel="stylesheet" href="/pages/404/404.css" />
+  </head>
+  <body>
+    <template id="layout-template">
+      <div class="layout__body">
+        <main id="main-content" role="main">
+          <div class="error-page">
+            <div class="error-page__content">
+              <div class="error-page__icon">
+                <i data-lucide="map-pin-off"></i>
+              </div>
+              <p class="error-page__code">404</p>
+              <h1 class="error-page__title">텅 빈 페이지예요</h1>
+              <p class="error-page__desc">
+                찾으시는 페이지가 존재하지 않거나<br />
+                이동되었을 수 있어요
+              </p>
+              <a href="/feed" class="btn btn--primary">
+                홈으로 돌아가기
+              </a>
+            </div>
+          </div>
+        </main>
+      </div>
+    </template>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="module" src="/pages/404/404.js"></script>
+  </body>
+</html>

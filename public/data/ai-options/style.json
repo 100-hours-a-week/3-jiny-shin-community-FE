@@ -1,0 +1,241 @@
+{
+  "styles": [
+    {
+      "category": "Photographic",
+      "items": [
+        {
+          "name": "Photorealistic",
+          "description": "Hyper-realistic, photograph-like quality"
+        },
+        {
+          "name": "Hyperrealistic",
+          "description": "Beyond photo-real with enhanced details"
+        },
+        {
+          "name": "Raw Photography",
+          "description": "Unprocessed, natural photo look"
+        },
+        {
+          "name": "Film Photography",
+          "description": "Analog film aesthetic with grain"
+        }
+      ]
+    },
+    {
+      "category": "3D & Rendering",
+      "items": [
+        {
+          "name": "3D Animation",
+          "description": "Modern 3D animated movie style like Pixar"
+        },
+        { "name": "3D Render", "description": "Clean CGI rendered look" },
+        {
+          "name": "Unreal Engine",
+          "description": "Game engine cinematic quality"
+        },
+        {
+          "name": "Octane Render",
+          "description": "High-end GPU rendering aesthetic"
+        },
+        {
+          "name": "Claymation",
+          "description": "Stop-motion clay animation style"
+        },
+        {
+          "name": "Digital Art",
+          "description": "Modern digital illustration style"
+        }
+      ]
+    },
+    {
+      "category": "Concept & Illustration",
+      "items": [
+        {
+          "name": "Concept Art",
+          "description": "Professional concept art for games/movies"
+        },
+        {
+          "name": "Matte Painting",
+          "description": "Cinematic background painting style"
+        },
+        {
+          "name": "Vector Art",
+          "description": "Clean, scalable vector illustration"
+        },
+        {
+          "name": "Flat Design",
+          "description": "Minimalist flat illustration style"
+        },
+        {
+          "name": "Isometric",
+          "description": "Isometric 3D illustration style"
+        }
+      ]
+    },
+    {
+      "category": "Painting Styles",
+      "items": [
+        {
+          "name": "Oil Painting",
+          "description": "Classical oil painting with rich textures"
+        },
+        {
+          "name": "Watercolor",
+          "description": "Soft, flowing watercolor painting aesthetic"
+        },
+        {
+          "name": "Acrylic Painting",
+          "description": "Bold acrylic paint texture"
+        },
+        { "name": "Gouache", "description": "Matte opaque watercolor style" },
+        {
+          "name": "Pencil Sketch",
+          "description": "Hand-drawn pencil illustration"
+        },
+        {
+          "name": "Charcoal Drawing",
+          "description": "Expressive charcoal sketch style"
+        },
+        {
+          "name": "Ink Wash",
+          "description": "Traditional ink wash painting style"
+        },
+        { "name": "Pastel Art", "description": "Soft pastel chalk artwork" }
+      ]
+    },
+    {
+      "category": "Japanese Styles",
+      "items": [
+        {
+          "name": "Anime",
+          "description": "Japanese animation style with expressive features"
+        },
+        {
+          "name": "Manga",
+          "description": "Japanese comic black and white style"
+        },
+        {
+          "name": "Studio Ghibli",
+          "description": "Whimsical Ghibli animation style"
+        }
+      ]
+    },
+    {
+      "category": "Cartoon & Comics",
+      "items": [
+        { "name": "Cartoon", "description": "Western cartoon animation style" },
+        {
+          "name": "Disney Classic",
+          "description": "Classic Disney animation aesthetic"
+        },
+        {
+          "name": "Comic Book",
+          "description": "Western comic book illustration"
+        },
+        {
+          "name": "Graphic Novel",
+          "description": "Mature graphic novel illustration"
+        }
+      ]
+    },
+    {
+      "category": "Vintage & Retro",
+      "items": [
+        {
+          "name": "Vintage",
+          "description": "Retro, nostalgic aesthetic with aged tones"
+        },
+        {
+          "name": "Film Noir",
+          "description": "Classic black and white with high contrast"
+        },
+        { "name": "80s Retro", "description": "1980s nostalgic aesthetic" },
+        { "name": "70s Retro", "description": "1970s groovy aesthetic" }
+      ]
+    },
+    {
+      "category": "Art Movements",
+      "items": [
+        { "name": "Art Deco", "description": "1920s Art Deco geometric style" },
+        {
+          "name": "Art Nouveau",
+          "description": "Organic flowing Art Nouveau style"
+        },
+        {
+          "name": "Victorian",
+          "description": "Ornate Victorian era aesthetic"
+        },
+        {
+          "name": "Pop Art",
+          "description": "Bold colors and graphic style inspired by Warhol"
+        },
+        { "name": "Surrealism", "description": "Dreamlike surrealist imagery" },
+        {
+          "name": "Impressionism",
+          "description": "Soft brushwork capturing light"
+        },
+        {
+          "name": "Expressionism",
+          "description": "Emotional, distorted artistic expression"
+        },
+        {
+          "name": "Cubism",
+          "description": "Geometric fragmented Picasso style"
+        },
+        {
+          "name": "Minimalist",
+          "description": "Clean, simple aesthetic with limited elements"
+        },
+        {
+          "name": "Abstract",
+          "description": "Non-representational abstract art"
+        }
+      ]
+    },
+    {
+      "category": "Fantasy & Sci-Fi",
+      "items": [
+        {
+          "name": "Cyberpunk",
+          "description": "Futuristic, neon-lit dystopian aesthetic"
+        },
+        {
+          "name": "Steampunk",
+          "description": "Victorian-era mechanical aesthetic"
+        },
+        {
+          "name": "Fantasy Art",
+          "description": "Epic fantasy illustration style"
+        },
+        {
+          "name": "Sci-Fi",
+          "description": "Science fiction futuristic aesthetic"
+        },
+        {
+          "name": "Horror",
+          "description": "Dark, unsettling horror aesthetic"
+        },
+        { "name": "Gothic", "description": "Dark romantic gothic aesthetic" },
+        { "name": "Dark Fantasy", "description": "Grim dark fantasy world" }
+      ]
+    },
+    {
+      "category": "Modern & Internet Culture",
+      "items": [
+        { "name": "Vaporwave", "description": "Nostalgic internet aesthetic" },
+        {
+          "name": "Double Exposure",
+          "description": "Multiple images blended together"
+        },
+        { "name": "Glitch Art", "description": "Digital glitch aesthetic" },
+        {
+          "name": "Holographic",
+          "description": "Iridescent holographic effect"
+        },
+        { "name": "Neon Noir", "description": "Dark noir with neon accents" },
+        { "name": "Low Poly", "description": "Geometric low polygon 3D style" },
+        { "name": "Pixel Art", "description": "Retro pixel art game style" }
+      ]
+    }
+  ]
+}

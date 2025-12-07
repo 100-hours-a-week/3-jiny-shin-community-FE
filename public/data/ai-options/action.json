@@ -1,0 +1,95 @@
+{
+  "actions": [
+    {
+      "category": "Facial Expressions",
+      "items": [
+        { "name": "Smiling", "description": "Happy, smiling expression" },
+        { "name": "Laughing", "description": "Genuine laughter expression" },
+        {
+          "name": "Thinking",
+          "description": "Contemplative, thoughtful expression"
+        }
+      ]
+    },
+    {
+      "category": "Talking & Vocal Actions",
+      "items": [
+        { "name": "Talking", "description": "Engaged in conversation" },
+        { "name": "Whispering", "description": "Speaking softly, secretive" },
+        { "name": "Shouting", "description": "Calling out loudly" },
+        { "name": "Singing", "description": "Vocal performance" }
+      ]
+    },
+    {
+      "category": "Work & Creative Tasks",
+      "items": [
+        { "name": "Working", "description": "Engaged in work or task" },
+        { "name": "Typing", "description": "Typing on keyboard or device" },
+        { "name": "Writing", "description": "Writing by hand" },
+        { "name": "Painting", "description": "Creating art" },
+        { "name": "Cooking", "description": "Preparing food" },
+        { "name": "Taking Photos", "description": "Using a camera" }
+      ]
+    },
+    {
+      "category": "Learning & Information",
+      "items": [
+        { "name": "Reading", "description": "Reading a book or document" },
+        { "name": "Studying", "description": "Intense focused learning" },
+        { "name": "Presenting", "description": "Giving a presentation" },
+        { "name": "In a Meeting", "description": "Participating in discussion" }
+      ]
+    },
+    {
+      "category": "Sports & Physical Activity",
+      "items": [
+        { "name": "Dancing", "description": "Dynamic dancing movement" },
+        { "name": "Exercising", "description": "Physical workout activity" },
+        { "name": "Running", "description": "Jogging or sprinting" },
+        { "name": "Swimming", "description": "Swimming motion" },
+        { "name": "Climbing", "description": "Climbing activity" },
+        { "name": "Jumping", "description": "Mid-jump action" },
+        { "name": "Yoga", "description": "Yoga practice pose" },
+        {
+          "name": "Stretching",
+          "description": "Morning stretch or workout stretch"
+        }
+      ]
+    },
+    {
+      "category": "Daily Activities",
+      "items": [
+        { "name": "Playing Music", "description": "Playing an instrument" },
+        { "name": "Gaming", "description": "Playing video games" },
+        { "name": "Gardening", "description": "Tending to plants" },
+        { "name": "Eating", "description": "Enjoying food" },
+        { "name": "Drinking", "description": "Having a beverage" },
+        { "name": "Drinking Coffee", "description": "Enjoying coffee" },
+        { "name": "Sleeping", "description": "Asleep or resting" },
+        { "name": "Phone Call", "description": "On the phone" },
+        { "name": "Texting", "description": "Using smartphone" },
+        { "name": "Walking", "description": "Casual walking" }
+      ]
+    },
+    {
+      "category": "Social Interaction",
+      "items": [
+        { "name": "Hugging", "description": "Embracing someone" },
+        { "name": "Handshake", "description": "Formal greeting" },
+        { "name": "Waving", "description": "Greeting wave" },
+        { "name": "Cheering", "description": "Celebratory cheering" },
+        { "name": "Applauding", "description": "Clapping hands" },
+        { "name": "Toasting", "description": "Raising glass for toast" }
+      ]
+    },
+    {
+      "category": "Gaze & Mindset",
+      "items": [
+        { "name": "Daydreaming", "description": "Lost in thought" },
+        { "name": "Stargazing", "description": "Looking at the sky" },
+        { "name": "Watching", "description": "Observing something" },
+        { "name": "Meditating", "description": "Mindfulness practice" }
+      ]
+    }
+  ]
+}

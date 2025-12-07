@@ -1,0 +1,96 @@
+{
+  "expressions": [
+    {
+      "category": "Neutral & Positive",
+      "items": [
+        { "name": "Neutral", "description": "Calm, neutral facial expression" },
+        { "name": "Content", "description": "Peaceful satisfaction" },
+        { "name": "Happy", "description": "Joyful, pleased expression" },
+        { "name": "Joyful", "description": "Radiating with joy" },
+        { "name": "Excited", "description": "Enthusiastic and thrilled" },
+        { "name": "Amused", "description": "Entertained smirk" },
+        { "name": "Proud", "description": "Self-satisfied pride" },
+        { "name": "Loving", "description": "Warm affectionate gaze" },
+        { "name": "Hopeful", "description": "Optimistic and expecting" }
+      ]
+    },
+    {
+      "category": "Confident & Strong",
+      "items": [
+        { "name": "Confident", "description": "Self-assured, bold expression" },
+        { "name": "Determined", "description": "Resolute and focused" },
+        { "name": "Serious", "description": "Focused, serious demeanor" },
+        { "name": "Stern", "description": "Strict serious look" },
+        { "name": "Intense", "description": "Deep concentrated gaze" },
+        { "name": "Stoic", "description": "Emotionless and controlled" }
+      ]
+    },
+    {
+      "category": "Thoughtful & Curious",
+      "items": [
+        { "name": "Thoughtful", "description": "Deep in thought" },
+        { "name": "Pensive", "description": "Lost in deep thought" },
+        { "name": "Curious", "description": "Interested and questioning" },
+        { "name": "Wondering", "description": "Imaginative pondering" },
+        { "name": "Skeptical", "description": "Doubtful and questioning" },
+        { "name": "Focused", "description": "Concentrated attention" }
+      ]
+    },
+    {
+      "category": "Surprise",
+      "items": [
+        { "name": "Surprised", "description": "Shocked or amazed expression" },
+        { "name": "Amazed", "description": "Wonder and astonishment" },
+        { "name": "Shocked", "description": "Stunned disbelief" },
+        { "name": "Bewildered", "description": "Confused amazement" }
+      ]
+    },
+    {
+      "category": "Sadness & Melancholy",
+      "items": [
+        { "name": "Sad", "description": "Sorrowful expression" },
+        { "name": "Melancholic", "description": "Deep sadness and longing" },
+        { "name": "Disappointed", "description": "Let down and dismayed" },
+        { "name": "Worried", "description": "Anxious and concerned" }
+      ]
+    },
+    {
+      "category": "Fear & Anxiety",
+      "items": [
+        { "name": "Fearful", "description": "Scared and alarmed" },
+        { "name": "Angry", "description": "Rage and frustration" },
+        { "name": "Frustrated", "description": "Annoyed and vexed" }
+      ]
+    },
+    {
+      "category": "Disgust & Rejection",
+      "items": [
+        { "name": "Disgusted", "description": "Revulsion and distaste" },
+        {
+          "name": "Mysterious",
+          "description": "Enigmatic, intriguing expression"
+        },
+        { "name": "Secretive", "description": "Hiding something" }
+      ]
+    },
+    {
+      "category": "Smiles & Subtle Expressions",
+      "items": [
+        { "name": "Smirking", "description": "Knowing half-smile" },
+        { "name": "Mischievous", "description": "Playfully naughty" },
+        { "name": "Seductive", "description": "Alluring and enticing" },
+        { "name": "Dreamy", "description": "Lost in fantasy" }
+      ]
+    },
+    {
+      "category": "Low Energy & Negative",
+      "items": [
+        { "name": "Sleepy", "description": "Drowsy and tired" },
+        { "name": "Bored", "description": "Uninterested and dull" },
+        { "name": "Embarrassed", "description": "Flustered and shy" },
+        { "name": "Awkward", "description": "Uncomfortable and uneasy" },
+        { "name": "Blank", "description": "Empty expressionless face" }
+      ]
+    }
+  ]
+}

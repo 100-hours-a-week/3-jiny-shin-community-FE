@@ -1,0 +1,168 @@
+{
+  "locations": [
+    {
+      "category": "Urban & City",
+      "items": [
+        {
+          "name": "Urban City",
+          "description": "Modern cityscape with buildings and streets"
+        },
+        {
+          "name": "Downtown District",
+          "description": "Busy downtown area with skyscrapers"
+        },
+        { "name": "Back Alley", "description": "Narrow urban alleyway" },
+        { "name": "Rooftop", "description": "Building rooftop with city view" },
+        {
+          "name": "Subway Station",
+          "description": "Underground metro station"
+        },
+        {
+          "name": "Parking Garage",
+          "description": "Multi-level parking structure"
+        },
+        { "name": "City Bridge", "description": "Urban bridge crossing" }
+      ]
+    },
+    {
+      "category": "Forests & Woodland",
+      "items": [
+        {
+          "name": "Forest",
+          "description": "Dense woodland with trees and natural elements"
+        },
+        {
+          "name": "Enchanted Forest",
+          "description": "Magical mystical woodland"
+        },
+        { "name": "Bamboo Forest", "description": "Tall bamboo grove" },
+        { "name": "Autumn Forest", "description": "Fall foliage woodland" },
+        { "name": "Pine Forest", "description": "Coniferous pine woodland" }
+      ]
+    },
+    {
+      "category": "Beaches & Water",
+      "items": [
+        { "name": "Beach", "description": "Coastal scene with sand and ocean" },
+        {
+          "name": "Tropical Beach",
+          "description": "Paradise tropical shoreline"
+        },
+        { "name": "Rocky Coastline", "description": "Dramatic rocky shore" },
+        { "name": "Lake", "description": "Serene lakeside setting" },
+        { "name": "Waterfall", "description": "Cascading waterfall scene" },
+        { "name": "River", "description": "Flowing river setting" },
+        { "name": "Underwater", "description": "Beneath the water surface" }
+      ]
+    },
+    {
+      "category": "Mountains & Wilderness",
+      "items": [
+        { "name": "Mountains", "description": "Majestic mountain landscape" },
+        { "name": "Snowy Peaks", "description": "Snow-covered mountain tops" },
+        { "name": "Desert", "description": "Sandy desert landscape" },
+        { "name": "Canyon", "description": "Deep canyon with rock walls" },
+        { "name": "Meadow", "description": "Open grassy field" },
+        { "name": "Hilltop", "description": "Elevated hillside view" },
+        { "name": "Cave", "description": "Underground cavern" },
+        { "name": "Glacier", "description": "Icy glacial landscape" },
+        { "name": "Volcano", "description": "Volcanic landscape" }
+      ]
+    },
+    {
+      "category": "Home Interiors",
+      "items": [
+        { "name": "Living Room", "description": "Home living space" },
+        { "name": "Bedroom", "description": "Personal bedroom space" },
+        { "name": "Kitchen", "description": "Home kitchen area" },
+        { "name": "Bathroom", "description": "Bathroom interior" },
+        { "name": "Home Office", "description": "Residential workspace" }
+      ]
+    },
+    {
+      "category": "Food & Social Spaces",
+      "items": [
+        { "name": "Cafe", "description": "Cozy café or coffee shop interior" },
+        {
+          "name": "Restaurant",
+          "description": "Dining establishment interior"
+        },
+        { "name": "Bar", "description": "Bar or pub interior" }
+      ]
+    },
+    {
+      "category": "Entertainment & Public Spaces",
+      "items": [
+        { "name": "Nightclub", "description": "Dance club interior" },
+        { "name": "Hotel Lobby", "description": "Grand hotel entrance" },
+        { "name": "Modern Office", "description": "Corporate office space" }
+      ]
+    },
+    {
+      "category": "Work, Study & Creative Spaces",
+      "items": [
+        { "name": "Library", "description": "Room filled with books" },
+        { "name": "Gym", "description": "Fitness center interior" },
+        {
+          "name": "Studio Backdrop",
+          "description": "Clean studio background for focused portraits"
+        },
+        {
+          "name": "Photo Studio",
+          "description": "Professional photography studio"
+        },
+        { "name": "Art Gallery", "description": "Museum or gallery space" },
+        { "name": "Theater", "description": "Performance venue interior" }
+      ]
+    },
+    {
+      "category": "Industrial, Abandoned & Sci-Fi",
+      "items": [
+        { "name": "Warehouse", "description": "Industrial warehouse space" },
+        {
+          "name": "Abandoned Building",
+          "description": "Derelict structure interior"
+        },
+        {
+          "name": "Futuristic City",
+          "description": "Sci-fi environment with advanced technology"
+        },
+        { "name": "Space Station", "description": "Orbital space habitat" },
+        { "name": "Alien Planet", "description": "Extraterrestrial world" }
+      ]
+    },
+    {
+      "category": "Fantasy Worlds",
+      "items": [
+        { "name": "Medieval Castle", "description": "Fantasy castle interior" },
+        { "name": "Throne Room", "description": "Royal throne chamber" },
+        { "name": "Magic Realm", "description": "Mystical magical world" }
+      ]
+    },
+    {
+      "category": "Cyberpunk & Urban Fantasy",
+      "items": [
+        {
+          "name": "Cyberpunk City",
+          "description": "Neon-lit dystopian metropolis"
+        }
+      ]
+    },
+    {
+      "category": "Abstract & Background",
+      "items": [
+        {
+          "name": "Abstract",
+          "description": "Non-representational artistic background"
+        },
+        { "name": "Void Space", "description": "Empty infinite space" },
+        {
+          "name": "Gradient Background",
+          "description": "Smooth color gradient backdrop"
+        },
+        { "name": "Bokeh Background", "description": "Blurred light circles" },
+        { "name": "Dreamscape", "description": "Surreal dream environment" }
+      ]
+    }
+  ]
+}
