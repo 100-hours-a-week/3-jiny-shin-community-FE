@@ -42,9 +42,14 @@ function normalizeRequestPath(path) {
 function buildUrl(path, query) {
   const { value, absolute } = normalizeRequestPath(path);
 
-  const baseUrl = API_CONFIG.BASE_URL.endsWith('/')
+  let baseUrl = API_CONFIG.BASE_URL.endsWith('/')
     ? API_CONFIG.BASE_URL
     : `${API_CONFIG.BASE_URL}/`;
+
+  // 상대 경로인 경우 현재 origin을 붙여서 절대 URL로 변환
+  if (baseUrl.startsWith('/')) {
+    baseUrl = window.location.origin + baseUrl;
+  }
 
   const url = absolute ? new URL(value) : new URL(value, baseUrl);
 
