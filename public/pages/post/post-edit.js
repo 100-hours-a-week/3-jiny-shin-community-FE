@@ -1,5 +1,5 @@
-import { uploadImageComplete } from '../../../api/image/imageApi.js';
-import { updatePost, getPost } from '../../../api/post/postApi.js';
+import { uploadImageComplete } from '../../../services/image/imageApi.js';
+import { updatePost, getPost } from '../../../services/post/postApi.js';
 import { openModal, showToast } from '../../../utils/layout.js';
 import { renderPageLayout } from '../../../utils/layoutPage.js';
 import { logger } from '../../../utils/logger.js';

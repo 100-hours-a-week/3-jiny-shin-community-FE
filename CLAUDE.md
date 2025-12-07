@@ -59,7 +59,7 @@ Clean URL 라우팅 + API 프록시:
 
 ### API 클라이언트 구조
 
-`public/api/` 도메인별 분리:
+`public/services/` 도메인별 분리:
 - `httpClient.js`: fetch 래퍼 (get, post, patch, del)
 - `api-config.js`: 환경변수에서 BASE_URL, IMAGE_UPLOAD_API 로드
 - 도메인별: `authApi.js`, `userApi.js`, `postApi.js`, `commentApi.js`, `imageApi.js`, `aiApi.js`

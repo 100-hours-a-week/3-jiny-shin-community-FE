@@ -6,7 +6,7 @@
  */
 
 import { loadAllOptions } from './optionLoader.js';
-import { generateAiImageComplete } from '../api/ai/aiApi.js';
+import { generateAiImageComplete } from '../services/ai/aiApi.js';
 
 // 캐싱된 옵션 데이터
 let cachedOptions = null;

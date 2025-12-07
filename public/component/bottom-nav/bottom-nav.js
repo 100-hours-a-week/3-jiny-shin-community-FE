@@ -4,7 +4,7 @@
  * 인증이 필요한 페이지 접근 시 로그인 상태 확인
  */
 
-import { getCurrentUser } from '../../../api/user/userApi.js';
+import { getCurrentUser } from '../../../services/user/userApi.js';
 import { openModal } from '../../../utils/layout.js';
 
 // 인증이 필요한 네비게이션 타입

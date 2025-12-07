@@ -1,7 +1,7 @@
 import {
   saveImageMetadata,
   uploadImageToS3,
-} from '../../../api/image/imageApi.js';
+} from '../../../services/image/imageApi.js';
 import {
   changePassword,
   checkNicknameAvailability,
@@ -9,7 +9,7 @@ import {
   getCurrentUser,
   updateProfile,
   verifyPassword,
-} from '../../../api/user/userApi.js';
+} from '../../../services/user/userApi.js';
 import { openModal, showToast } from '../../../utils/layout.js';
 import { renderPageLayout } from '../../../utils/layoutPage.js';
 import { getImageUrl } from '../../../utils/format.js';

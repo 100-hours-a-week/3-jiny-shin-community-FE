@@ -1,16 +1,16 @@
 import { openModal, showToast } from '../../../utils/layout.js';
 import { renderPageLayout } from '../../../utils/layoutPage.js';
 import { formatCount, formatDate, escapeHtml, getImageUrl } from '../../../utils/format.js';
-import { getPost, deletePost } from '../../../api/post/postApi.js';
-import { addPostLike, removePostLike } from '../../../api/post/postLikeApi.js';
+import { getPost, deletePost } from '../../../services/post/postApi.js';
+import { addPostLike, removePostLike } from '../../../services/post/postLikeApi.js';
 import {
   getComments,
   createComment as createCommentApi,
   deleteComment,
-} from '../../../api/comment/commentApi.js';
+} from '../../../services/comment/commentApi.js';
 import { createComment as createCommentComponent } from '../../../component/comment/comment.js';
 import { createAvatar } from '../../../component/avatar/avatar.js';
-import { getCurrentUser } from '../../../api/user/userApi.js';
+import { getCurrentUser } from '../../../services/user/userApi.js';
 import { logger } from '../../../utils/logger.js';
 
 let isLiked = false;

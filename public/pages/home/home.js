@@ -1,4 +1,4 @@
-import { getPosts } from '../../../api/post/postApi.js';
+import { getPosts } from '../../../services/post/postApi.js';
 import { renderPostCards } from '../../component/post-card/post-card.js';
 import { renderPageLayout } from '../../../utils/layoutPage.js';
 import { logger } from '../../../utils/logger.js';

@@ -10,12 +10,12 @@ import {
   checkNicknameAvailability,
   signUp,
   updateProfile,
-} from '../../../api/user/userApi.js';
-import { login } from '../../../api/auth/authApi.js';
+} from '../../../services/user/userApi.js';
+import { login } from '../../../services/auth/authApi.js';
 import {
   saveImageMetadata,
   uploadImageToS3,
-} from '../../../api/image/imageApi.js';
+} from '../../../services/image/imageApi.js';
 import { logger } from '../../../utils/logger.js';
 
 // DOM 요소

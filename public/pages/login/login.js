@@ -1,6 +1,6 @@
 import { validateEmail, validatePassword } from '../../../utils/validation.js';
 import { showError, hideError } from '../../../utils/dom.js';
-import { login } from '../../../api/auth/authApi.js';
+import { login } from '../../../services/auth/authApi.js';
 
 /**
  * 로그인 에러 코드를 사용자 친화적 메시지로 변환

@@ -1,9 +1,9 @@
-import { logout } from '../../../api/auth/authApi.js';
+import { logout } from '../../../services/auth/authApi.js';
 import {
   deleteCurrentUser,
   getCurrentUser,
-} from '../../../api/user/userApi.js';
-import { getMyPosts } from '../../../api/post/postApi.js';
+} from '../../../services/user/userApi.js';
+import { getMyPosts } from '../../../services/post/postApi.js';
 import { openModal, showToast } from '../../../utils/layout.js';
 import { renderPageLayout } from '../../../utils/layoutPage.js';
 import { createAvatar } from '../../../component/avatar/avatar.js';

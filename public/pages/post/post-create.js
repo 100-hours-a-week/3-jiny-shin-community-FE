@@ -1,5 +1,5 @@
 import { openModal, closeModal, showToast } from '../../../utils/layout.js';
-import { createPost } from '../../../api/post/postApi.js';
+import { createPost } from '../../../services/post/postApi.js';
 import {
   uploadImageToS3,
   saveImageMetadata,
@@ -8,8 +8,8 @@ import {
   generateAndUploadAiImage,
   checkAiGenerationLimit,
   getAiGenerationRemaining,
-} from '../../../api/image/imageApi.js';
-import { getCurrentUser } from '../../../api/user/userApi.js';
+} from '../../../services/image/imageApi.js';
+import { getCurrentUser } from '../../../services/user/userApi.js';
 import { renderPageLayout } from '../../../utils/layoutPage.js';
 import { getImageUrl } from '../../../utils/format.js';
 import { logger } from '../../../utils/logger.js';
