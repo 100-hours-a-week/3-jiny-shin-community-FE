@@ -141,3 +141,42 @@ export function truncateText(text, maxLength) {
 
   return text.substring(0, maxLength) + '...';
 }
+
+/**
+ * 브라우저 WebP 지원 여부 확인 (캐싱됨)
+ * @returns {boolean} WebP 지원 여부
+ */
+let _supportsWebp = null;
+export function supportsWebp() {
+  if (_supportsWebp === null) {
+    const canvas = document.createElement('canvas');
+    _supportsWebp = canvas.toDataURL('image/webp').startsWith('data:image/webp');
+  }
+  return _supportsWebp;
+}
+
+/**
+ * 이미지 URL 객체에서 브라우저 지원에 맞는 URL 추출
+ * @param {Object|string|null} imageUrls - { jpgUrl, webpUrl } 객체 또는 문자열 URL
+ * @returns {string|null} 적절한 이미지 URL
+ * @example
+ * getImageUrl({ jpgUrl: 'a.jpg', webpUrl: 'a.webp' }) => 'a.webp' (webp 지원 시)
+ * getImageUrl('https://example.com/image.jpg') => 'https://example.com/image.jpg'
+ */
+export function getImageUrl(imageUrls) {
+  // null/undefined
+  if (!imageUrls) return null;
+
+  // 이미 문자열인 경우 그대로 반환
+  if (typeof imageUrls === 'string') return imageUrls;
+
+  // 객체인 경우 브라우저 지원에 따라 선택
+  if (typeof imageUrls === 'object') {
+    if (supportsWebp()) {
+      return imageUrls.webpUrl || imageUrls.jpgUrl || null;
+    }
+    return imageUrls.jpgUrl || imageUrls.webpUrl || null;
+  }
+
+  return null;
+}
