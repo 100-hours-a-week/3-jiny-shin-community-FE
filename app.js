@@ -36,7 +36,7 @@ app.get('/health', (req, res) => {
 // Client configuration endpoint (환경변수를 클라이언트에 전달)
 app.get('/config', (req, res) => {
   res.json({
-    API_BASE_URL: process.env.API_BASE_URL || 'http://localhost:8080/api/',
+    API_BASE_URL: process.env.API_BASE_URL || '/api/',
     IMAGE_UPLOAD_API: process.env.IMAGE_UPLOAD_API || '',
   });
 });

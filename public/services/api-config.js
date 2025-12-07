@@ -29,7 +29,7 @@ async function fetchConfig() {
       logger.warn('[API Config] 서버 설정 로드 실패, 기본값 사용:', err.message);
       // live-server 개발 환경 등에서 /config가 없을 때 fallback
       configCache = {
-        API_BASE_URL: 'http://localhost:8080/api/',
+        API_BASE_URL: '/api/',
         IMAGE_UPLOAD_API: '',
       };
       return configCache;
@@ -67,8 +67,8 @@ export async function getImageUploadApi() {
 // 동기적 접근을 위한 기본 설정 (초기화 전 사용 시)
 const API_CONFIG = {
   get BASE_URL() {
-    // 캐시된 값이 있으면 반환, 없으면 기본값
-    return configCache?.API_BASE_URL || 'http://localhost:8080/api/';
+    // 캐시된 값이 있으면 반환, 없으면 기본값 (상대 경로)
+    return configCache?.API_BASE_URL || '/api/';
   },
   TIMEOUT: 10000,
   DEFAULT_HEADERS: {
