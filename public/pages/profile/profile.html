@@ -3,78 +3,122 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>프로필 - 아무 말 대잔치</title>
+    <meta name="theme-color" content="#024951" />
+    <title>프로필 - anoo</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/icon/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icon/favicon-96x96.png" sizes="96x96" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
     <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/global.css" />
     <link rel="stylesheet" href="/styles/layout.css" />
     <link rel="stylesheet" href="/component/header/header.css" />
-    <link rel="stylesheet" href="/component/footer/footer.css" />
+    <link rel="stylesheet" href="/component/bottom-nav/bottom-nav.css" />
     <link rel="stylesheet" href="/component/button/button.css" />
     <link rel="stylesheet" href="/component/modal/modal.css" />
-    <link rel="stylesheet" href="profile.css" />
+    <link rel="stylesheet" href="/component/avatar/avatar.css" />
+    <link rel="stylesheet" href="/component/post-card/post-card.css" />
+    <link rel="stylesheet" href="/component/toast/toast.css" />
+    <link rel="stylesheet" href="/pages/profile/profile.css" />
   </head>
   <body>
     <template id="layout-template">
       <div class="layout__body">
-        <div id="sidebar-container" class="layout__sidebar"></div>
         <main
           id="main-content"
           class="layout__content profile-container"
           role="main"
           aria-labelledby="profile-title"
         >
-          <div class="profile-card">
-            <div class="profile-image-section">
-              <img
-                src="/assets/icon/profile_default.jpg"
-                alt="프로필 이미지"
-                class="profile-image"
-                id="profileImage"
-              />
-              <button class="btn btn--outline image-change-btn" id="imageChangeBtn">
-                이미지 변경
+          <!-- 프로필 헤더 -->
+          <header class="profile-header">
+            <div class="profile-header__left">
+              <div class="profile-avatar" id="profileAvatar">
+                <!-- CSS Avatar will be injected here -->
+              </div>
+              <div class="profile-info">
+                <h1 class="profile-name" id="userNickname">닉네임</h1>
+                <p class="profile-email" id="userEmail">user@example.com</p>
+              </div>
+            </div>
+            <div class="profile-header__right">
+              <button class="profile-edit-btn" id="editProfileBtn">
+                프로필 수정
               </button>
-            </div>
-
-            <div class="profile-info-section">
-              <div class="info-row">
-                <label class="info-label">이메일</label>
-                <p class="info-value" id="userEmail">user@example.com</p>
+              <div class="settings-wrapper">
+                <button
+                  class="settings-btn"
+                  id="settingsBtn"
+                  aria-label="설정"
+                  aria-expanded="false"
+                >
+                  <i data-lucide="settings"></i>
+                </button>
+                <!-- 설정 드롭다운 메뉴 -->
+                <div class="settings-menu" id="settingsMenu" hidden>
+                  <a href="#" class="settings-menu__item" id="termsBtn">
+                    <i data-lucide="file-text"></i>
+                    이용약관
+                  </a>
+                  <a href="#" class="settings-menu__item" id="privacyBtn">
+                    <i data-lucide="shield"></i>
+                    개인정보처리방침
+                  </a>
+                  <div class="settings-menu__divider"></div>
+                  <button class="settings-menu__item" id="logoutBtn">
+                    <i data-lucide="log-out"></i>
+                    로그아웃
+                  </button>
+                  <button
+                    class="settings-menu__item settings-menu__item--danger"
+                    id="deleteAccountBtn"
+                  >
+                    <i data-lucide="user-x"></i>
+                    회원 탈퇴
+                  </button>
+                </div>
               </div>
-
-              <div class="info-row">
-                <label class="info-label">닉네임</label>
-                <p class="info-value" id="userNickname">사용자 닉네임</p>
-              </div>
-
-              <div class="info-row">
-                <label class="info-label">가입일</label>
-                <p class="info-value" id="joinDate">2025-01-15</p>
-              </div>
             </div>
+          </header>
 
-            <div class="profile-actions">
-              <button class="btn btn--primary" id="editProfileBtn">프로필 수정</button>
-              <button class="btn btn--outline" id="logoutBtn">로그아웃</button>
-            </div>
-
-            <div class="account-delete-section">
-              <button class="delete-account-btn" id="deleteAccountBtn">
-                회원 탈퇴
-              </button>
-            </div>
-          </div>
-
+          <!-- 나의 기록 섹션 -->
           <section class="my-posts-section" aria-labelledby="profile-title">
-            <h2 class="section-title" id="profile-title">내가 작성한 게시글</h2>
-            <div class="posts-list" id="postsList">
-              <p class="empty-message">작성한 게시글이 없습니다.</p>
+            <div class="section-header">
+              <h2 class="section-title" id="profile-title">나의 기록</h2>
+              <span class="section-count" id="postsCount"></span>
+            </div>
+            <div class="posts-grid" id="postsList">
+              <!-- 게시글이 동적으로 로드됨 -->
+            </div>
+            <!-- 빈 상태 UI -->
+            <div class="empty-state" id="emptyState" hidden>
+              <i data-lucide="book-open" class="empty-state__icon"></i>
+              <p class="empty-state__title">아직 기록이 없어요</p>
+              <p class="empty-state__desc">오늘 하루는 어땠나요?</p>
+              <a href="/write" class="btn btn--primary"> 하루 기록하기 </a>
             </div>
           </section>
         </main>
       </div>
     </template>
 
-    <script type="module" src="profile.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="module" src="/pages/profile/profile.js"></script>
   </body>
 </html>

@@ -1,123 +1,156 @@
-.edit-container {
-  max-width: 700px;
+/**
+ * Profile Edit Page
+ * /write (post-form.css) 패턴과 동일하게 구성
+ */
+
+.profile-edit-container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--content-padding-top) var(--content-padding-x) var(--content-padding-bottom);
+}
+
+.profile-edit-wrapper {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+}
+
+.profile-edit__title {
+  font-size: var(--heading-2-size);
+  font-weight: var(--heading-2-weight);
+  line-height: var(--heading-2-line-height);
+  margin-bottom: var(--space-xl);
+  color: var(--color-text);
+}
+
+/* 폼 */
+.profile-edit-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 프로필 이미지 섹션 (signup.css 오버라이드) */
+.profile-edit-form .profile-upload {
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--color-border-light);
+  margin-bottom: var(--space-lg);
+}
+
+/* 입력 그룹 */
+.profile-edit-form .input-group {
+  margin-bottom: var(--space-xl);
+}
+
+.input-label {
+  display: block;
+  font-size: var(--form-label-size);
+  font-weight: var(--form-label-weight);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--space-xs);
+  color: var(--color-text);
+}
+
+.input-field {
   width: 100%;
-  margin: 2rem auto;
-  padding: 0 1.5rem;
+  padding: var(--space-sm);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--form-input-size);
+  font-weight: var(--form-input-weight);
+  font-family: inherit;
+  line-height: var(--line-height-relaxed);
+  transition: border-color var(--transition-default);
 }
 
-.edit-card {
-  background: white;
-  border-radius: 12px;
-  padding: 2.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.input-field:focus {
+  outline: none;
+  border-color: var(--color-primary);
 }
 
-.edit-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.edit-form {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-/* 이미지 업로드 섹션 */
-.image-upload-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.preview-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--color-primary);
-}
-
-.image-upload-actions {
-  display: flex;
-  gap: 0.8rem;
-}
-
-.image-upload-actions .btn {
-  font-size: 0.9rem;
-  padding: 0.5rem 1rem;
-}
-
-.visually-hidden {
-  display: none;
+.input-field.error {
+  border-color: var(--color-danger);
 }
 
 /* 비밀번호 변경 섹션 */
 .password-section {
-  padding-top: 1.5rem;
-  border-top: 1px solid #e0e0e0;
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border-light);
+  margin-top: var(--space-sm);
 }
 
-.section-subtitle {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 1.5rem;
+.section-label {
+  font-size: var(--font-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
 }
 
-/* 폼 액션 */
-.form-actions {
+/* 버튼 그룹 (/write와 동일) */
+.button-group {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
-  padding-top: 1.5rem;
-  border-top: 1px solid #e0e0e0;
-}
-
-.form-actions .btn {
-  flex: 1;
-  max-width: 200px;
+  gap: var(--space-md);
+  justify-content: flex-end;
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-2xl);
+  border-top: 1px solid var(--color-border-light);
 }
 
 /* 헬퍼 텍스트 */
 .helper-text {
   display: none;
+  font-size: var(--form-hint-size);
+  font-weight: var(--form-hint-weight);
+  color: var(--color-danger);
+  margin-top: var(--space-xs);
 }
 
 .helper-text.show {
   display: block;
 }
 
-/* 반응형 */
+/* 아이콘 포함 입력 필드 */
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon .input-field {
+  padding-right: 40px;
+}
+
+.input-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-icon--success {
+  color: var(--color-primary);
+}
+
+.input-icon[hidden] {
+  display: none;
+}
+
+/* 반응형 (/write와 동일) */
 @media (max-width: 768px) {
-  .edit-container {
-    padding: 0 1rem;
+  .profile-edit-container {
+    padding: 0 var(--space-xs);
   }
 
-  .edit-card {
-    padding: 2rem 1.5rem;
+  .profile-edit-wrapper {
+    padding: var(--space-xl);
   }
 
-  .image-upload-actions {
-    flex-direction: column;
+  .button-group {
+    flex-direction: column-reverse;
+  }
+
+  .button-group button {
     width: 100%;
-  }
-
-  .image-upload-actions .btn {
-    width: 100%;
-  }
-
-  .form-actions {
-    flex-direction: column;
-  }
-
-  .form-actions .btn {
-    max-width: none;
   }
 }

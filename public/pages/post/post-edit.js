@@ -1,7 +1,8 @@
-import { uploadImage } from '../../../api/image/imageApi.js';
+import { uploadImageComplete } from '../../../api/image/imageApi.js';
 import { updatePost, getPost } from '../../../api/post/postApi.js';
-import { openModal } from '../../../utils/layout.js';
+import { openModal, showToast } from '../../../utils/layout.js';
 import { renderPageLayout } from '../../../utils/layoutPage.js';
+import { logger } from '../../../utils/logger.js';
 
 let selectedImage = null;
 let currentPost = null;
@@ -72,8 +73,8 @@ async function loadPostData() {
   const postId = getPostIdFromUrl();
 
   if (!postId) {
-    alert('잘못된 접근입니다.');
-    window.location.href = '/pages/home/home.html';
+    showToast('잘못된 접근입니다.', 'error');
+    window.location.href = '/feed';
     return;
   }
 
@@ -84,8 +85,8 @@ async function loadPostData() {
     }
 
     if (!post.isAuthor) {
-      alert('본인이 작성한 게시글만 수정할 수 있습니다.');
-      window.location.href = `/pages/post/post-detail.html?id=${postId}`;
+      showToast('본인이 작성한 게시글만 수정할 수 있습니다.');
+      window.location.href = `/post/${postId}`;
       return;
     }
 
@@ -107,16 +108,16 @@ async function loadPostData() {
 
     showCurrentImage(firstImageUrl);
   } catch (error) {
-    console.error('게시글 로드 에러:', error);
+    logger.error('게시글 로드 에러:', error);
 
     if (error.status === 404) {
-      alert('존재하지 않는 게시글입니다.');
-      window.location.href = '/pages/home/home.html';
+      showToast('존재하지 않는 게시글입니다.', 'error');
+      window.location.href = '/feed';
       return;
     }
 
-    alert(error.message || '게시글을 불러오는데 실패했습니다.');
-    window.location.href = '/pages/home/home.html';
+    showToast(error.message || '게시글을 불러오는데 실패했습니다.', 'error');
+    window.location.href = '/feed';
   }
 }
 
@@ -136,13 +137,13 @@ function handleImageSelect(e) {
 
   if (file) {
     if (!file.type.startsWith('image/')) {
-      alert('이미지 파일만 업로드할 수 있습니다.');
+      showToast('이미지 파일만 업로드할 수 있습니다.');
       e.target.value = '';
       return;
     }
 
-    if (file.size > 10 * 1024 * 1024) {
-      alert('이미지 파일은 최대 10MB까지 업로드할 수 있습니다.');
+    if (file.size > 5 * 1024 * 1024) {
+      showToast('이미지 파일은 최대 5MB까지 업로드할 수 있습니다.');
       e.target.value = '';
       return;
     }
@@ -189,7 +190,7 @@ async function handleSubmit(e) {
 
   const postId = getPostIdFromUrl();
   if (!postId) {
-    alert('잘못된 접근입니다.');
+    showToast('잘못된 접근입니다.', 'error');
     return;
   }
 
@@ -215,9 +216,9 @@ async function handleSubmit(e) {
     submitBtn.textContent = '수정 중...';
 
     if (selectedImage) {
-      const uploadedImage = await uploadImage({
+      const uploadedImage = await uploadImageComplete({
         file: selectedImage,
-        type: 'POST_ORIGINAL',
+        imageType: 'POST',
       });
 
       if (uploadedImage?.imageId !== undefined) {
@@ -228,7 +229,7 @@ async function handleSubmit(e) {
     }
 
     if (Object.keys(payload).length === 0) {
-      alert('변경된 내용이 없습니다.');
+      showToast('변경된 내용이 없습니다.');
       submitBtn.disabled = false;
       submitBtn.textContent = '수정';
       return;
@@ -236,10 +237,10 @@ async function handleSubmit(e) {
 
     await updatePost(postId, payload);
 
-    alert('게시글이 성공적으로 수정되었습니다.');
-    window.location.href = `/pages/post/post-detail.html?id=${postId}`;
+    showToast('게시글이 수정되었습니다.', 'success');
+    window.location.href = `/post/${postId}`;
   } catch (error) {
-    alert(error.message || '게시글 수정에 실패했습니다.');
+    showToast(error.message || '게시글 수정에 실패했습니다.', 'error');
     submitBtn.disabled = false;
     submitBtn.textContent = '수정';
   }
@@ -257,7 +258,7 @@ function handleCancel() {
     removeCurrentImage;
 
   const redirectToDetail = () => {
-    window.location.href = `/pages/post/post-detail.html?id=${postId}`;
+    window.location.href = `/post/${postId}`;
   };
 
   if (isChanged) {

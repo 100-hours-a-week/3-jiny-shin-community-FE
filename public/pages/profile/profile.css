@@ -1,158 +1,287 @@
+/**
+ * Profile Page Styles
+ * Instagram-inspired clean layout
+ */
+
 .profile-container {
-  max-width: 700px;
+  max-width: var(--content-max-width);
   width: 100%;
-  margin: 2rem auto;
-  padding: 0 1.5rem;
+  margin: 0 auto;
+  padding: var(--space-lg) var(--space-lg) var(--space-3xl);
 }
 
-.profile-card {
-  background: white;
-  border-radius: 12px;
-  padding: 2.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
-}
-
-/* 프로필 이미지 섹션 */
-.profile-image-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.profile-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1rem;
-  border: 3px solid var(--color-primary);
-}
-
-.image-change-btn {
-  font-size: 0.9rem;
-  padding: 0.5rem 1rem;
-}
-
-/* 프로필 정보 섹션 */
-.profile-info-section {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.info-row {
+/* ========================================
+ * Profile Header
+ * ======================================== */
+.profile-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-xl) 0;
 }
 
-.info-label {
-  font-weight: 600;
-  color: #666;
-  width: 100px;
-  font-size: 0.95rem;
-}
-
-.info-value {
-  color: #333;
-  font-size: 1rem;
-}
-
-/* 액션 버튼 */
-.profile-actions {
+.profile-header__left {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: var(--space-md);
+  min-width: 0;
+}
+
+.profile-avatar {
+  flex-shrink: 0;
+}
+
+.profile-info {
+  min-width: 0;
+}
+
+.profile-name {
+  font-size: var(--font-md);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  margin: 0 0 2px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-email {
+  font-size: var(--caption-size);
+  font-weight: var(--caption-weight);
+  color: var(--color-text-tertiary);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-header__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-shrink: 0;
+}
+
+/* 프로필 수정 버튼 */
+.profile-edit-btn {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--caption-size);
+  font-weight: var(--weight-medium);
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-default);
+  white-space: nowrap;
+}
+
+.profile-edit-btn:hover {
+  background: var(--color-border-light);
+}
+
+/* 설정 버튼 */
+.settings-wrapper {
+  position: relative;
+}
+
+.settings-btn {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  padding-top: 2rem;
-  border-top: 1px solid #e0e0e0;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-default);
 }
 
-.profile-actions .btn {
-  flex: 1;
-  max-width: 200px;
+.settings-btn:hover {
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
 
-/* 내가 작성한 게시글 섹션 */
+.settings-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* 설정 드롭다운 메뉴 */
+.settings-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+  overflow: hidden;
+}
+
+.settings-menu[hidden] {
+  display: none;
+}
+
+.settings-menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--font-sm);
+  font-weight: var(--weight-regular);
+  color: var(--color-text);
+  background: none;
+  border: none;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.settings-menu__item:hover {
+  background: var(--color-bg);
+}
+
+.settings-menu__item svg {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.settings-menu__item--danger {
+  color: var(--color-danger);
+}
+
+.settings-menu__item--danger svg {
+  color: var(--color-danger);
+}
+
+.settings-menu__divider {
+  height: 1px;
+  background: var(--color-border-light);
+  margin: var(--space-xs) 0;
+}
+
+/* ========================================
+ * My Posts Section
+ * ======================================== */
 .my-posts-section {
-  background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding-top: var(--space-xl);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .section-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: #333;
+  font-size: var(--font-md);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text);
+  margin: 0;
 }
 
-.posts-list {
+.section-count {
+  font-size: var(--caption-size);
+  font-weight: var(--caption-weight);
+  color: var(--color-text-tertiary);
+}
+
+.section-count:empty {
+  display: none;
+}
+
+.section-count::before {
+  content: "•";
+  margin-right: var(--space-xs);
+}
+
+/* Posts Grid */
+.my-posts-section .posts-grid {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--space-sm);
 }
 
-.empty-message {
-  text-align: center;
-  color: #999;
-  padding: 3rem 0;
-  font-size: 0.95rem;
-}
-
-/* 회원 탈퇴 섹션 */
-.account-delete-section {
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid #e0e0e0;
+/* Empty State */
+.empty-state {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  text-align: center;
+  padding: var(--space-3xl) var(--space-lg);
+  color: var(--color-text-tertiary);
 }
 
-.delete-account-btn {
-  background: none;
-  border: none;
-  color: #999;
-  font-size: 0.85rem;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  transition: color 0.2s;
-  text-decoration: underline;
+.empty-state[hidden] {
+  display: none;
 }
 
-.delete-account-btn:hover {
-  color: #d32f2f;
+.empty-state__icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: var(--space-md);
+  stroke-width: 1.5;
 }
 
-/* 반응형 */
-@media (max-width: 768px) {
+.empty-state__title {
+  font-size: var(--font-md);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-xs) 0;
+}
+
+.empty-state__desc {
+  font-size: var(--caption-size);
+  font-weight: var(--caption-weight);
+  margin: 0 0 var(--space-lg) 0;
+}
+
+/* ========================================
+ * Responsive
+ * ======================================== */
+@media (max-width: 480px) {
   .profile-container {
-    padding: 0 1rem;
+    padding: var(--space-md) var(--space-md) var(--space-3xl);
   }
 
-  .profile-card {
-    padding: 2rem 1.5rem;
+  .profile-header {
+    padding: var(--space-md) 0;
   }
 
-  .info-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.3rem;
+  .profile-header__left {
+    gap: var(--space-sm);
   }
 
-  .info-label {
-    width: auto;
+  .profile-name {
+    font-size: var(--font-base);
   }
 
-  .profile-actions {
-    flex-direction: column;
+  .profile-edit-btn {
+    padding: 6px 10px;
+    font-size: 11px;
   }
 
-  .profile-actions .btn {
-    max-width: none;
+  .settings-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .settings-btn svg {
+    width: 18px;
+    height: 18px;
   }
 }

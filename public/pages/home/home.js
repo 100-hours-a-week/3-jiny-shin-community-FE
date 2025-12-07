@@ -1,6 +1,7 @@
 import { getPosts } from '../../../api/post/postApi.js';
 import { renderPostCards } from '../../component/post-card/post-card.js';
 import { renderPageLayout } from '../../../utils/layoutPage.js';
+import { logger } from '../../../utils/logger.js';
 
 // 게시글 목록 로드
 async function loadPosts() {
@@ -20,7 +21,7 @@ async function loadPosts() {
     const posts = result?.posts ?? [];
     renderPostCards(postsList, posts);
   } catch (error) {
-    console.error('게시글 목록 로드 실패:', error);
+    logger.error('게시글 목록 로드 실패:', error);
     postsList.innerHTML =
       '<p class="empty-message">게시글을 불러오는 데 실패했습니다.</p>';
   }

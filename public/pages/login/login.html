@@ -3,21 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>로그인 - 아무 말 대잔치</title>
+    <meta name="theme-color" content="#024951" />
+    <title>로그인 - anoo</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/icon/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icon/favicon-96x96.png" sizes="96x96" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
     <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/global.css" />
     <link rel="stylesheet" href="/component/input/input.css" />
     <link rel="stylesheet" href="/component/button/button.css" />
     <link rel="stylesheet" href="/component/modal/modal.css" />
-    <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="/pages/login/login.css" />
   </head>
   <body>
     <div class="login-container">
       <div class="login-box">
-        <h1 class="login-title">아무 말 대잔치</h1>
-        <p class="login-subtitle">로그인하고 자유롭게 이야기 나눠보세요</p>
+        <h1 class="login-title logo">anoo</h1>
+        <p class="login-subtitle">로그인하고 오늘의 이야기를 기록하세요</p>
 
-        <form class="login-form" id="loginForm">
+        <form class="login-form" id="loginForm" novalidate>
           <div class="input-group">
             <label for="email">이메일</label>
             <input
@@ -49,13 +69,16 @@
 
         <div class="login-footer">
           <p>아직 회원이 아니신가요?</p>
-          <a href="/pages/signup/signup.html" class="signup-link"
-            >회원가입하기</a
-          >
+          <a href="/signup" class="signup-link">회원가입하기</a>
         </div>
       </div>
     </div>
 
-    <script type="module" src="login.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+    <script type="module" src="/pages/login/login.js"></script>
   </body>
 </html>

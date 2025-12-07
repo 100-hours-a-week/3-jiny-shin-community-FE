@@ -3,22 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>게시글 상세 - KTB Community</title>
-    <link rel="stylesheet" href="../../styles/reset.css" />
-    <link rel="stylesheet" href="../../styles/global.css" />
-    <link rel="stylesheet" href="../../styles/layout.css" />
-    <link rel="stylesheet" href="../../component/header/header.css" />
-    <link rel="stylesheet" href="../../component/footer/footer.css" />
-    <link rel="stylesheet" href="../../component/modal/modal.css" />
-    <link rel="stylesheet" href="../../component/button/button.css" />
-    <link rel="stylesheet" href="../../component/input/input.css" />
-    <link rel="stylesheet" href="../../component/comment/comment.css" />
-    <link rel="stylesheet" href="./post-detail.css" />
+    <meta name="theme-color" content="#024951" />
+    <title>기록 - anoo</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/icon/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icon/favicon-96x96.png" sizes="96x96" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/component/header/header.css" />
+    <link rel="stylesheet" href="/component/bottom-nav/bottom-nav.css" />
+    <link rel="stylesheet" href="/component/modal/modal.css" />
+    <link rel="stylesheet" href="/component/button/button.css" />
+    <link rel="stylesheet" href="/component/input/input.css" />
+    <link rel="stylesheet" href="/component/comment/comment.css" />
+    <link rel="stylesheet" href="/component/avatar/avatar.css" />
+    <link rel="stylesheet" href="/pages/post/post-detail.css" />
+    <link rel="stylesheet" href="/pages/404/404.css" />
   </head>
   <body>
     <template id="layout-template">
       <div class="layout__body">
-        <div id="sidebar-container" class="layout__sidebar"></div>
         <main
           id="main-content"
           class="layout__content post-detail-container"
@@ -27,30 +48,34 @@
         >
           <article class="post-detail" id="post-detail">
             <div class="post-detail__header">
-              <h1 class="post-detail__title" id="post-title">로딩 중...</h1>
-              <div class="post-detail__actions" id="post-actions">
-                <button class="btn btn--outline" id="edit-post-btn">수정</button>
-                <button class="btn btn--danger" id="delete-post-btn">삭제</button>
-              </div>
-            </div>
-
-            <div class="post-detail__meta">
               <div class="post-detail__author">
-                <img
-                  src="/assets/icon/profile_default.jpg"
-                  alt="프로필 이미지"
-                  class="post-detail__author-image"
-                  id="author-image"
-                />
+                <div class="post-detail__author-avatar" id="author-avatar">
+                  <!-- Avatar will be injected here -->
+                </div>
                 <div class="post-detail__author-info">
                   <span class="post-detail__author-name" id="author-name">작성자</span>
                   <span class="post-detail__date" id="post-date">날짜</span>
                 </div>
               </div>
+              <!-- 수정 버튼 제거 - 삭제만 가능 -->
+              <div class="post-detail__actions" id="post-actions">
+                <button class="btn-icon" id="delete-post-btn" aria-label="삭제">
+                  <i data-lucide="trash-2"></i>
+                </button>
+              </div>
             </div>
 
-            <div class="post-detail__image-container" id="post-image-container">
-              <img src="" alt="게시글 이미지" class="post-detail__image" id="post-image" />
+            <h1 class="post-detail__title" id="post-title">로딩 중...</h1>
+
+            <div class="post-detail__carousel" id="post-carousel">
+              <div class="post-detail__carousel-track" id="carousel-track">
+                <!-- 이미지 슬라이드들이 동적으로 추가됨 -->
+              </div>
+              <button class="post-detail__carousel-nav post-detail__carousel-nav--prev" id="carousel-prev" aria-label="이전 이미지">‹</button>
+              <button class="post-detail__carousel-nav post-detail__carousel-nav--next" id="carousel-next" aria-label="다음 이미지">›</button>
+              <div class="post-detail__carousel-dots" id="carousel-dots">
+                <!-- 도트들이 동적으로 추가됨 -->
+              </div>
             </div>
 
             <div class="post-detail__content" id="post-content">
@@ -59,16 +84,16 @@
 
             <div class="post-detail__stats">
               <button class="post-detail__stat-item post-detail__like-btn" id="like-btn">
-                <span class="post-detail__stat-label">좋아요</span>
+                <i data-lucide="heart" class="like-icon"></i>
                 <span class="post-detail__stat-value" id="likes-count">0</span>
               </button>
               <div class="post-detail__stat-item">
-                <span class="post-detail__stat-label">조회수</span>
-                <span class="post-detail__stat-value" id="views-count">0</span>
+                <i data-lucide="message-circle"></i>
+                <span class="post-detail__stat-value" id="comments-count">0</span>
               </div>
               <div class="post-detail__stat-item">
-                <span class="post-detail__stat-label">댓글</span>
-                <span class="post-detail__stat-value" id="comments-count">0</span>
+                <i data-lucide="eye"></i>
+                <span class="post-detail__stat-value" id="views-count">0</span>
               </div>
             </div>
           </article>
@@ -78,31 +103,31 @@
               댓글 <span id="comment-count-label">0</span>
             </h2>
 
-            <form class="comment-form" id="comment-form">
-              <div class="comment-form__input-wrapper">
-                <textarea
-                  class="comment-form__textarea"
-                  id="comment-textarea"
-                  placeholder="댓글을 입력하세요..."
-                  rows="1"
-                  maxlength="1000"
-                ></textarea>
-                <button type="submit" class="btn btn--primary comment-form__submit-btn">
-                  댓글 등록
-                </button>
-              </div>
-            </form>
-
             <div class="comments-list" id="comments-list"></div>
 
             <div class="comments-empty" id="comments-empty">
-              <p>아직 댓글이 없습니다. 첫 댓글을 작성해보세요!</p>
+              <i data-lucide="message-circle" class="comments-empty__icon"></i>
+              <p>아직 댓글이 없어요. 첫 댓글을 남겨보세요!</p>
             </div>
+
+            <form class="comment-form" id="comment-form" novalidate>
+              <textarea
+                class="comment-form__textarea"
+                id="comment-textarea"
+                placeholder="댓글을 입력하세요..."
+                aria-label="댓글 입력"
+                rows="1"
+                maxlength="1000"
+              ></textarea>
+              <button type="submit" class="btn btn--sm btn--primary comment-form__btn">등록</button>
+            </form>
           </section>
         </main>
       </div>
     </template>
 
-    <script type="module" src="./post-detail.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="module" src="/pages/post/post-detail.js"></script>
   </body>
 </html>

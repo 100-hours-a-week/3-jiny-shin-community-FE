@@ -3,117 +3,157 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>프로필 수정 - 아무 말 대잔치</title>
+    <meta name="theme-color" content="#024951" />
+    <title>프로필 수정 - anoo</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/icon/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icon/favicon-96x96.png" sizes="96x96" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
     <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/global.css" />
     <link rel="stylesheet" href="/styles/layout.css" />
     <link rel="stylesheet" href="/component/header/header.css" />
-    <link rel="stylesheet" href="/component/footer/footer.css" />
+    <link rel="stylesheet" href="/component/bottom-nav/bottom-nav.css" />
     <link rel="stylesheet" href="/component/input/input.css" />
     <link rel="stylesheet" href="/component/button/button.css" />
     <link rel="stylesheet" href="/component/modal/modal.css" />
-    <link rel="stylesheet" href="profile-edit.css" />
+    <link rel="stylesheet" href="/component/toast/toast.css" />
+    <link rel="stylesheet" href="/component/avatar/avatar.css" />
+    <link rel="stylesheet" href="/pages/signup/signup.css" />
+    <link rel="stylesheet" href="/pages/profile/profile-edit.css" />
   </head>
   <body>
     <template id="layout-template">
       <div class="layout__body">
-        <div id="sidebar-container" class="layout__sidebar"></div>
         <main
           id="main-content"
-          class="layout__content edit-container"
+          class="layout__content profile-edit-container"
           role="main"
-          aria-labelledby="profile-edit-title"
         >
-          <div class="edit-card">
-            <h1 class="edit-title" id="profile-edit-title">프로필 수정</h1>
+          <div class="profile-edit-wrapper">
+            <h1 class="profile-edit__title">프로필 수정</h1>
 
-            <form class="edit-form" id="editForm">
-              <div class="image-upload-section">
-                <img
-                  src="/assets/icon/profile_default.jpg"
-                  alt="프로필 이미지"
-                  class="preview-image"
-                  id="previewImage"
-                />
-                <div class="image-upload-actions">
-                  <input
-                    type="file"
-                    id="imageInput"
-                    accept="image/*"
-                    class="visually-hidden"
+            <form class="profile-edit-form" id="editForm" novalidate>
+              <!-- 프로필 이미지 -->
+              <div class="profile-upload">
+                <div class="profile-upload__preview" id="profilePreview">
+                  <span class="profile-upload__placeholder">
+                    <i data-lucide="user"></i>
+                  </span>
+                  <img
+                    src=""
+                    alt="프로필 미리보기"
+                    class="profile-upload__image"
+                    id="profileImage"
                   />
-                  <button
-                    type="button"
-                    id="selectImageBtn"
-                    class="btn btn--outline"
-                  >
-                    이미지 선택
+                </div>
+                <input
+                  type="file"
+                  id="profileInput"
+                  accept="image/*"
+                  class="visually-hidden"
+                />
+                <div class="profile-upload__actions">
+                  <button type="button" class="profile-upload__btn" id="profileBtn">
+                    <i data-lucide="camera"></i>
+                    <span>사진 변경</span>
                   </button>
-                  <button
-                    type="button"
-                    class="btn btn--outline btn--danger"
-                    id="removeImageBtn"
-                  >
-                    이미지 제거
+                  <button type="button" class="profile-upload__btn profile-upload__btn--remove" id="profileRemoveBtn" hidden>
+                    <i data-lucide="x"></i>
+                    <span>사진 제거</span>
                   </button>
                 </div>
+                <span class="helper-text" id="profileError"></span>
               </div>
 
+              <!-- 닉네임 -->
               <div class="input-group">
-                <label for="nickname">닉네임 *</label>
+                <label for="nickname" class="input-label">닉네임</label>
                 <input
                   type="text"
                   id="nickname"
                   name="nickname"
+                  class="input-field"
                   placeholder="닉네임을 입력하세요"
-                  value="사용자 닉네임"
                   required
                 />
                 <span class="helper-text" id="nicknameError"></span>
               </div>
 
+              <!-- 비밀번호 변경 섹션 -->
               <div class="password-section">
-                <h3 class="section-subtitle">비밀번호 변경 (선택사항)</h3>
+                <p class="section-label">비밀번호 변경</p>
 
                 <div class="input-group">
-                  <label for="currentPassword">현재 비밀번호</label>
+                  <label for="currentPassword" class="input-label">현재 비밀번호</label>
                   <input
                     type="password"
                     id="currentPassword"
                     name="currentPassword"
-                    placeholder="현재 비밀번호를 입력하세요"
+                    class="input-field"
+                    placeholder="현재 비밀번호"
                   />
                   <span class="helper-text" id="currentPasswordError"></span>
                 </div>
 
                 <div class="input-group">
-                  <label for="newPassword">새 비밀번호</label>
-                  <input
-                    type="password"
-                    id="newPassword"
-                    name="newPassword"
-                    placeholder="새 비밀번호를 입력하세요 (8자 이상)"
-                  />
+                  <label for="newPassword" class="input-label">새 비밀번호</label>
+                  <div class="input-with-icon">
+                    <input
+                      type="password"
+                      id="newPassword"
+                      name="newPassword"
+                      class="input-field"
+                      placeholder="8자 이상"
+                    />
+                    <span class="input-icon input-icon--success" id="newPasswordValidIcon" hidden>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
+                  </div>
                   <span class="helper-text" id="newPasswordError"></span>
                 </div>
 
                 <div class="input-group">
-                  <label for="newPasswordConfirm">새 비밀번호 확인</label>
-                  <input
-                    type="password"
-                    id="newPasswordConfirm"
-                    name="newPasswordConfirm"
-                    placeholder="새 비밀번호를 다시 입력하세요"
-                  />
+                  <label for="newPasswordConfirm" class="input-label">새 비밀번호 확인</label>
+                  <div class="input-with-icon">
+                    <input
+                      type="password"
+                      id="newPasswordConfirm"
+                      name="newPasswordConfirm"
+                      class="input-field"
+                      placeholder="새 비밀번호 확인"
+                    />
+                    <span class="input-icon input-icon--success" id="passwordMatchIcon" hidden>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </span>
+                  </div>
                   <span class="helper-text" id="newPasswordConfirmError"></span>
                 </div>
               </div>
 
-              <div class="form-actions">
+              <!-- 버튼 그룹 -->
+              <div class="button-group">
                 <button type="button" class="btn btn--outline" id="cancelBtn">
                   취소
                 </button>
-                <button type="submit" class="btn btn--primary">저장</button>
+                <button type="submit" class="btn btn--primary" id="saveBtn">
+                  저장
+                </button>
               </div>
             </form>
           </div>
@@ -121,6 +161,8 @@
       </div>
     </template>
 
-    <script type="module" src="profile-edit.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="module" src="/pages/profile/profile-edit.js"></script>
   </body>
 </html>

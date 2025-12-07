@@ -1,156 +1,99 @@
+/**
+ * Home Page (Feed)
+ * anoo 디자인 시스템
+ */
+
 .home-container {
-  max-width: 1200px;
+  max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: 2.5rem 1.75rem;
+  padding: var(--content-padding-top) var(--content-padding-x) var(--content-padding-bottom);
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: var(--space-xl);
 }
 
 /* Hero Section */
 .home-hero {
-  position: relative;
-  overflow: hidden;
   text-align: center;
-  padding: 3.25rem 1.5rem;
-  border-radius: 24px;
-  background: linear-gradient(135deg, rgba(127, 106, 238, 0.12), rgba(44, 82, 140, 0.12));
-  border: 1px solid rgba(127, 106, 238, 0.16);
-  box-shadow: 0 20px 45px rgba(40, 56, 120, 0.12);
-}
-
-.home-hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.35), transparent 50%),
-    radial-gradient(circle at 80% 10%, rgba(127, 106, 238, 0.2), transparent 55%);
-  pointer-events: none;
+  padding: var(--space-2xl) var(--space-lg);
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-light);
 }
 
 .hero-title {
-  position: relative;
-  font-size: 2.45rem;
-  font-weight: 800;
-  color: #2f2a4c;
-  margin-bottom: 0.75rem;
+  font-size: var(--heading-2-size);
+  font-weight: var(--heading-2-weight);
+  line-height: var(--heading-2-line-height);
+  color: var(--color-text);
+  margin: 0 0 var(--space-xs);
 }
 
 .hero-desc {
-  position: relative;
-  font-size: 1.1rem;
-  color: rgba(47, 42, 76, 0.75);
-  max-width: 520px;
-  margin: 0 auto 1.75rem;
-  line-height: 1.6;
-}
-
-.hero-actions {
-  position: relative;
-  margin-top: 2.25rem;
-  display: flex;
-  justify-content: center;
-}
-
-.create-post-btn {
-  padding: 0.85rem 2.25rem;
-  font-size: 1.05rem;
-  border-radius: 999px;
-  box-shadow: 0 14px 24px rgba(127, 106, 238, 0.25);
+  font-size: var(--body-size);
+  font-weight: var(--body-weight);
+  line-height: var(--body-line-height);
+  color: var(--color-text-secondary);
+  margin: 0;
 }
 
 /* Posts Section */
 .posts-section {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--space-lg);
 }
 
 .posts-section__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
 }
 
 .section-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #252525;
-}
-
-.posts-section__sub {
-  font-size: 0.95rem;
-  color: #8c8c8c;
+  font-size: var(--heading-3-size);
+  font-weight: var(--heading-3-weight);
+  line-height: var(--heading-3-line-height);
+  color: var(--color-text);
   margin: 0;
-  max-width: 440px;
 }
 
 .posts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
 }
 
+/* Empty State in Grid */
+.posts-grid .empty-state {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+}
+
+/* Legacy empty message */
 .empty-message {
-  grid-column: 1 / -1;
   text-align: center;
-  padding: 3rem;
-  color: var(--color-gray-400);
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 12px 24px rgba(42, 52, 103, 0.1);
+  padding: var(--space-2xl);
+  color: var(--color-text-tertiary);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
 }
 
-/* 반응형 */
-@media (max-width: 1024px) {
+/* Responsive */
+@media (max-width: 480px) {
   .home-container {
-    padding: 2rem 1.5rem;
-  }
-
-  .posts-grid {
-    gap: 1.5rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .home-container {
-    padding: 1.5rem 1.1rem;
+    padding: var(--space-lg) var(--space-md);
+    gap: var(--space-xl);
   }
 
   .home-hero {
-    padding: 2.5rem 1.25rem;
-    border-radius: 20px;
+    padding: var(--space-xl) var(--space-md);
+    border-radius: var(--radius-lg);
   }
 
   .hero-title {
-    font-size: 2rem;
-  }
-
-  .hero-desc {
-    font-size: 1rem;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-  }
-
-  .create-post-btn {
-    width: 100%;
-    max-width: 280px;
-  }
-
-  .posts-section__header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .section-title {
-    font-size: 1.5rem;
-  }
-
-  .posts-grid {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
+    font-size: var(--heading-3-size);
   }
 }

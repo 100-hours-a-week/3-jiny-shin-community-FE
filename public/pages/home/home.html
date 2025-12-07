@@ -3,16 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>홈 - 아무 말 대잔치</title>
+    <meta name="theme-color" content="#024951" />
+    <title>홈 - anoo</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/icon/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icon/favicon-96x96.png" sizes="96x96" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
     <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/global.css" />
     <link rel="stylesheet" href="/styles/layout.css" />
     <link rel="stylesheet" href="/component/header/header.css" />
-    <link rel="stylesheet" href="/component/footer/footer.css" />
+    <link rel="stylesheet" href="/component/bottom-nav/bottom-nav.css" />
     <link rel="stylesheet" href="/component/button/button.css" />
     <link rel="stylesheet" href="/component/modal/modal.css" />
     <link rel="stylesheet" href="/component/post-card/post-card.css" />
-    <link rel="stylesheet" href="home.css" />
+    <link rel="stylesheet" href="/component/avatar/avatar.css" />
+    <link rel="stylesheet" href="/pages/home/home.css" />
   </head>
   <body>
     <template id="layout-template">
@@ -24,32 +45,31 @@
           aria-labelledby="home-title"
         >
           <div class="home-hero">
-            <h1 id="home-title" class="hero-title">환영합니다!</h1>
-            <p class="hero-desc">커뮤니티의 다양한 이야기를 만나보세요</p>
-            <div class="hero-actions">
-              <a
-                class="btn btn--primary create-post-btn"
-                href="/pages/post/post-create.html"
-              >
-                게시글 작성하기
-              </a>
-            </div>
+            <h1 id="home-title" class="hero-title">오늘 하루는 어땠나요?</h1>
+            <p class="hero-desc">익명으로 솔직하게, 당신의 이야기를 들려주세요</p>
           </div>
           <div class="posts-section">
             <div class="posts-section__header">
-              <h2 class="section-title">최근 게시글</h2>
-              <p class="posts-section__sub">
-                최신 커뮤니티 소식을 확인하고, 공감되는 이야기에 반응을
-                남겨보세요.
-              </p>
+              <h2 class="section-title">최근 기록</h2>
             </div>
             <div id="posts-list" class="posts-grid">
-              <p class="empty-message">아직 게시글이 없습니다.</p>
+              <!-- 빈 상태 UI -->
+              <div class="empty-state" id="emptyState">
+                <i data-lucide="book-open" class="empty-state__icon"></i>
+                <p class="empty-state__title">아직 기록이 없어요</p>
+                <p class="empty-state__desc">첫 번째 이야기를 남겨볼까요?</p>
+                <a href="/write" class="btn btn--primary">
+                  첫 기록 남기기
+                </a>
+              </div>
             </div>
           </div>
         </main>
       </div>
     </template>
-    <script type="module" src="home.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="module" src="/pages/home/home.js"></script>
   </body>
 </html>

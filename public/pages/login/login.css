@@ -1,77 +1,81 @@
+/**
+ * Login Page
+ * anoo 디자인 시스템
+ */
+
 .login-container {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 2rem;
+  background: var(--color-bg);
+  padding: var(--space-lg);
 }
 
 .login-box {
-  background: white;
-  border-radius: 12px;
-  padding: 3rem 2.5rem;
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl) var(--space-xl);
   width: 100%;
-  max-width: 420px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  border: 1px solid var(--color-border-light);
 }
 
 .login-title {
-  font-size: 2rem;
-  font-weight: 700;
+  font-size: var(--heading-1-size);
+  font-weight: var(--heading-1-weight);
+  line-height: var(--heading-1-line-height);
   text-align: center;
-  color: #333;
-  margin-bottom: 0.5rem;
+  color: var(--color-primary);
+  margin-bottom: var(--space-xs);
 }
 
 .login-subtitle {
   text-align: center;
-  color: #666;
-  font-size: 0.95rem;
-  margin-bottom: 2.5rem;
+  color: var(--color-text-secondary);
+  font-size: var(--body-size);
+  font-weight: var(--body-weight);
+  line-height: var(--body-line-height);
+  margin-bottom: var(--space-2xl);
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
 }
 
-.btn--full {
-  width: 100%;
-  padding: 0.8rem 1.2rem;
-  font-size: 1rem;
-  margin-top: 0.5rem;
+.login-form .btn--full {
+  margin-top: var(--space-md);
 }
 
 .login-footer {
-  margin-top: 2rem;
+  margin-top: var(--space-xl);
   text-align: center;
-  padding-top: 1.5rem;
-  border-top: 1px solid #e0e0e0;
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .login-footer p {
-  color: #666;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
+  color: var(--color-text-secondary);
+  font-size: var(--caption-size);
+  margin-bottom: var(--space-xs);
 }
 
 .signup-link {
   color: var(--color-primary);
-  font-weight: 600;
+  font-weight: var(--weight-medium);
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: var(--body-size);
 }
 
 .signup-link:hover {
   text-decoration: underline;
 }
 
-.signup-link:focus {
+.signup-link:focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
-  text-decoration: underline;
 }
 
 .helper-text {
@@ -80,4 +84,16 @@
 
 .helper-text.show {
   display: block;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-box {
+    padding: var(--space-xl) var(--space-lg);
+    border-radius: var(--radius-lg);
+  }
+
+  .login-title {
+    font-size: var(--heading-2-size);
+  }
 }

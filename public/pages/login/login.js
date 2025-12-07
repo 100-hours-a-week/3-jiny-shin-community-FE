@@ -2,6 +2,35 @@ import { validateEmail, validatePassword } from '../../../utils/validation.js';
 import { showError, hideError } from '../../../utils/dom.js';
 import { login } from '../../../api/auth/authApi.js';
 
+/**
+ * 로그인 에러 코드를 사용자 친화적 메시지로 변환
+ * @param {string} errorCode - API에서 반환된 에러 메시지/코드
+ * @returns {string} 사용자에게 표시할 메시지
+ */
+function getLoginErrorMessage(errorCode) {
+  const errorMessages = {
+    user_not_found: '이메일 또는 비밀번호가 올바르지 않습니다.',
+    invalid_credentials: '이메일 또는 비밀번호가 올바르지 않습니다.',
+    invalid_password: '이메일 또는 비밀번호가 올바르지 않습니다.',
+    account_locked: '계정이 잠겼습니다. 잠시 후 다시 시도해주세요.',
+    account_disabled: '비활성화된 계정입니다. 관리자에게 문의해주세요.',
+    too_many_attempts: '로그인 시도가 너무 많습니다. 잠시 후 다시 시도해주세요.',
+  };
+
+  // 에러 코드가 정의된 메시지에 있으면 해당 메시지 반환
+  if (errorCode && errorMessages[errorCode]) {
+    return errorMessages[errorCode];
+  }
+
+  // 에러 코드가 영문 스네이크케이스 형태면 기본 메시지 반환
+  if (errorCode && /^[a-z_]+$/.test(errorCode)) {
+    return '이메일 또는 비밀번호가 올바르지 않습니다.';
+  }
+
+  // 그 외의 경우 에러 메시지 그대로 또는 기본 메시지
+  return errorCode || '로그인에 실패했습니다. 다시 시도해주세요.';
+}
+
 // 로그인 폼 처리
 const loginForm = document.getElementById('loginForm');
 const emailInput = document.getElementById('email');
@@ -81,14 +110,11 @@ loginForm.addEventListener('submit', async e => {
   try {
     await login({ email, password });
     changeButtonColor();
-    window.location.href = '/pages/home/home.html';
+    window.location.href = '/feed';
   } catch (error) {
-    showError(
-      passwordError,
-      error.message === 'invalid_credentials'
-        ? '아이디 또는 비밀번호를 확인해주세요.'
-        : error.message || '로그인에 실패했습니다. 다시 시도해주세요.'
-    );
+    // 인증 관련 에러 코드를 사용자 친화적 메시지로 변환
+    const errorMessage = getLoginErrorMessage(error.message);
+    showError(passwordError, errorMessage);
     submitButton.disabled = false;
   }
 });

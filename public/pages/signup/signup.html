@@ -3,20 +3,74 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>회원가입 - 아무 말 대잔치</title>
+    <meta name="theme-color" content="#024951" />
+    <title>회원가입 - anoo</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/icon/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icon/favicon-96x96.png" sizes="96x96" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
     <link rel="stylesheet" href="/styles/reset.css" />
     <link rel="stylesheet" href="/styles/global.css" />
     <link rel="stylesheet" href="/component/input/input.css" />
     <link rel="stylesheet" href="/component/button/button.css" />
-    <link rel="stylesheet" href="signup.css" />
+    <link rel="stylesheet" href="/component/avatar/avatar.css" />
+    <link rel="stylesheet" href="/pages/signup/signup.css" />
   </head>
   <body>
     <div class="signup-container">
       <div class="signup-box">
-        <h1 class="signup-title">회원가입</h1>
-        <p class="signup-subtitle">아무 말 대잔치의 새로운 멤버가 되어보세요</p>
+        <h1 class="signup-title logo">anoo</h1>
+        <p class="signup-subtitle">익명으로 솔직하게, 나만의 하루를 기록하세요</p>
 
-        <form class="signup-form" id="signupForm">
+        <form class="signup-form" id="signupForm" novalidate>
+          <!-- 프로필 이미지 -->
+          <div class="profile-upload">
+            <div class="profile-upload__preview" id="profilePreview">
+              <span class="profile-upload__placeholder">
+                <i data-lucide="user"></i>
+              </span>
+              <img
+                src=""
+                alt="프로필 미리보기"
+                class="profile-upload__image"
+                id="profileImage"
+              />
+            </div>
+            <input
+              type="file"
+              id="profileInput"
+              accept="image/*"
+              class="visually-hidden"
+            />
+            <div class="profile-upload__actions">
+              <button type="button" class="profile-upload__btn" id="profileBtn">
+                <i data-lucide="camera"></i>
+                <span>사진 추가</span>
+              </button>
+              <button type="button" class="profile-upload__btn profile-upload__btn--remove" id="profileRemoveBtn" hidden>
+                <i data-lucide="x"></i>
+                <span>사진 제거</span>
+              </button>
+            </div>
+            <span class="helper-text" id="profileError"></span>
+          </div>
+
+          <!-- 이메일 -->
           <div class="input-group">
             <label for="email">이메일 *</label>
             <input
@@ -29,6 +83,20 @@
             <span class="helper-text" id="emailError"></span>
           </div>
 
+          <!-- 닉네임 -->
+          <div class="input-group">
+            <label for="nickname">닉네임 *</label>
+            <input
+              type="text"
+              id="nickname"
+              name="nickname"
+              placeholder="닉네임을 입력하세요"
+              required
+            />
+            <span class="helper-text" id="nicknameError"></span>
+          </div>
+
+          <!-- 비밀번호 -->
           <div class="input-group">
             <label for="password">비밀번호 *</label>
             <input
@@ -42,6 +110,7 @@
             <span class="helper-text" id="passwordError"></span>
           </div>
 
+          <!-- 비밀번호 확인 -->
           <div class="input-group">
             <label for="passwordConfirm">비밀번호 확인 *</label>
             <input
@@ -54,18 +123,6 @@
             <span class="helper-text" id="passwordConfirmError"></span>
           </div>
 
-          <div class="input-group">
-            <label for="nickname">닉네임 *</label>
-            <input
-              type="text"
-              id="nickname"
-              name="nickname"
-              placeholder="닉네임을 입력하세요"
-              required
-            />
-            <span class="helper-text" id="nicknameError"></span>
-          </div>
-
           <button type="submit" class="btn btn--primary btn--full">
             회원가입
           </button>
@@ -73,11 +130,16 @@
 
         <div class="signup-footer">
           <p>이미 계정이 있으신가요?</p>
-          <a href="/pages/login/login.html" class="login-link">로그인하기</a>
+          <a href="/login" class="login-link">로그인하기</a>
         </div>
       </div>
     </div>
 
-    <script type="module" src="signup.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+    <script type="module" src="/pages/signup/signup.js"></script>
   </body>
 </html>
