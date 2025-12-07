@@ -31,6 +31,9 @@ export default [
         setTimeout: 'readonly',
         clearTimeout: 'readonly',
         history: 'readonly',
+        localStorage: 'readonly',
+        lucide: 'readonly',
+        DOMParser: 'readonly',
       },
     },
     rules: {
@@ -40,7 +43,7 @@ export default [
     },
   },
   {
-    files: ['app.js'],
+    files: ['app.js', 'routes/**/*.js'],
     languageOptions: {
       sourceType: 'commonjs',
       ecmaVersion: 'latest',

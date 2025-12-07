@@ -55,6 +55,9 @@ jobs:
             echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" > .env
             echo "NODE_ENV=production" >> .env
             echo "TZ=Asia/Seoul" >> .env
+            echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
+            echo "API_BASE_URL=${{ secrets.API_BASE_URL }}" >> .env
+            echo "IMAGE_UPLOAD_API=${{ secrets.IMAGE_UPLOAD_API }}" >> .env
 
             wget -O docker-compose.yml https://raw.githubusercontent.com/100-hours-a-week/3-jiny-shin-community-FE/main/docker-compose.yml
 
