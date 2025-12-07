@@ -3,21 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>게시글 작성 - KTB Community</title>
-    <link rel="stylesheet" href="../../styles/reset.css" />
-    <link rel="stylesheet" href="../../styles/global.css" />
-    <link rel="stylesheet" href="../../styles/layout.css" />
-    <link rel="stylesheet" href="../../component/header/header.css" />
-    <link rel="stylesheet" href="../../component/footer/footer.css" />
-    <link rel="stylesheet" href="../../component/button/button.css" />
-    <link rel="stylesheet" href="../../component/input/input.css" />
-    <link rel="stylesheet" href="../../component/modal/modal.css" />
-    <link rel="stylesheet" href="./post-form.css" />
+    <meta name="theme-color" content="#024951" />
+    <title>글쓰기 - anoo</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/assets/icon/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/icon/favicon-96x96.png" sizes="96x96" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/component/header/header.css" />
+    <link rel="stylesheet" href="/component/bottom-nav/bottom-nav.css" />
+    <link rel="stylesheet" href="/component/button/button.css" />
+    <link rel="stylesheet" href="/component/input/input.css" />
+    <link rel="stylesheet" href="/component/modal/modal.css" />
+    <link rel="stylesheet" href="/component/toast/toast.css" />
+    <link rel="stylesheet" href="/pages/post/post-form.css" />
   </head>
   <body>
     <template id="layout-template">
       <div class="layout__body">
-        <div id="sidebar-container" class="layout__sidebar"></div>
         <main
           id="main-content"
           class="layout__content post-form-container"
@@ -25,18 +45,18 @@
           aria-labelledby="post-create-title"
         >
           <div class="post-form-wrapper">
-            <h1 class="post-form__title" id="post-create-title">게시글 작성</h1>
+            <h1 class="post-form__title" id="post-create-title">글쓰기</h1>
 
-            <form class="post-form" id="post-form">
+            <form class="post-form" id="post-form" novalidate>
               <div class="input-group">
-                <label for="post-title" class="input-label"
-                  >제목 <span class="required">*</span></label
-                >
+                <label for="post-title" class="input-label">
+                  제목 <span class="required">*</span>
+                </label>
                 <input
                   type="text"
                   id="post-title"
                   class="input-field"
-                  placeholder="제목을 입력하세요 (최대 26자)"
+                  placeholder="오늘 하루를 한 줄로 표현해보세요"
                   maxlength="26"
                   required
                 />
@@ -47,49 +67,156 @@
               </div>
 
               <div class="input-group">
-                <label for="post-content" class="input-label"
-                  >내용 <span class="required">*</span></label
-                >
+                <label for="post-content" class="input-label">
+                  내용 <span class="required">*</span>
+                </label>
                 <textarea
                   id="post-content"
                   class="textarea-field"
-                  placeholder="내용을 입력하세요"
-                  rows="15"
+                  placeholder="오늘 하루에 대해 자유롭게 적어보세요"
+                  rows="10"
+                  maxlength="10000"
                   required
                 ></textarea>
                 <div class="input-helper">
                   <span class="error-message" id="content-error"></span>
+                  <span class="char-count" id="content-char-count">0/10,000</span>
                 </div>
               </div>
 
               <div class="input-group">
-                <label for="post-image" class="input-label">이미지 (선택)</label>
-                <div class="image-upload-wrapper">
-                  <input
-                    type="file"
-                    id="post-image"
-                    accept="image/*"
-                    class="file-input"
-                  />
-                  <label for="post-image" class="file-label">
-                    <span id="file-name">이미지를 선택하세요</span>
-                  </label>
+                <label class="input-label">이미지 (선택)</label>
+
+                <!-- 탭 헤더 -->
+                <div class="image-tabs" role="tablist">
                   <button
                     type="button"
-                    class="btn btn--outline btn--small"
-                    id="clear-image-btn"
-                    style="display: none"
+                    class="image-tabs__tab active"
+                    id="tab-manual"
+                    role="tab"
+                    aria-selected="true"
+                    aria-controls="panel-manual"
                   >
-                    삭제
+                    <i data-lucide="image"></i>
+                    <span>직접 업로드</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="image-tabs__tab"
+                    id="tab-ai"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="panel-ai"
+                  >
+                    <i data-lucide="sparkles"></i>
+                    <span>AI로 그리기</span>
                   </button>
                 </div>
-                <div class="image-preview" id="image-preview">
-                  <img src="" alt="미리보기" id="preview-image" />
-                </div>
-                <div class="input-helper">
-                  <span class="help-text"
-                    >클릭하여 컴퓨터에서 이미지 파일을 업로드하세요.</span
+
+                <!-- 탭 패널 컨테이너 -->
+                <div class="image-tab-panels">
+                  <!-- 직접 업로드 패널 -->
+                  <div
+                    class="image-tab-panel active"
+                    id="panel-manual"
+                    role="tabpanel"
+                    aria-labelledby="tab-manual"
                   >
+                    <div class="upload-area">
+                      <input
+                        type="file"
+                        id="post-image"
+                        accept=".jpg,.jpeg,.png,.webp"
+                        class="file-input"
+                        multiple
+                      />
+                      <label for="post-image" class="upload-dropzone">
+                        <i data-lucide="upload"></i>
+                        <span class="upload-dropzone__text">클릭하거나 드래그하여 업로드</span>
+                        <span class="upload-dropzone__hint">JPG, PNG, WEBP (최대 5MB, 4장)</span>
+                      </label>
+                    </div>
+
+                    <div class="image-preview-container" id="image-preview-container">
+                      <!-- 이미지 프리뷰들이 동적으로 추가됨 -->
+                    </div>
+
+                    <div class="input-helper" id="manual-helper">
+                      <span class="help-text" id="image-help-text">
+                        드래그하여 순서를 변경하고, 대표 버튼을 눌러 대표 이미지를 선택할 수 있습니다.
+                      </span>
+                      <span class="image-count" id="image-count"></span>
+                    </div>
+                  </div>
+
+                  <!-- AI로 그리기 패널 -->
+                  <div
+                    class="image-tab-panel"
+                    id="panel-ai"
+                    role="tabpanel"
+                    aria-labelledby="tab-ai"
+                    hidden
+                  >
+                    <!-- 참조 이미지 업로드 (선택) -->
+                    <div class="ai-reference-section">
+                      <div class="ai-reference-section__header">
+                        <span class="ai-reference-section__label">참조 이미지 (선택)</span>
+                        <span class="ai-reference-section__hint">AI가 참고할 이미지를 업로드하세요 (최대 1장)</span>
+                      </div>
+
+                      <div class="ai-reference-upload" id="ai-reference-upload">
+                        <input
+                          type="file"
+                          id="ai-reference-input"
+                          accept=".jpg,.jpeg,.png,.webp"
+                          class="file-input"
+                        />
+                        <label for="ai-reference-input" class="ai-reference-dropzone" id="ai-reference-dropzone">
+                          <i data-lucide="image-plus"></i>
+                          <span>참조 이미지 추가</span>
+                        </label>
+                      </div>
+
+                      <!-- 참조 이미지 프리뷰 -->
+                      <div class="ai-reference-preview" id="ai-reference-preview" hidden>
+                        <img id="ai-reference-image" src="" alt="참조 이미지" />
+                        <button type="button" class="image-preview-item__remove" id="ai-reference-remove">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- AI 생성 버튼 -->
+                    <button type="button" class="btn btn--primary ai-generate-action" id="ai-generate-btn">
+                      <i data-lucide="sparkles"></i>
+                      <span>이미지 생성하기</span>
+                    </button>
+
+                    <!-- AI 생성 횟수 표시 -->
+                    <div class="ai-generation-info" id="ai-generation-info">
+                      <span>오늘 <strong id="ai-remaining-count">-</strong>회 생성 가능</span>
+                    </div>
+
+                    <!-- AI 생성 결과 프리뷰 -->
+                    <div class="ai-result-section" id="ai-result-section" hidden>
+                      <div class="ai-result-section__header">
+                        <span class="ai-result-section__label">AI 생성 결과</span>
+                      </div>
+                      <div class="ai-result-preview" id="ai-result-preview">
+                        <img id="ai-result-image" src="" alt="AI 생성 이미지" />
+                        <button type="button" class="ai-result-preview__regenerate" id="ai-regenerate-btn">
+                          <i data-lucide="refresh-cw"></i>
+                          <span>다시 생성</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- AI 생성 중 로딩 상태 -->
+                    <div class="ai-loading" id="ai-loading" hidden>
+                      <div class="ai-loading__spinner"></div>
+                      <span class="ai-loading__text">AI가 그리는 중...</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -98,7 +225,7 @@
                   취소
                 </button>
                 <button type="submit" class="btn btn--primary" id="submit-btn">
-                  등록
+                  기록하기
                 </button>
               </div>
             </form>
@@ -107,6 +234,8 @@
       </div>
     </template>
 
-    <script type="module" src="./post-create.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script type="module" src="/pages/post/post-create.js"></script>
   </body>
 </html>

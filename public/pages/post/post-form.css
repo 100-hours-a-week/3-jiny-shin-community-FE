@@ -1,34 +1,36 @@
 .post-form-container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--content-padding-top) var(--content-padding-x) var(--content-padding-bottom);
 }
 
 .post-form-wrapper {
-  background: var(--color-white);
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 2rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
 }
 
 .post-form__title {
-  font-size: var(--font-2xl);
-  font-weight: 700;
-  margin-bottom: 2rem;
-  color: var(--color-black);
+  font-size: var(--heading-2-size);
+  font-weight: var(--heading-2-weight);
+  line-height: var(--heading-2-line-height);
+  margin-bottom: var(--space-xl);
+  color: var(--color-text);
 }
 
 /* 입력 그룹 */
 .input-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-xl);
 }
 
 .input-label {
   display: block;
-  font-weight: 700;
-  font-size: var(--font-base);
-  margin-bottom: 0.5rem;
-  color: var(--color-black);
+  font-size: var(--form-label-size);
+  font-weight: var(--form-label-weight);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--space-xs);
+  color: var(--color-text);
 }
 
 .required {
@@ -37,12 +39,14 @@
 
 .input-field {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: var(--font-base);
+  padding: var(--space-sm);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--form-input-size);
+  font-weight: var(--form-input-weight);
   font-family: inherit;
-  transition: border-color 0.2s ease;
+  line-height: var(--line-height-relaxed);
+  transition: border-color var(--transition-default);
 }
 
 .input-field:focus {
@@ -56,14 +60,16 @@
 
 .textarea-field {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: var(--font-base);
+  padding: var(--space-md);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--form-input-size);
+  font-weight: var(--form-input-weight);
   font-family: inherit;
+  line-height: var(--line-height-relaxed);
   resize: vertical;
   min-height: 200px;
-  transition: border-color 0.2s ease;
+  transition: border-color var(--transition-default);
 }
 
 .textarea-field:focus {
@@ -79,26 +85,31 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.5rem;
-  font-size: var(--font-sm);
+  margin-top: var(--space-xs);
+  font-size: var(--form-hint-size);
 }
 
 .error-message {
+  font-size: var(--form-hint-size);
+  font-weight: var(--form-hint-weight);
   color: var(--color-danger);
 }
 
 .char-count {
-  color: var(--color-gray-300);
+  font-size: var(--caption-size);
+  color: var(--color-text-tertiary);
 }
 
 .help-text {
-  color: var(--color-gray-300);
+  font-size: var(--caption-size);
+  color: var(--color-text-secondary);
+  display: none; /* JS에서 이미지 있을 때만 표시 */
 }
 
 /* 이미지 업로드 */
 .image-upload-wrapper {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--space-xs);
   align-items: center;
 }
 
@@ -108,15 +119,15 @@
 
 .file-label {
   flex: 1;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background: var(--color-white);
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
   cursor: pointer;
-  transition: border-color 0.2s ease;
+  transition: border-color var(--transition-default);
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--space-xs);
 }
 
 .file-label:hover {
@@ -124,54 +135,510 @@
 }
 
 .file-label span {
-  color: var(--color-gray-300);
+  color: var(--color-text-tertiary);
 }
 
 .file-label.has-file span {
-  color: var(--color-black);
+  color: var(--color-text);
 }
 
 .btn--small {
-  padding: 0.5rem 1rem;
+  padding: var(--space-xs) var(--space-md);
   font-size: var(--font-sm);
 }
 
-.image-preview {
+/* ============================================
+ * Image Upload Tabs
+ * ============================================ */
+
+/* 탭 헤더 */
+.image-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--color-gray-100);
+  padding: 4px;
+  border-radius: 8px;
+  margin-bottom: var(--space-md);
+}
+
+.image-tabs__tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-family: inherit;
+  font-size: var(--font-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.image-tabs__tab:hover {
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.image-tabs__tab.active {
+  background: var(--color-white);
+  color: var(--color-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.image-tabs__tab i {
+  width: 18px;
+  height: 18px;
+}
+
+/* 탭 패널 */
+.image-tab-panels {
+  min-height: 180px;
+}
+
+.image-tab-panel {
   display: none;
-  margin-top: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.image-tab-panel.active {
+  display: block;
+}
+
+.image-tab-panel[hidden] {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+ * Manual Upload Panel
+ * ============================================ */
+
+.upload-area {
+  margin-bottom: var(--space-md);
+}
+
+.upload-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-xl);
+  border: 2px dashed var(--color-border);
+  border-radius: 8px;
+  background: var(--color-gray-100);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.upload-dropzone:hover {
+  border-color: var(--color-primary);
+  background: rgba(2, 73, 81, 0.05);
+}
+
+.upload-dropzone i {
+  width: 32px;
+  height: 32px;
+  color: var(--color-text-tertiary);
+}
+
+.upload-dropzone:hover i {
+  color: var(--color-primary);
+}
+
+.upload-dropzone__text {
+  font-size: var(--font-base);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.upload-dropzone__hint {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* ============================================
+ * AI Panel
+ * ============================================ */
+
+/* 참조 이미지 섹션 */
+.ai-reference-section {
+  margin-bottom: var(--space-lg);
+}
+
+.ai-reference-section__header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: var(--space-sm);
+}
+
+.ai-reference-section__label {
+  font-size: var(--font-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text);
+}
+
+.ai-reference-section__hint {
+  font-size: var(--caption-size);
+  font-weight: var(--caption-weight);
+  color: var(--color-text-tertiary);
+}
+
+/* 참조 이미지 드롭존 */
+.ai-reference-dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  height: 48px;
+  padding: 0 var(--space-md);
+  border: 1.5px dashed var(--color-border);
+  border-radius: 8px;
+  background: var(--color-gray-100);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--color-text-secondary);
+  font-size: var(--font-sm);
+}
+
+.ai-reference-dropzone:hover:not(.disabled) {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(2, 73, 81, 0.05);
+}
+
+/* 참조 이미지 드롭존 비활성화 상태 */
+.ai-reference-dropzone.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.ai-reference-dropzone i {
+  width: 20px;
+  height: 20px;
+}
+
+/* 참조 이미지 프리뷰 */
+.ai-reference-upload[hidden],
+.ai-reference-preview[hidden] {
+  display: none;
+}
+
+.ai-reference-preview {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--color-border);
+}
+
+.ai-reference-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 참조 이미지의 X 버튼은 .image-preview-item__remove 클래스를 공유합니다 */
+
+/* AI 생성 버튼 */
+.ai-generate-action {
+  width: 100%;
+  height: 48px;
+  padding: 0 var(--space-md);
+  margin-bottom: var(--space-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+}
+
+.ai-generate-action i {
+  width: 20px;
+  height: 20px;
+}
+
+/* AI 결과 섹션 */
+.ai-result-section {
+  margin-top: var(--space-lg);
+}
+
+.ai-result-section[hidden] {
+  display: none;
+}
+
+.ai-result-section__header {
+  margin-bottom: var(--space-sm);
+  text-align: center;
+}
+
+.ai-result-section__label {
+  font-size: var(--font-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text);
+}
+
+.ai-result-preview {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 3px solid var(--color-primary);
+}
+
+.ai-result-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ai-result-preview__regenerate {
+  position: absolute;
+  bottom: var(--space-sm);
+  right: var(--space-sm);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-xs) var(--space-sm);
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: var(--font-xs);
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.ai-result-preview__regenerate:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.ai-result-preview__regenerate i {
+  width: 14px;
+  height: 14px;
+}
+
+/* AI 로딩 상태 */
+.ai-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-2xl);
+  background: var(--color-gray-100);
+  border-radius: 12px;
+}
+
+.ai-loading[hidden] {
+  display: none;
+}
+
+.ai-loading__spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.ai-loading__text {
+  font-size: var(--font-sm);
+  color: var(--color-text-secondary);
+}
+
+/* 다중 이미지 프리뷰 컨테이너 */
+.image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.image-preview-item {
+  position: relative;
+  width: 120px;
+  height: 120px;
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid #ddd;
+  border: 2px solid var(--color-border);
+  cursor: grab;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
-.image-preview.show {
-  display: block;
+.image-preview-item:active {
+  cursor: grabbing;
 }
 
-.image-preview img {
+.image-preview-item.dragging {
+  opacity: 0.5;
+  transform: scale(1.05);
+}
+
+.image-preview-item.drag-over {
+  border-color: var(--color-primary);
+  border-style: dashed;
+}
+
+.image-preview-item.primary {
+  border-color: var(--color-primary);
+  border-width: 3px;
+}
+
+.image-preview-item img {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-preview-item__badge {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background: var(--color-primary);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.image-preview-item__remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: background 0.2s ease;
+}
+
+.image-preview-item__remove:hover {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.image-preview-item__remove svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* 대표 이미지 선택 버튼 */
+.image-preview-item__primary-btn {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity 0.2s ease,
+    background 0.2s ease;
+}
+
+.image-preview-item:hover .image-preview-item__primary-btn {
+  opacity: 1;
+}
+
+.image-preview-item__primary-btn:hover {
+  background: var(--color-primary);
+}
+
+/* 업로드 중 상태 */
+.image-preview-item.uploading {
+  cursor: default;
+  opacity: 0.7;
+}
+
+.image-preview-item__loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.image-preview-item__loading .spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.image-count {
+  color: var(--color-text-secondary);
+  font-size: var(--font-sm);
 }
 
 /* 버튼 그룹 */
 .button-group {
   display: flex;
-  gap: 1rem;
+  gap: var(--space-md);
   justify-content: flex-end;
-  margin-top: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid #eee;
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-2xl);
+  border-top: 1px solid var(--color-border-light);
 }
 
 /* 반응형 */
 @media (max-width: 768px) {
   .post-form-container {
-    padding: 0 0.5rem;
+    padding: 0 var(--space-xs);
   }
 
   .post-form-wrapper {
-    padding: 1.5rem;
+    padding: var(--space-xl);
   }
 
   .button-group {
@@ -180,5 +647,25 @@
 
   .button-group button {
     width: 100%;
+    height: 48px;
   }
+}
+
+/* ============================================
+ * AI 생성 횟수 표시
+ * ============================================ */
+
+.ai-generation-info {
+  font-size: var(--font-xs);
+  color: var(--color-text-tertiary);
+  text-align: right;
+}
+
+.ai-generation-info strong {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.ai-generation-info.exhausted strong {
+  color: var(--color-danger);
 }
