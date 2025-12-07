@@ -1,4 +1,4 @@
-import { del, get, patch, post } from '../httpClient.js';
+import { del, get, post } from '../httpClient.js';
 
 function assertPostId(postId) {
   if (postId === undefined || postId === null || postId === '') {
@@ -59,20 +59,6 @@ export async function getComments(
   }
 
   const response = await get(`/posts/${postId}/comments`, { query });
-  return response.data ?? null;
-}
-
-/**
- * 댓글 수정 (작성자)
- */
-export async function updateComment(commentId, { contents } = {}) {
-  assertCommentId(commentId);
-  validateContents(contents);
-
-  const response = await patch(`/comments/${commentId}`, {
-    body: { contents: contents.trim() },
-  });
-
   return response.data ?? null;
 }
 

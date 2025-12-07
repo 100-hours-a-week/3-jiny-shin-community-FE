@@ -11,8 +11,42 @@ class ApiError extends Error {
   }
 }
 
+const ABSOLUTE_URL_REGEX = /^[a-z][a-z\d+\-.]*:\/\//i;
+const PROTOCOL_RELATIVE_REGEX = /^\/\//;
+
+function normalizeRequestPath(path) {
+  if (path instanceof URL) {
+    return { value: path.toString(), absolute: true };
+  }
+
+  if (path === undefined || path === null) {
+    return { value: '', absolute: false };
+  }
+
+  const stringPath = String(path).trim();
+
+  if (stringPath === '') {
+    return { value: '', absolute: false };
+  }
+
+  if (
+    ABSOLUTE_URL_REGEX.test(stringPath) ||
+    PROTOCOL_RELATIVE_REGEX.test(stringPath)
+  ) {
+    return { value: stringPath, absolute: true };
+  }
+
+  return { value: stringPath.replace(/^\/+/, ''), absolute: false };
+}
+
 function buildUrl(path, query) {
-  const url = new URL(path, API_CONFIG.BASE_URL);
+  const { value, absolute } = normalizeRequestPath(path);
+
+  const baseUrl = API_CONFIG.BASE_URL.endsWith('/')
+    ? API_CONFIG.BASE_URL
+    : `${API_CONFIG.BASE_URL}/`;
+
+  const url = absolute ? new URL(value) : new URL(value, baseUrl);
 
   if (query && typeof query === 'object') {
     Object.entries(query).forEach(([key, value]) => {
@@ -105,7 +139,9 @@ async function baseRequest(path, options = {}) {
     !(body instanceof URLSearchParams) &&
     !(body instanceof Blob) &&
     !(body instanceof ArrayBuffer) &&
-    !(typeof ReadableStream !== 'undefined' && body instanceof ReadableStream) &&
+    !(
+      typeof ReadableStream !== 'undefined' && body instanceof ReadableStream
+    ) &&
     isJsonConvertibleBody(body);
 
   const requestInit = {
@@ -179,11 +215,11 @@ async function baseRequest(path, options = {}) {
       status: response.status,
       data:
         parsedBody && typeof parsedBody === 'object'
-          ? parsedBody.data ?? null
+          ? (parsedBody.data ?? null)
           : null,
       errors:
         parsedBody && typeof parsedBody === 'object'
-          ? parsedBody.errors ?? null
+          ? (parsedBody.errors ?? null)
           : null,
       raw: parsedBody,
     });
@@ -195,15 +231,15 @@ async function baseRequest(path, options = {}) {
     headers: response.headers,
     data:
       parsedBody && typeof parsedBody === 'object'
-        ? parsedBody.data ?? null
+        ? (parsedBody.data ?? null)
         : parsedBody,
     message:
       parsedBody && typeof parsedBody === 'object'
-        ? parsedBody.message ?? null
+        ? (parsedBody.message ?? null)
         : null,
     errors:
       parsedBody && typeof parsedBody === 'object'
-        ? parsedBody.errors ?? null
+        ? (parsedBody.errors ?? null)
         : null,
     raw: parsedBody,
   };

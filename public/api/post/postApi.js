@@ -36,19 +36,24 @@ function normalizeImageIds(imageIds, { defaultValue } = {}) {
 /**
  * 게시글 작성
  */
-export async function createPost({ title, content, imageIds } = {}) {
+export async function createPost({ title, content, imageIds, primaryImageId } = {}) {
   validateTitle(title);
   validateContent(content);
 
   const normalizedImageIds = normalizeImageIds(imageIds, { defaultValue: [] });
 
-  const response = await post('/posts', {
-    body: {
-      title: title.trim(),
-      content: content.trim(),
-      imageIds: normalizedImageIds,
-    },
-  });
+  const body = {
+    title: title.trim(),
+    content: content.trim(),
+    imageIds: normalizedImageIds,
+  };
+
+  // 대표 이미지 ID가 있고 imageIds에 포함되어 있으면 추가
+  if (primaryImageId !== undefined && normalizedImageIds.includes(primaryImageId)) {
+    body.primaryImageId = primaryImageId;
+  }
+
+  const response = await post('/posts', { body });
 
   return response.data ?? null;
 }
@@ -127,4 +132,29 @@ export async function deletePost(postId) {
 
   const response = await del(`/posts/${postId}`, { parseJson: true });
   return response.data ?? null;
+}
+
+/**
+ * 내가 작성한 게시글 목록 조회
+ * @param {Object} options - 조회 옵션
+ * @param {number} options.cursor - 커서 (페이지네이션)
+ * @param {string} options.sort - 정렬 방식 (asc/desc)
+ * @param {number} options.limit - 페이지당 게시글 수
+ * @returns {Promise<{posts: Array, count: number, nextCursor: number|null}>}
+ */
+export async function getMyPosts({ cursor, sort = 'desc', limit = 20 } = {}) {
+  const safeLimit = Math.min(Math.max(Number(limit) || 20, 1), 50);
+  const safeSort = sort === 'asc' ? 'asc' : 'desc';
+
+  const query = {
+    sort: safeSort,
+    limit: safeLimit,
+  };
+
+  if (cursor !== undefined && cursor !== null && cursor !== '') {
+    query.cursor = cursor;
+  }
+
+  const response = await get('/posts/me', { query });
+  return response.data ?? { posts: [], count: 0, nextCursor: null };
 }

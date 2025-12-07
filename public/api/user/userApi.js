@@ -2,13 +2,9 @@ import { del, get, patch, post } from '../httpClient.js';
 
 /**
  * 회원가입
+ * API: POST /api/users
  */
-export async function signUp({
-  email,
-  nickname,
-  password,
-  profileImageId = null,
-}) {
+export async function signUp({ email, nickname, password, profileImageId }) {
   if (!email || typeof email !== 'string') {
     throw new Error('이메일을 입력해주세요.');
   }
@@ -21,14 +17,15 @@ export async function signUp({
     throw new Error('비밀번호를 입력해주세요.');
   }
 
+  const body = { email, nickname, password };
+
+  if (profileImageId !== undefined && profileImageId !== null) {
+    body.profileImageId = profileImageId;
+  }
+
   const response = await post('/users', {
-    body: {
-      email,
-      nickname,
-      password,
-      profileImageId,
-    },
-    withCredentials: false,
+    body,
+    withCredentials: true, // 세션 쿠키 받기 위해 true
   });
 
   return response.data ?? null;
@@ -127,4 +124,27 @@ export async function checkNicknameAvailability(nickname) {
 export async function deleteCurrentUser() {
   const response = await del('/users/me', { parseJson: true });
   return response.data ?? null;
+}
+
+/**
+ * 프로필 이미지 삭제
+ */
+export async function deleteProfileImage() {
+  const response = await del('/users/me/profile-image', { parseJson: true });
+  return response.data ?? null;
+}
+
+/**
+ * 현재 비밀번호 확인
+ */
+export async function verifyPassword(password) {
+  if (!password || typeof password !== 'string') {
+    throw new Error('비밀번호를 입력해주세요.');
+  }
+
+  const response = await post('/users/me/verify-password', {
+    body: { password },
+  });
+
+  return response.data ?? { valid: false };
 }
