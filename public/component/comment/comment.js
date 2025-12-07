@@ -1,13 +1,15 @@
+import { createAvatar } from '../avatar/avatar.js';
+
 /**
  * 댓글 컴포넌트 생성 함수
  * @param {Object} commentData - 댓글 데이터 객체
  * @param {string} commentData.id - 댓글 ID
  * @param {string} commentData.author - 작성자 닉네임
- * @param {string} commentData.profileImage - 프로필 이미지 경로 (선택적, 기본값: /assets/icon/profile_default.jpg)
+ * @param {string} commentData.profileImage - 프로필 이미지 URL (선택적, 없으면 CSS 아바타 표시)
  * @param {string} commentData.content - 댓글 내용
  * @param {string} commentData.createdAt - 작성 시간 (ISO 형식 또는 표시 형식)
- * @param {boolean} commentData.isAuthor - 현재 사용자가 작성자인지 여부 (수정/삭제 버튼 표시)
- * @param {Function} commentData.onEdit - 수정 버튼 클릭 핸들러 (선택적)
+ * @param {boolean} commentData.isAuthor - 현재 사용자가 작성자인지 여부 (삭제 버튼 표시)
+ * @param {boolean} commentData.isDeleted - 삭제된 댓글 여부
  * @param {Function} commentData.onDelete - 삭제 버튼 클릭 핸들러 (선택적)
  * @returns {HTMLElement} 생성된 댓글 DOM 엘리먼트
  */
@@ -15,77 +17,95 @@ export function createComment(commentData) {
   const {
     id,
     author,
-    profileImage = '/assets/icon/profile_default.jpg',
+    profileImage = null,
     content,
     createdAt,
     isAuthor = false,
-    onEdit = null,
+    isDeleted = false,
     onDelete = null,
   } = commentData;
 
-  // 댓글 컨테이너 생성
-  const commentEl = document.createElement('div');
+  const commentEl = document.createElement('article');
   commentEl.className = 'comment';
   commentEl.dataset.commentId = id;
 
-  // 작성자 정보 섹션
-  const authorEl = document.createElement('div');
-  authorEl.className = 'comment__author';
+  if (isDeleted) {
+    commentEl.classList.add('comment--deleted');
+  }
 
-  const profileImg = document.createElement('img');
-  profileImg.src = profileImage;
-  profileImg.alt = `${author} 프로필`;
+  const avatarEl = document.createElement('div');
+  avatarEl.className = 'comment__avatar';
+  const avatar = createAvatar({
+    nickname: author ?? '익명',
+    imageUrl: profileImage,
+    size: 'sm',
+  });
+  avatarEl.appendChild(avatar);
+
+  const bodyEl = document.createElement('div');
+  bodyEl.className = 'comment__body';
+
+  const metaRow = document.createElement('div');
+  metaRow.className = 'comment__meta-row';
 
   const metaEl = document.createElement('div');
   metaEl.className = 'comment__meta';
 
   const nicknameEl = document.createElement('span');
-  nicknameEl.className = 'nickname';
-  nicknameEl.textContent = author;
+  nicknameEl.className = 'comment__author-name';
+  nicknameEl.textContent = author ?? '익명';
 
-  const dateEl = document.createElement('span');
-  dateEl.className = 'date';
+  const dotEl = document.createElement('span');
+  dotEl.className = 'comment__dot';
+  dotEl.setAttribute('aria-hidden', 'true');
+
+  const dateEl = document.createElement('time');
+  dateEl.className = 'comment__date';
+  const dateValue = new Date(createdAt);
+  if (!Number.isNaN(dateValue.getTime())) {
+    dateEl.dateTime = dateValue.toISOString();
+  }
   dateEl.textContent = formatDate(createdAt);
 
   metaEl.appendChild(nicknameEl);
+  metaEl.appendChild(dotEl);
   metaEl.appendChild(dateEl);
 
-  authorEl.appendChild(profileImg);
-  authorEl.appendChild(metaEl);
+  metaRow.appendChild(metaEl);
 
-  // 댓글 내용
-  const contentEl = document.createElement('p');
-  contentEl.className = 'comment__content';
-  contentEl.textContent = content;
+  const actionsEl = document.createElement('div');
+  actionsEl.className = 'comment__actions';
 
-  // 컨테이너에 추가
-  commentEl.appendChild(authorEl);
-  commentEl.appendChild(contentEl);
-
-  // 작성자인 경우에만 수정/삭제 버튼 표시
-  if (isAuthor) {
-    const actionsEl = document.createElement('div');
-    actionsEl.className = 'comment__actions';
-
-    const editBtn = document.createElement('button');
-    editBtn.className = 'btn btn--outline';
-    editBtn.textContent = '수정';
-    if (onEdit) {
-      editBtn.addEventListener('click', () => onEdit(id, content));
-    }
-
+  if (isAuthor && !isDeleted && typeof onDelete === 'function') {
     const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'btn btn--outline btn--danger';
-    deleteBtn.textContent = '삭제';
-    if (onDelete) {
-      deleteBtn.addEventListener('click', () => onDelete(id));
-    }
-
-    actionsEl.appendChild(editBtn);
+    deleteBtn.type = 'button';
+    deleteBtn.className = 'comment__action comment__action--delete';
+    deleteBtn.title = '댓글 삭제';
+    deleteBtn.setAttribute('aria-label', '댓글 삭제');
+    deleteBtn.innerHTML = '<i data-lucide="trash-2" aria-hidden="true"></i>';
+    deleteBtn.addEventListener('click', () => onDelete(id));
     actionsEl.appendChild(deleteBtn);
-
-    commentEl.appendChild(actionsEl);
   }
+
+  if (actionsEl.children.length > 0) {
+    metaRow.appendChild(actionsEl);
+  }
+
+  const contentWrapper = document.createElement('div');
+  contentWrapper.className = 'comment__content';
+  if (isDeleted) {
+    contentWrapper.classList.add('comment__content--deleted');
+  }
+
+  const paragraph = document.createElement('p');
+  paragraph.textContent = isDeleted ? '삭제된 댓글입니다.' : content ?? '';
+  contentWrapper.appendChild(paragraph);
+
+  bodyEl.appendChild(metaRow);
+  bodyEl.appendChild(contentWrapper);
+
+  commentEl.appendChild(avatarEl);
+  commentEl.appendChild(bodyEl);
 
   return commentEl;
 }
@@ -136,4 +156,8 @@ export function renderComments(container, comments) {
     const commentEl = createComment(comment);
     container.appendChild(commentEl);
   });
+
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
 }

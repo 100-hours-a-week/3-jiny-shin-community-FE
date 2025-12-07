@@ -20,7 +20,7 @@ export function initHeaderEvents() {
   if (title) {
     title.style.cursor = 'pointer';
     title.addEventListener('click', () => {
-      window.location.href = '/pages/home/home.html';
+      window.location.href = '/feed';
     });
   }
 
@@ -29,7 +29,7 @@ export function initHeaderEvents() {
   if (profileImg) {
     profileImg.style.cursor = 'pointer';
     profileImg.addEventListener('click', () => {
-      window.location.href = '/pages/profile/profile.html';
+      window.location.href = '/profile';
     });
   }
 }

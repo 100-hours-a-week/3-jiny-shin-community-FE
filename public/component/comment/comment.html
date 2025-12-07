@@ -1,15 +1,27 @@
-<div class="comment" data-comment-id="">
-  <div class="comment__author">
-    <img src="" alt="" />
-    <div class="comment__meta">
-      <span class="nickname"></span>
-      <span class="date"></span>
+<article class="comment" data-comment-id="">
+  <div class="comment__avatar">
+    <img src="" alt="프로필 이미지" />
+  </div>
+  <div class="comment__body">
+    <div class="comment__meta-row">
+      <div class="comment__meta">
+        <span class="comment__author-name"></span>
+        <span class="comment__dot" aria-hidden="true"></span>
+        <time class="comment__date"></time>
+      </div>
+      <div class="comment__actions">
+        <button
+          class="comment__action comment__action--delete"
+          type="button"
+          title="댓글 삭제"
+          aria-label="댓글 삭제"
+        >
+          <i data-lucide="trash-2" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <div class="comment__content">
+      <p></p>
     </div>
   </div>
-  <p class="comment__content"></p>
-  <!-- isAuthor가 true일 때만 표시됨 -->
-  <div class="comment__actions">
-    <button class="btn btn--outline">수정</button>
-    <button class="btn btn--outline btn--danger">삭제</button>
-  </div>
-</div>
+</article>

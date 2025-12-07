@@ -1,0 +1,62 @@
+/**
+ * Bottom Navigation Component
+ * 3개 메뉴: 홈, 글쓰기, 프로필
+ */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border-light);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: var(--z-fixed);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bottom-nav__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--color-text-tertiary);
+  text-decoration: none;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-default);
+  min-width: 64px;
+}
+
+.bottom-nav__item:hover {
+  color: var(--color-text-secondary);
+}
+
+.bottom-nav__item.active {
+  color: var(--color-primary);
+}
+
+.bottom-nav__item svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 1.5;
+}
+
+.bottom-nav__item span {
+  font-size: var(--font-xs);
+  font-weight: 500;
+}
+
+/* Desktop: 중앙 정렬 */
+@media (min-width: 769px) {
+  .bottom-nav {
+    max-width: var(--content-max-width);
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    box-shadow: var(--shadow-md);
+  }
+}
