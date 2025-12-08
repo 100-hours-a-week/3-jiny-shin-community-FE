@@ -475,6 +475,7 @@
 .image-preview-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-sm);
   margin-top: var(--space-md);
 }
@@ -568,7 +569,7 @@
   font-size: 11px;
   font-weight: 600;
   cursor: pointer;
-  opacity: 0;
+  opacity: 0.3;
   transition:
     opacity 0.2s ease,
     background 0.2s ease;

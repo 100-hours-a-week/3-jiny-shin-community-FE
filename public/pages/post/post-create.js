@@ -1025,7 +1025,6 @@ async function handleSubmit(e) {
     });
     uploadedImages = [];
 
-    showToast('게시글이 등록되었습니다.', 'success');
     window.location.href = `/post/${result.postId}`;
   } catch (error) {
     showToast(error.message || '게시글 등록에 실패했습니다.', 'error');
@@ -1135,9 +1134,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 제목 입력 이벤트
   titleInput.addEventListener('input', e => {
+    // 26자 초과 시 자동으로 자르기 (내용과 동일한 방식)
+    const maxLength = 26;
+    if (e.target.value.length > maxLength) {
+      e.target.value = e.target.value.slice(0, maxLength);
+    }
+
     const count = e.target.value.length;
     document.getElementById('title-char-count').textContent = `${count}/26`;
-    if (count > 0) validateTitle();
     scheduleDraftSave();
   });
 
@@ -1145,6 +1149,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 내용 입력 이벤트
   contentInput.addEventListener('input', e => {
+    // 10,000자 초과 시 자동으로 자르기 (제목처럼 동작)
+    const maxLength = 10000;
+    if (e.target.value.length > maxLength) {
+      e.target.value = e.target.value.slice(0, maxLength);
+    }
+
     const count = e.target.value.length;
     const charCountEl = document.getElementById('content-char-count');
     if (charCountEl) {
