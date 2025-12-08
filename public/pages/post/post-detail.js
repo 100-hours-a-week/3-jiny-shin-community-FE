@@ -398,6 +398,7 @@ async function handleSubmitComment(event) {
   try {
     await createCommentApi(postId, { contents });
     textarea.value = '';
+    textarea.style.height = 'auto';
     await Promise.all([loadComments(), refreshPost()]);
   } catch (error) {
     showToast(error.message || '댓글 작성에 실패했습니다.', 'error');
@@ -585,6 +586,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (commentForm) {
     commentForm.addEventListener('submit', handleSubmitComment);
+  }
+
+  // 댓글 textarea 자동 높이 조절
+  const commentTextarea = document.getElementById('comment-textarea');
+  if (commentTextarea) {
+    commentTextarea.addEventListener('input', () => {
+      commentTextarea.style.height = 'auto';
+      commentTextarea.style.height = Math.min(commentTextarea.scrollHeight, 100) + 'px';
+    });
   }
 
   // 캐러셀 이벤트
