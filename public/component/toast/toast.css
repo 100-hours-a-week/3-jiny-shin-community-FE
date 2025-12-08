@@ -16,7 +16,7 @@
 }
 
 .toast {
-  background: var(--color-text);
+  background: var(--color-toast-default);
   color: white;
   padding: var(--space-sm) var(--space-lg);
   border-radius: var(--radius-sm);
@@ -57,15 +57,15 @@
 
 /* Toast Variants */
 .toast--success {
-  background: var(--color-primary);
+  background: var(--color-toast-success);
 }
 
 .toast--error {
-  background: var(--color-danger);
+  background: var(--color-toast-error);
 }
 
 .toast--info {
-  background: var(--color-text-secondary);
+  background: var(--color-toast-info);
 }
 
 /* Responsive */

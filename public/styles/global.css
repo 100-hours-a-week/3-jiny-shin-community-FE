@@ -38,6 +38,12 @@
   --color-success: #024951;
   --color-like-active: #e11d48;
 
+  /* Toast Colors (반투명 - UI 요소와 구분) */
+  --color-toast-default: rgba(50, 50, 50, 0.92);
+  --color-toast-success: rgba(50, 50, 50, 0.92);
+  --color-toast-error: rgba(185, 28, 28, 0.92);
+  --color-toast-info: rgba(80, 80, 80, 0.92);
+
   /* Legacy support (이전 코드 호환) */
   --color-primary-dark: #013a40;
   --color-primary-shadow: rgba(2, 73, 81, 0.3);
