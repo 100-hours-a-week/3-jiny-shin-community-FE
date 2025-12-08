@@ -1,4 +1,4 @@
-import API_CONFIG from './api-config.js';
+import API_CONFIG, { initConfig } from './api-config.js';
 
 class ApiError extends Error {
   constructor(message, { status, data, errors, raw } = {}) {
@@ -127,6 +127,9 @@ function isJsonConvertibleBody(body) {
 }
 
 async function baseRequest(path, options = {}) {
+  // API 설정이 로드될 때까지 대기 (BASE_URL 필요)
+  await initConfig();
+
   const {
     method = 'GET',
     headers,
@@ -214,7 +217,7 @@ async function baseRequest(path, options = {}) {
   if (!response.ok) {
     const message =
       (parsedBody && typeof parsedBody === 'object' && parsedBody.message) ||
-      `Request failed with status ${response.status}`;
+      `요청이 실패했습니다. (상태 코드: ${response.status})`;
 
     throw new ApiError(message, {
       status: response.status,

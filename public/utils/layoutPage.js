@@ -1,4 +1,5 @@
 import { loadLayout } from './layout.js';
+import { initConfig } from '../services/api-config.js';
 
 let cachedLayoutMarkup = '';
 
@@ -32,6 +33,9 @@ async function createLayoutRoot() {
  * @param {string} templateId - The id attribute for the <template> element containing page markup.
  */
 export async function renderPageLayout(templateId) {
+  // API 설정을 먼저 로드 (API 호출 전에 BASE_URL이 설정되어야 함)
+  await initConfig();
+
   const template = document.getElementById(templateId);
   if (!template) {
     throw new Error(`Layout template "${templateId}" not found in document`);
