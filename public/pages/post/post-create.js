@@ -315,18 +315,29 @@ function getProfileImageUrl(user) {
 }
 
 function hasProfileImage() {
+  // currentUser가 없으면 false
+  if (!currentUser) {
+    logger.debug('[프로필 체크] currentUser 없음');
+    return false;
+  }
+
   const profileUrl = getProfileImageUrl(currentUser);
-  if (!profileUrl) {
+
+  // URL이 없거나 빈 문자열이면 false
+  if (!profileUrl || profileUrl.trim() === '') {
     logger.debug('[프로필 체크] 프로필 이미지 없음, currentUser:', currentUser);
     return false;
   }
+
   // 기본 아바타 URL 패턴 체크 (필요 시 조정)
   const defaultAvatarPatterns = [
     '/assets/icon/profile_default',
     'default_avatar',
+    'default-avatar',
+    'placeholder',
   ];
   const isDefault = defaultAvatarPatterns.some(pattern =>
-    profileUrl.includes(pattern)
+    profileUrl.toLowerCase().includes(pattern.toLowerCase())
   );
   logger.debug('[프로필 체크] URL:', profileUrl, '기본아바타:', isDefault);
   return !isDefault;
@@ -389,17 +400,55 @@ function initTabs() {
   const tabManual = document.getElementById('tab-manual');
   const tabAi = document.getElementById('tab-ai');
 
-  tabManual?.addEventListener('click', () => handleTabChange('manual'));
-  tabAi?.addEventListener('click', () => handleTabChange('ai'));
+  tabManual?.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    handleTabChange('manual');
+  });
+
+  tabAi?.addEventListener('click', e => {
+    e.preventDefault();
+    e.stopPropagation();
+    handleTabChange('ai');
+  });
+
+  // 프로필 사진 상태에 따라 AI 탭 상태 업데이트
+  updateAiTabAvailability();
+}
+
+/**
+ * 프로필 사진 유무에 따라 AI 탭 가용성 업데이트
+ */
+function updateAiTabAvailability() {
+  const tabAi = document.getElementById('tab-ai');
+  const generateBtn = document.getElementById('ai-generate-btn');
+  const referenceInput = document.getElementById('ai-reference-input');
+  const referenceDropzone = document.getElementById('ai-reference-dropzone');
+
+  const canUse = canUseAiMode();
+
+  if (tabAi) {
+    tabAi.classList.toggle('unavailable', !canUse);
+  }
+
+  // AI 모드 내부 버튼들도 비활성화
+  if (!canUse) {
+    if (generateBtn) generateBtn.disabled = true;
+    if (referenceInput) referenceInput.disabled = true;
+    if (referenceDropzone) referenceDropzone.classList.add('disabled');
+  }
 }
 
 function handleTabChange(newMode) {
   if (newMode === imageMode) return;
 
-  // AI 모드로 전환 시 프로필 사진 확인
-  if (newMode === 'ai' && !canUseAiMode()) {
-    showToast('AI 기능은 프로필 사진 등록 후 이용 가능합니다.', 'info');
-    return;
+  // AI 모드로 전환 시 프로필 사진 확인 (currentUser 로드 여부도 체크)
+  if (newMode === 'ai') {
+    if (!currentUser || !canUseAiMode()) {
+      showToast('AI 기능은 프로필 사진 등록 후 이용 가능합니다.', 'info');
+      logger.debug('[탭 전환] AI 모드 전환 차단 - currentUser:', currentUser, 'canUseAiMode:', canUseAiMode());
+      return;
+    }
   }
 
   // 현재 모드에 이미지가 있는지 확인

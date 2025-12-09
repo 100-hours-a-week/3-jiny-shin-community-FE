@@ -191,6 +191,12 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+/* 프로필 사진 없을 때 AI 탭 비가용 상태 */
+.image-tabs__tab.unavailable {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .image-tabs__tab i {
   width: 18px;
   height: 18px;
