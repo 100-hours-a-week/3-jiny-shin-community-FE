@@ -221,6 +221,23 @@
   gap: var(--space-sm);
 }
 
+/* Loading Spinner (Infinite Scroll) */
+.my-posts-section .posts-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  color: var(--color-text-tertiary);
+  font-size: var(--font-sm);
+}
+
+/* Scroll Sentinel */
+.my-posts-section .scroll-sentinel {
+  height: 1px;
+  width: 100%;
+}
+
 /* Empty State */
 .empty-state {
   display: flex;

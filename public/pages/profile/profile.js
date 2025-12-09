@@ -13,6 +13,13 @@ import { logger } from '../../../utils/logger.js';
 
 let currentUser = null;
 
+// 내 게시글 페이징 상태
+const MY_POSTS_PAGE_SIZE = 20;
+let myPostsNextCursor = null;
+let myPostsHasNext = true;
+let myPostsIsLoading = false;
+let myPostsIsInitialLoad = true;
+
 // ============ 프로필 로드 ============
 
 async function loadProfile() {
@@ -78,28 +85,101 @@ async function loadProfile() {
 
 // ============ 내 게시글 로드 ============
 
+/**
+ * 로딩 스피너 생성
+ */
+function createMyPostsLoadingSpinner() {
+  const spinner = document.createElement('div');
+  spinner.id = 'my-posts-loading';
+  spinner.className = 'posts-loading';
+
+  const dot = document.createElement('span');
+  dot.className = 'post-card__loading-dot';
+
+  const text = document.createElement('span');
+  text.textContent = '게시글을 불러오는 중...';
+
+  spinner.appendChild(dot);
+  spinner.appendChild(text);
+  return spinner;
+}
+
+/**
+ * 로딩 스피너 표시
+ */
+function showMyPostsLoading() {
+  const postsList = document.getElementById('postsList');
+  if (!postsList) return;
+
+  let spinner = document.getElementById('my-posts-loading');
+  if (!spinner) {
+    spinner = createMyPostsLoadingSpinner();
+    postsList.after(spinner);
+  }
+  spinner.style.display = 'flex';
+}
+
+/**
+ * 로딩 스피너 숨김
+ */
+function hideMyPostsLoading() {
+  const spinner = document.getElementById('my-posts-loading');
+  if (spinner) {
+    spinner.style.display = 'none';
+  }
+}
+
+/**
+ * 내 게시글 목록 로드 (인피니티 스크롤)
+ */
 async function loadMyPosts() {
+  // 로딩 중이거나 더 이상 데이터가 없으면 종료
+  if (myPostsIsLoading || !myPostsHasNext) return;
+
   const postsList = document.getElementById('postsList');
   const emptyState = document.getElementById('emptyState');
   const postsCount = document.getElementById('postsCount');
 
+  if (!postsList) return;
+
+  myPostsIsLoading = true;
+
+  // 초기 로드 시 컨테이너 초기화
+  if (myPostsIsInitialLoad) {
+    postsList.innerHTML = '';
+  }
+
+  showMyPostsLoading();
+
   try {
-    const result = await getMyPosts({ limit: 50 });
+    const result = await getMyPosts({
+      cursor: myPostsNextCursor,
+      limit: MY_POSTS_PAGE_SIZE,
+    });
+
     const posts = result?.posts ?? [];
+    myPostsHasNext = result?.hasNext ?? false;
+    myPostsNextCursor = result?.nextCursor ?? null;
 
-    // 게시글 수 업데이트 (0이면 숨김)
-    const count = result?.count ?? posts.length;
-    postsCount.textContent = count > 0 ? `${count}개` : '';
+    // 게시글 수 업데이트 (초기 로드 시에만)
+    if (myPostsIsInitialLoad) {
+      const count = result?.count ?? posts.length;
+      postsCount.textContent = count > 0 ? `${count}개` : '';
+    }
 
-    if (posts.length === 0) {
+    // 초기 로드인데 데이터가 없으면 빈 상태 표시
+    if (myPostsIsInitialLoad && posts.length === 0) {
       postsList.innerHTML = '';
       emptyState.removeAttribute('hidden');
+      hideMyPostsLoading();
+      myPostsIsLoading = false;
+      myPostsIsInitialLoad = false;
       return;
     }
 
     emptyState.setAttribute('hidden', '');
-    postsList.innerHTML = '';
 
+    // 게시글 카드 추가
     posts.forEach(post => {
       const postCard = createPostCard(post);
       if (postCard) {
@@ -111,11 +191,64 @@ async function loadMyPosts() {
     if (typeof lucide !== 'undefined') {
       lucide.createIcons();
     }
+
+    myPostsIsInitialLoad = false;
   } catch (error) {
     logger.error('내 게시글을 불러오지 못했습니다.', error);
-    postsCount.textContent = '';
-    postsList.innerHTML = '';
-    emptyState.removeAttribute('hidden');
+    if (myPostsIsInitialLoad) {
+      postsCount.textContent = '';
+      postsList.innerHTML = '';
+      emptyState.removeAttribute('hidden');
+    }
+  } finally {
+    hideMyPostsLoading();
+    myPostsIsLoading = false;
+  }
+}
+
+// Intersection Observer 인스턴스 (정리용)
+let myPostsScrollObserver = null;
+
+/**
+ * 내 게시글 인피니티 스크롤 설정 (Intersection Observer)
+ */
+function setupMyPostsInfiniteScroll() {
+  const postsList = document.getElementById('postsList');
+  if (!postsList) return;
+
+  // 센티넬 요소 생성
+  const sentinel = document.createElement('div');
+  sentinel.id = 'my-posts-scroll-sentinel';
+  sentinel.className = 'scroll-sentinel';
+  sentinel.setAttribute('aria-hidden', 'true');
+  postsList.after(sentinel);
+
+  // Intersection Observer 설정
+  myPostsScrollObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !myPostsIsLoading && myPostsHasNext) {
+          loadMyPosts();
+        }
+      });
+    },
+    {
+      root: null,
+      rootMargin: '100px',
+      threshold: 0,
+    }
+  );
+
+  myPostsScrollObserver.observe(sentinel);
+}
+
+/**
+ * 인피니티 스크롤 정리
+ */
+function cleanupMyPostsInfiniteScroll() {
+  if (myPostsScrollObserver) {
+    myPostsScrollObserver.disconnect();
+    myPostsScrollObserver = null;
   }
 }
 
@@ -256,6 +389,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   await renderPageLayout('layout-template');
   await loadProfile();
   await loadMyPosts();
+  setupMyPostsInfiniteScroll();
   initSettingsMenu();
   initEventListeners();
 });
+
+// 페이지 이탈 시 Observer 정리
+window.addEventListener('pagehide', cleanupMyPostsInfiniteScroll);
