@@ -31,6 +31,14 @@ let startX = 0;
 let currentX = 0;
 let dragThreshold = 50; // 스와이프 감지 임계값
 
+// 댓글 페이징 상태
+const COMMENTS_PAGE_SIZE = 20;
+let commentsNextCursor = null;
+let commentsHasNext = true;
+let commentsIsLoading = false;
+let allComments = []; // 전체 댓글 저장 (오래된 순 정렬용)
+let commentsTotalCount = 0;
+
 /**
  * 404 콘텐츠를 현재 페이지에 렌더링 (URL 변경 없음)
  */
@@ -332,15 +340,86 @@ function createCommentElement(comment) {
   return commentEl;
 }
 
-function renderComments(comments, totalCount) {
+/**
+ * 댓글 로딩 스피너 생성
+ */
+function createCommentsLoadingSpinner() {
+  const spinner = document.createElement('div');
+  spinner.id = 'comments-loading';
+  spinner.className = 'comments-loading';
+
+  const dot = document.createElement('span');
+  dot.className = 'post-card__loading-dot';
+
+  const text = document.createElement('span');
+  text.textContent = '댓글을 불러오는 중...';
+
+  spinner.appendChild(dot);
+  spinner.appendChild(text);
+  return spinner;
+}
+
+/**
+ * 댓글 로딩 스피너 표시
+ */
+function showCommentsLoading() {
+  const commentsList = document.getElementById('comments-list');
+  if (!commentsList) return;
+
+  let spinner = document.getElementById('comments-loading');
+  if (!spinner) {
+    spinner = createCommentsLoadingSpinner();
+    // 댓글 목록 맨 위에 로딩 표시 (더보기 버튼 위치)
+    commentsList.prepend(spinner);
+  }
+  spinner.style.display = 'flex';
+}
+
+/**
+ * 댓글 로딩 스피너 숨김
+ */
+function hideCommentsLoading() {
+  const spinner = document.getElementById('comments-loading');
+  if (spinner) {
+    spinner.style.display = 'none';
+  }
+}
+
+/**
+ * "더보기" 버튼 표시/숨김
+ */
+function updateLoadMoreButton() {
+  const commentsList = document.getElementById('comments-list');
+  if (!commentsList) return;
+
+  let loadMoreBtn = document.getElementById('comments-load-more');
+
+  if (commentsHasNext) {
+    if (!loadMoreBtn) {
+      loadMoreBtn = document.createElement('button');
+      loadMoreBtn.id = 'comments-load-more';
+      loadMoreBtn.className = 'comments-load-more btn btn--outline';
+      loadMoreBtn.textContent = '이전 댓글 더보기';
+      loadMoreBtn.addEventListener('click', loadMoreComments);
+      commentsList.prepend(loadMoreBtn);
+    }
+    loadMoreBtn.style.display = 'block';
+  } else if (loadMoreBtn) {
+    loadMoreBtn.style.display = 'none';
+  }
+}
+
+/**
+ * 댓글 목록 렌더링 (전체 다시 렌더링)
+ */
+function renderComments() {
   const commentsList = document.getElementById('comments-list');
   const commentsEmpty = document.getElementById('comments-empty');
   const commentCountLabel = document.getElementById('comment-count-label');
 
-  const count = totalCount ?? comments.length ?? 0;
-  commentCountLabel.textContent = count;
+  commentCountLabel.textContent = commentsTotalCount;
 
-  if (!comments.length) {
+  if (allComments.length === 0) {
     commentsEmpty.classList.add('show');
     commentsList.innerHTML = '';
     if (typeof lucide !== 'undefined') {
@@ -350,11 +429,22 @@ function renderComments(comments, totalCount) {
   }
 
   commentsEmpty.classList.remove('show');
+
+  // 기존 댓글만 제거 (더보기 버튼, 로딩 스피너 유지)
+  const existingComments = commentsList.querySelectorAll('.comment');
+  existingComments.forEach(el => el.remove());
+
+  // 오래된 댓글이 위, 최신 댓글이 아래 순으로 정렬
+  const sortedComments = [...allComments].sort((a, b) => a.id - b.id);
+
   const fragment = document.createDocumentFragment();
-  comments.forEach(comment => {
+  sortedComments.forEach(comment => {
     fragment.appendChild(createCommentElement(comment));
   });
-  commentsList.replaceChildren(fragment);
+  commentsList.appendChild(fragment);
+
+  // 더보기 버튼 업데이트
+  updateLoadMoreButton();
 
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
@@ -373,22 +463,94 @@ async function refreshPost() {
   }
 }
 
+/**
+ * 댓글 페이징 상태 초기화
+ */
+function resetCommentsState() {
+  commentsNextCursor = null;
+  commentsHasNext = true;
+  commentsIsLoading = false;
+  allComments = [];
+  commentsTotalCount = 0;
+}
+
+/**
+ * 댓글 목록 초기 로드 (최신 댓글부터 - desc)
+ */
 async function loadComments() {
   const postId = getPostIdFromUrl();
   if (!postId) return;
 
+  // 상태 초기화
+  resetCommentsState();
+
+  commentsIsLoading = true;
+  showCommentsLoading();
+
   try {
-    const result = await getComments(postId, { limit: 20 });
+    // 최신 댓글부터 가져옴 (desc)
+    const result = await getComments(postId, {
+      limit: COMMENTS_PAGE_SIZE,
+      sort: 'desc',
+    });
+
     const comments = result?.comments ?? [];
-    // 오래된 댓글이 위, 최신 댓글이 아래 (등록란 바로 위에 새 댓글)
-    const sortedComments = [...comments].reverse();
-    renderComments(sortedComments, result?.count);
-    document.getElementById('comments-count').textContent = formatCount(
-      result?.count ?? comments.length
-    );
+    commentsHasNext = result?.hasNext ?? false;
+    commentsNextCursor = result?.nextCursor ?? null;
+    commentsTotalCount = result?.count ?? comments.length;
+
+    // 전체 댓글 배열에 추가
+    allComments = [...comments];
+
+    renderComments();
+
+    document.getElementById('comments-count').textContent =
+      formatCount(commentsTotalCount);
   } catch (error) {
     logger.error('댓글 목록 로드 에러:', error);
-    renderComments([], 0);
+    allComments = [];
+    commentsTotalCount = 0;
+    renderComments();
+  } finally {
+    hideCommentsLoading();
+    commentsIsLoading = false;
+  }
+}
+
+/**
+ * 이전 댓글 더 불러오기
+ */
+async function loadMoreComments() {
+  if (commentsIsLoading || !commentsHasNext) return;
+
+  const postId = getPostIdFromUrl();
+  if (!postId) return;
+
+  commentsIsLoading = true;
+  showCommentsLoading();
+
+  try {
+    const result = await getComments(postId, {
+      cursor: commentsNextCursor,
+      limit: COMMENTS_PAGE_SIZE,
+      sort: 'desc',
+    });
+
+    const comments = result?.comments ?? [];
+    commentsHasNext = result?.hasNext ?? false;
+    commentsNextCursor = result?.nextCursor ?? null;
+
+    // 기존 댓글에 추가 (중복 제거)
+    const existingIds = new Set(allComments.map(c => c.id));
+    const newComments = comments.filter(c => !existingIds.has(c.id));
+    allComments = [...allComments, ...newComments];
+
+    renderComments();
+  } catch (error) {
+    logger.error('댓글 더보기 로드 에러:', error);
+  } finally {
+    hideCommentsLoading();
+    commentsIsLoading = false;
   }
 }
 

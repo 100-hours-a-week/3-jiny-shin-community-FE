@@ -285,6 +285,23 @@
   flex-direction: column;
 }
 
+/* 댓글 더보기 버튼 */
+.comments-load-more {
+  margin-bottom: var(--space-md);
+  width: 100%;
+}
+
+/* 댓글 로딩 스피너 */
+.comments-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  color: var(--color-text-tertiary);
+  font-size: var(--font-sm);
+}
+
 /* 댓글 없음 메시지 */
 .comments-empty {
   display: none;
