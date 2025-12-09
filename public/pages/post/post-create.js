@@ -47,6 +47,16 @@ let aiReferenceImage = null; // { imageId, previewUrl, base64Data }
 let aiGeneratedImage = null; // { imageId, previewUrl }
 let isAiGenerating = false;
 
+/**
+ * 저장되지 않은 이미지가 있는지 확인
+ * @returns {boolean} 직접 업로드 또는 AI 모드에 이미지가 있으면 true
+ */
+function hasUnsavedImages() {
+  return (
+    uploadedImages.length > 0 || aiReferenceImage !== null || aiGeneratedImage !== null
+  );
+}
+
 // 업로드 중인 Promise 추적
 let pendingUploads = [];
 
@@ -768,6 +778,37 @@ function handleImageSelect(e) {
 
 // ============ AI 참조 이미지 관리 ============
 
+function showAiReferenceLoading(show) {
+  const dropzone = document.getElementById('ai-reference-dropzone');
+  const loading = document.getElementById('ai-reference-loading');
+  const input = document.getElementById('ai-reference-input');
+
+  if (dropzone) dropzone.hidden = show;
+  if (loading) loading.hidden = !show;
+  if (input) input.disabled = show;
+}
+
+function getKoreanErrorMessage(error) {
+  const message = error.message || '';
+
+  // 서버 에러 메시지 한국어 변환
+  if (
+    message.includes('Request Entity Too Large') ||
+    message.includes('413') ||
+    message.includes('too large')
+  ) {
+    return '이미지 파일이 너무 큽니다. 5MB 이하의 이미지를 선택해주세요.';
+  }
+  if (message.includes('Network') || message.includes('fetch')) {
+    return '네트워크 오류가 발생했습니다. 다시 시도해주세요.';
+  }
+  if (message.includes('timeout') || message.includes('Timeout')) {
+    return '요청 시간이 초과되었습니다. 다시 시도해주세요.';
+  }
+
+  return message || '이미지 업로드에 실패했습니다.';
+}
+
 async function handleAiReferenceSelect(e) {
   const file = e.target.files[0];
   if (!file) return;
@@ -780,6 +821,9 @@ async function handleAiReferenceSelect(e) {
   }
 
   const previewUrl = URL.createObjectURL(file);
+
+  // 로딩 UI 표시
+  showAiReferenceLoading(true);
 
   try {
     // Base64 변환 (AI 생성 시 사용)
@@ -802,7 +846,12 @@ async function handleAiReferenceSelect(e) {
     renderAiReferencePreview();
   } catch (error) {
     URL.revokeObjectURL(previewUrl);
-    showToast(error.message || '참조 이미지 업로드에 실패했습니다.', 'error');
+    const koreanMessage = getKoreanErrorMessage(error);
+    showToast(koreanMessage, 'error');
+    logger.error('[참조 이미지] 업로드 실패:', error);
+  } finally {
+    // 로딩 UI 숨김
+    showAiReferenceLoading(false);
   }
 
   e.target.value = '';
@@ -899,7 +948,8 @@ async function handleAiGenerate() {
     );
   } catch (error) {
     logger.error('[AI 생성] 실패:', error);
-    showToast(error.message || 'AI 이미지 생성에 실패했습니다.', 'error');
+    const koreanMessage = getKoreanErrorMessage(error);
+    showToast(koreanMessage, 'error');
   } finally {
     isAiGenerating = false;
     showAiLoading(false);
@@ -1034,7 +1084,7 @@ async function handleSubmit(e) {
     await Promise.allSettled(pendingUploads);
 
     // 업로드 실패로 이미지가 없어졌을 수 있으므로 버튼 텍스트 복원 후 계속 진행
-    submitBtn.textContent = '등록 중...';
+    submitBtn.textContent = '기록하는 중...';
   }
 
   // 만료된 이미지 체크
@@ -1051,7 +1101,7 @@ async function handleSubmit(e) {
 
   try {
     submitBtn.disabled = true;
-    submitBtn.textContent = '등록 중...';
+    submitBtn.textContent = '기록하는 중...';
 
     const result = await createPost(postData);
     logger.debug('[게시글 등록] 응답:', result);
@@ -1069,7 +1119,9 @@ async function handleSubmit(e) {
     });
     uploadedImages = [];
 
-    window.location.href = `/post/${result.postId}`;
+    // replace를 사용하여 작성 페이지를 히스토리에서 제거
+    // 뒤로가기 시 작성 페이지가 아닌 피드로 이동하도록 함
+    window.location.replace(`/post/${result.postId}`);
   } catch (error) {
     showToast(error.message || '게시글 등록에 실패했습니다.', 'error');
     submitBtn.disabled = false;
@@ -1079,6 +1131,22 @@ async function handleSubmit(e) {
 
 // ============ 취소 ============
 
+/**
+ * 모든 이미지 URL 해제 (직접 업로드 + AI 모드)
+ */
+function revokeAllImageUrls() {
+  // 직접 업로드 모드 이미지 URL 해제
+  uploadedImages.forEach(img => {
+    if (img.previewUrl) URL.revokeObjectURL(img.previewUrl);
+  });
+
+  // AI 모드 이미지 URL 해제
+  if (aiReferenceImage?.previewUrl) {
+    URL.revokeObjectURL(aiReferenceImage.previewUrl);
+  }
+  // aiGeneratedImage는 data URL이므로 revokeObjectURL 불필요
+}
+
 function handleCancel() {
   const titleInput = document.getElementById('post-title');
   const contentInput = document.getElementById('post-content');
@@ -1086,7 +1154,7 @@ function handleCancel() {
   if (
     titleInput.value.trim() ||
     contentInput.value.trim() ||
-    uploadedImages.length > 0
+    hasUnsavedImages()
   ) {
     openModal(
       '작성 취소',
@@ -1094,10 +1162,8 @@ function handleCancel() {
       () => {
         closeModal();
         hasUnsavedChanges = false;
-        // URL 해제
-        uploadedImages.forEach(img => {
-          if (img.previewUrl) URL.revokeObjectURL(img.previewUrl);
-        });
+        // 모든 이미지 URL 해제
+        revokeAllImageUrls();
         window.location.href = '/feed';
       },
       {
@@ -1223,11 +1289,57 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 취소 버튼 이벤트
   cancelBtn.addEventListener('click', handleCancel);
 
-  // 브라우저 닫기 경고
+  // 브라우저 닫기 경고 (직접 업로드 + AI 모드 모두 체크)
   window.addEventListener('beforeunload', e => {
-    if (hasUnsavedChanges || uploadedImages.length > 0) {
+    if (hasUnsavedChanges || hasUnsavedImages()) {
       e.preventDefault();
       e.returnValue = '';
+    }
+  });
+
+  // 내부 링크 클릭 시 자체 모달로 경고 (브라우저 기본 경고 대신)
+  document.addEventListener('click', e => {
+    // 링크 요소 찾기 (a 태그 또는 부모 중 a 태그)
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+
+    const href = link.getAttribute('href');
+
+    // 외부 링크, 앵커, 또는 현재 페이지는 무시
+    if (
+      !href ||
+      href.startsWith('#') ||
+      href.startsWith('javascript:') ||
+      href.startsWith('mailto:') ||
+      link.target === '_blank'
+    ) {
+      return;
+    }
+
+    // 저장되지 않은 내용이 있으면 자체 모달 표시
+    const titleInput = document.getElementById('post-title');
+    const contentInput = document.getElementById('post-content');
+    const hasContent =
+      titleInput?.value.trim() ||
+      contentInput?.value.trim() ||
+      hasUnsavedImages();
+
+    if (hasContent) {
+      e.preventDefault();
+      openModal(
+        '페이지를 나가시겠습니까?',
+        '작성 중인 내용이 있습니다. 페이지를 나가면 저장되지 않은 내용이 사라집니다.',
+        () => {
+          closeModal();
+          hasUnsavedChanges = false;
+          revokeAllImageUrls();
+          window.location.href = href;
+        },
+        {
+          confirmText: '나가기',
+          cancelText: '계속 작성',
+        }
+      );
     }
   });
 

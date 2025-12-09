@@ -3,6 +3,7 @@ import {
   validatePassword,
   validatePasswordConfirm,
   validateNickname,
+  EMAIL_MAX_LENGTH,
 } from '../../../utils/validation.js';
 import { showError, hideError } from '../../../utils/dom.js';
 import {
@@ -101,6 +102,19 @@ profileInput.addEventListener('change', async e => {
   reader.readAsDataURL(file);
 });
 
+// 이메일 입력 필드 - 실시간 길이 검증
+emailInput.addEventListener('input', () => {
+  const email = emailInput.value.trim();
+
+  // 길이 초과 시 즉시 경고
+  if (email.length > EMAIL_MAX_LENGTH) {
+    showError(emailError, `이메일은 ${EMAIL_MAX_LENGTH}자 이하여야 합니다.`);
+  } else if (email.length > 0) {
+    // 입력 중에는 에러 숨김 (blur 시 전체 검증)
+    hideError(emailError);
+  }
+});
+
 // 이메일 입력 필드 - blur 또는 Enter 키 입력 시 유효성 검사
 emailInput.addEventListener('blur', async () => {
   const email = emailInput.value.trim();
@@ -108,18 +122,20 @@ emailInput.addEventListener('blur', async () => {
 
   if (!validation.valid) {
     showError(emailError, validation.message);
-  } else {
-    hideError(emailError);
+    return;
+  }
 
-    if (email) {
-      try {
-        const availability = await checkEmailAvailability(email);
-        if (!availability?.available) {
-          showError(emailError, '이미 사용 중인 이메일입니다.');
-        }
-      } catch (error) {
-        logger.error('이메일 중복 확인 실패:', error);
+  hideError(emailError);
+
+  // 길이가 적절할 때만 중복 확인 API 호출
+  if (email && email.length <= EMAIL_MAX_LENGTH) {
+    try {
+      const availability = await checkEmailAvailability(email);
+      if (!availability?.available) {
+        showError(emailError, '이미 사용 중인 이메일입니다.');
       }
+    } catch (error) {
+      logger.error('이메일 중복 확인 실패:', error);
     }
   }
 });
@@ -297,8 +313,8 @@ signupForm.addEventListener('submit', async e => {
       }
     }
 
-    // 피드로 이동
-    window.location.href = '/feed';
+    // 피드로 이동 (replace로 회원가입 페이지를 히스토리에서 제거)
+    window.location.replace('/feed');
   } catch (error) {
     // 백엔드 에러 코드에 따라 적절한 필드에 메시지 표시
     const errorCode = error.code || error.message || '';
