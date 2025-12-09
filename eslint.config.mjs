@@ -34,6 +34,7 @@ export default [
         localStorage: 'readonly',
         lucide: 'readonly',
         DOMParser: 'readonly',
+        IntersectionObserver: 'readonly',
       },
     },
     rules: {

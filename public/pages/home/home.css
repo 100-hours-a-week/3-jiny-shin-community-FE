@@ -82,6 +82,23 @@
   border: 1px solid var(--color-border-light);
 }
 
+/* Loading Spinner (Infinite Scroll) */
+.posts-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  color: var(--color-text-tertiary);
+  font-size: var(--font-sm);
+}
+
+/* Scroll Sentinel (Intersection Observer target) */
+.scroll-sentinel {
+  height: 1px;
+  width: 100%;
+}
+
 /* Responsive */
 @media (max-width: 480px) {
   .home-container {
