@@ -3,6 +3,14 @@
  * anoo 디자인 시스템
  */
 
+/* 모바일 가로 스크롤 방지 - 세로 스크롤은 허용 (폼이 길어서) */
+html:has(.signup-container),
+html:has(.signup-container) body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+}
+
 .signup-container {
   min-height: 100vh;
   min-height: 100dvh;

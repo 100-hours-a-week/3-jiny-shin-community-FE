@@ -129,6 +129,8 @@
   width: 14px;
   height: 14px;
   stroke-width: 1.5;
+  stroke: currentColor;
+  fill: none;
 }
 
 .post-card__stat--liked {

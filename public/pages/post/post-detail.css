@@ -229,6 +229,15 @@
   color: var(--color-text);
 }
 
+/* 통계 아이콘 기본 스타일 */
+.post-detail__stat-item svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  color: var(--color-text-tertiary);
+}
+
 /* 좋아요 버튼 */
 .post-detail__like-btn {
   background: none;

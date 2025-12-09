@@ -3,6 +3,15 @@
  * anoo 디자인 시스템 - 로그인/회원가입과 동일한 레이아웃
  */
 
+/* 모바일 스크롤 방지 - 전체 화면 고정 레이아웃 */
+html:has(.onboarding),
+html:has(.onboarding) body {
+  overflow: hidden;
+  height: 100%;
+  position: fixed;
+  width: 100%;
+}
+
 .onboarding {
   min-height: 100vh;
   min-height: 100dvh;
