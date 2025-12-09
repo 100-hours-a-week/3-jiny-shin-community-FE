@@ -5,13 +5,6 @@
     var(--content-padding-bottom);
 }
 
-.post-form-wrapper {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-lg);
-  padding: var(--space-2xl);
-}
-
 .post-form__title {
   font-size: var(--heading-2-size);
   font-weight: var(--heading-2-weight);
@@ -22,7 +15,7 @@
 
 /* 입력 그룹 */
 .input-group {
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-md);
 }
 
 .input-label {
@@ -670,11 +663,7 @@
 /* 반응형 */
 @media (max-width: 768px) {
   .post-form-container {
-    padding: 0 var(--space-xs);
-  }
-
-  .post-form-wrapper {
-    padding: var(--space-xl);
+    padding: var(--space-lg) var(--space-md) var(--content-padding-bottom);
   }
 
   .button-group {

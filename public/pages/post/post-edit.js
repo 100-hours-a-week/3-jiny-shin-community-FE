@@ -1,12 +1,29 @@
 import { uploadImageComplete } from '../../../services/image/imageApi.js';
 import { updatePost, getPost } from '../../../services/post/postApi.js';
-import { openModal, showToast } from '../../../utils/layout.js';
+import { openModal, closeModal, showToast } from '../../../utils/layout.js';
 import { renderPageLayout } from '../../../utils/layoutPage.js';
 import { logger } from '../../../utils/logger.js';
 
 let selectedImage = null;
 let currentPost = null;
 let removeCurrentImage = false;
+
+/**
+ * 변경사항이 있는지 확인
+ */
+function hasChanges() {
+  const titleInput = document.getElementById('post-title');
+  const contentInput = document.getElementById('post-content');
+
+  return (
+    (currentPost &&
+      titleInput?.value.trim() !== (currentPost.title ?? '').trim()) ||
+    (currentPost &&
+      contentInput?.value.trim() !== (currentPost.content ?? '').trim()) ||
+    selectedImage ||
+    removeCurrentImage
+  );
+}
 
 function getPostIdFromUrl() {
   const params = new URLSearchParams(window.location.search);
@@ -316,4 +333,60 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   form.addEventListener('submit', handleSubmit);
   cancelBtn.addEventListener('click', handleCancel);
+
+  // 내부 링크 클릭 시 자체 모달로 경고
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a[href]');
+    if (!link) return;
+
+    const href = link.getAttribute('href');
+
+    if (
+      !href ||
+      href.startsWith('#') ||
+      href.startsWith('javascript:') ||
+      href.startsWith('mailto:') ||
+      link.target === '_blank'
+    ) {
+      return;
+    }
+
+    if (hasChanges()) {
+      e.preventDefault();
+      openModal(
+        '페이지를 나가시겠습니까?',
+        '수정 중인 내용이 있습니다. 페이지를 나가면 변경사항이 저장되지 않습니다.',
+        () => {
+          closeModal();
+          window.location.href = href;
+        },
+        {
+          confirmText: '나가기',
+          cancelText: '계속 수정',
+        }
+      );
+    }
+  });
+
+  // 브라우저 뒤로가기 버튼 처리
+  window.history.pushState({ page: 'post-edit' }, '');
+
+  window.addEventListener('popstate', () => {
+    if (hasChanges()) {
+      window.history.pushState({ page: 'post-edit' }, '');
+
+      openModal(
+        '페이지를 나가시겠습니까?',
+        '수정 중인 내용이 있습니다. 페이지를 나가면 변경사항이 저장되지 않습니다.',
+        () => {
+          closeModal();
+          window.history.go(-2);
+        },
+        {
+          confirmText: '나가기',
+          cancelText: '계속 수정',
+        }
+      );
+    }
+  });
 });

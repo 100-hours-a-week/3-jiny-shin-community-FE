@@ -1,6 +1,5 @@
 /**
  * Profile Edit Page
- * /write (post-form.css) 패턴과 동일하게 구성
  */
 
 .profile-edit-container {
@@ -8,13 +7,6 @@
   margin: 0 auto;
   padding: var(--content-padding-top) var(--content-padding-x)
     var(--content-padding-bottom);
-}
-
-.profile-edit-wrapper {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-lg);
-  padding: var(--space-2xl);
 }
 
 .profile-edit__title {
@@ -137,14 +129,10 @@
   display: none;
 }
 
-/* 반응형 (/write와 동일) */
+/* 반응형 */
 @media (max-width: 768px) {
   .profile-edit-container {
-    padding: 0 var(--space-xs);
-  }
-
-  .profile-edit-wrapper {
-    padding: var(--space-xl);
+    padding: var(--space-lg) var(--space-md) var(--content-padding-bottom);
   }
 
   .button-group {

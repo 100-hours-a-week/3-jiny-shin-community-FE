@@ -33,7 +33,6 @@ const DRAFT_STORAGE_KEY = 'anoo_post_draft';
 const DRAFT_SAVE_DELAY = 1000;
 
 let draftSaveTimer = null;
-let hasUnsavedChanges = false;
 
 // 직접 업로드 모드 이미지 상태
 // { imageId, storedFilename, previewUrl, uploadedAt, isUploading }
@@ -71,7 +70,6 @@ function saveDraft() {
 
   if (!title && !content) {
     localStorage.removeItem(DRAFT_STORAGE_KEY);
-    hasUnsavedChanges = false;
     return;
   }
 
@@ -82,7 +80,6 @@ function saveDraft() {
   };
 
   localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(draft));
-  hasUnsavedChanges = true;
 }
 
 function scheduleDraftSave() {
@@ -105,7 +102,6 @@ function loadDraft() {
 
 function clearDraft() {
   localStorage.removeItem(DRAFT_STORAGE_KEY);
-  hasUnsavedChanges = false;
 }
 
 function restoreDraft(draft) {
@@ -125,8 +121,6 @@ function restoreDraft(draft) {
       charCountEl.textContent = `${draft.content.length.toLocaleString()}/10,000`;
     }
   }
-
-  hasUnsavedChanges = true;
 }
 
 function getTimeAgo(date) {
@@ -1160,9 +1154,8 @@ async function handleSubmit(e) {
     }
 
     clearDraft();
-    hasUnsavedChanges = false;
 
-    // URL 해제 및 배열 비우기 (beforeunload 경고 방지)
+    // URL 해제 및 배열 비우기
     uploadedImages.forEach(img => {
       if (img.previewUrl) URL.revokeObjectURL(img.previewUrl);
     });
@@ -1210,8 +1203,6 @@ function handleCancel() {
       '작성 중인 내용이 있습니다. 임시 저장된 내용은 다음에 다시 불러올 수 있습니다.',
       () => {
         closeModal();
-        hasUnsavedChanges = false;
-        // 모든 이미지 URL 해제
         revokeAllImageUrls();
         window.location.href = '/feed';
       },
@@ -1338,13 +1329,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 취소 버튼 이벤트
   cancelBtn.addEventListener('click', handleCancel);
 
-  // 브라우저 닫기 경고 (직접 업로드 + AI 모드 모두 체크)
-  window.addEventListener('beforeunload', e => {
-    if (hasUnsavedChanges || hasUnsavedImages()) {
-      e.preventDefault();
-      e.returnValue = '';
-    }
-  });
+  // 브라우저 닫기/새로고침 시 경고는 표시하지 않음
+  // - 브라우저 기본 경고창("Leave site?")은 커스터마이징 불가능
+  // - 대신 임시저장(saveDraft) 기능으로 데이터 보존
+  // - 내부 링크 클릭은 아래 커스텀 모달로 처리
 
   // 내부 링크 클릭 시 자체 모달로 경고 (브라우저 기본 경고 대신)
   document.addEventListener('click', e => {
@@ -1380,7 +1368,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         '작성 중인 내용이 있습니다. 페이지를 나가면 저장되지 않은 내용이 사라집니다.',
         () => {
           closeModal();
-          hasUnsavedChanges = false;
           revokeAllImageUrls();
           window.location.href = href;
         },
@@ -1397,4 +1384,37 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // 초기 렌더링
   renderImagePreviews();
+
+  // 브라우저 뒤로가기 버튼 처리 (History API)
+  // 페이지 진입 시 히스토리에 상태 추가
+  window.history.pushState({ page: 'post-create' }, '');
+
+  window.addEventListener('popstate', () => {
+    const titleInput = document.getElementById('post-title');
+    const contentInput = document.getElementById('post-content');
+    const hasContent =
+      titleInput?.value.trim() ||
+      contentInput?.value.trim() ||
+      hasUnsavedImages();
+
+    if (hasContent) {
+      // 뒤로가기 취소를 위해 다시 히스토리 추가
+      window.history.pushState({ page: 'post-create' }, '');
+
+      openModal(
+        '페이지를 나가시겠습니까?',
+        '작성 중인 내용이 있습니다. 페이지를 나가면 저장되지 않은 내용이 사라집니다.',
+        () => {
+          closeModal();
+          revokeAllImageUrls();
+          // 실제로 뒤로가기 수행
+          window.history.go(-2);
+        },
+        {
+          confirmText: '나가기',
+          cancelText: '계속 작성',
+        }
+      );
+    }
+  });
 });
