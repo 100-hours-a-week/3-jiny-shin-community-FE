@@ -2,6 +2,9 @@
  * 폼 입력 값 검증 유틸리티
  */
 
+// 이메일 최대 길이 (RFC 5321 표준)
+export const EMAIL_MAX_LENGTH = 254;
+
 /**
  * 이메일 유효성 검사
  * @param {string} email - 검증할 이메일
@@ -13,6 +16,14 @@ export function validateEmail(email) {
     return {
       valid: false,
       message: '이메일을 입력해주세요.',
+    };
+  }
+
+  // 길이 체크
+  if (email.length > EMAIL_MAX_LENGTH) {
+    return {
+      valid: false,
+      message: `이메일은 ${EMAIL_MAX_LENGTH}자 이하여야 합니다.`,
     };
   }
 
