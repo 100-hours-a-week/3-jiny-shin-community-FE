@@ -434,10 +434,12 @@ function initEventListeners() {
   const currentPasswordInput = document.getElementById('currentPassword');
   const form = document.getElementById('editForm');
 
-  // 취소 버튼
+  // 취소 버튼 - 프로필 페이지로 이동
   document
     .getElementById('cancelBtn')
-    .addEventListener('click', () => history.back());
+    .addEventListener('click', () => {
+      window.location.href = '/profile';
+    });
 
   // 폼 제출
   form.addEventListener('submit', handleSubmit);

@@ -238,7 +238,8 @@ async function handleSubmit(e) {
     await updatePost(postId, payload);
 
     showToast('게시글이 수정되었습니다.', 'success');
-    window.location.href = `/post/${postId}`;
+    // replace를 사용하여 수정 페이지를 히스토리에서 제거
+    window.location.replace(`/post/${postId}`);
   } catch (error) {
     showToast(error.message || '게시글 수정에 실패했습니다.', 'error');
     submitBtn.disabled = false;

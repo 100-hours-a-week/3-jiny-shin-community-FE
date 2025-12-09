@@ -111,7 +111,8 @@ loginForm.addEventListener('submit', async e => {
   try {
     await login({ email, password });
     changeButtonColor();
-    window.location.href = '/feed';
+    // replace를 사용하여 로그인 페이지를 히스토리에서 제거
+    window.location.replace('/feed');
   } catch (error) {
     // 인증 관련 에러 코드를 사용자 친화적 메시지로 변환
     const errorMessage = getLoginErrorMessage(error.message);
