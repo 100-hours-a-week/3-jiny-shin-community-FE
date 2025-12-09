@@ -179,7 +179,7 @@
                           >참조 이미지 (선택)</span
                         >
                         <span class="ai-reference-section__hint"
-                          >AI가 참고할 이미지를 업로드하세요 (최대 1장)</span
+                          >AI가 참고할 이미지를 업로드하세요 (최대 5MB, 1장)</span
                         >
                       </div>
 
@@ -198,6 +198,15 @@
                           <i data-lucide="image-plus"></i>
                           <span>참조 이미지 추가</span>
                         </label>
+                        <!-- 참조 이미지 업로드 로딩 -->
+                        <div
+                          class="ai-reference-loading"
+                          id="ai-reference-loading"
+                          hidden
+                        >
+                          <div class="ai-reference-loading__spinner"></div>
+                          <span>업로드 중...</span>
+                        </div>
                       </div>
 
                       <!-- 참조 이미지 프리뷰 -->

@@ -6,7 +6,8 @@ const express = require('express');
 const app = express();
 
 // JSON body parser (AI 이미지 생성 API용 - 큰 Base64 이미지 처리)
-app.use(express.json({ limit: '10mb' }));
+// 프로필 이미지 + 참조 이미지가 Base64로 전송되므로 넉넉하게 설정
+app.use(express.json({ limit: '20mb' }));
 const PORT = process.env.PORT || 3000;
 const ROOT_DIR = __dirname;
 const isProduction = process.env.NODE_ENV === 'production';
