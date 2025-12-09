@@ -1,4 +1,9 @@
-import { formatCount, formatDate, truncateText, getImageUrl } from '../../../utils/format.js';
+import {
+  formatCount,
+  formatDate,
+  truncateText,
+  getImageUrl,
+} from '../../../utils/format.js';
 import { createAvatar } from '../avatar/avatar.js';
 import { logger } from '../../../utils/logger.js';
 

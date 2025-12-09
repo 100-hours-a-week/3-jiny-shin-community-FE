@@ -26,7 +26,11 @@ const state = {
 };
 
 function validateNickname(nickname) {
-  return typeof nickname === 'string' && nickname.length >= 2 && nickname.length <= 10;
+  return (
+    typeof nickname === 'string' &&
+    nickname.length >= 2 &&
+    nickname.length <= 10
+  );
 }
 
 /**
@@ -84,7 +88,7 @@ function bindImageInput() {
 
   profileBtn.addEventListener('click', () => profileInput.click());
 
-  profileInput.addEventListener('change', async (event) => {
+  profileInput.addEventListener('change', async event => {
     const file = event.target.files[0];
     if (!file) {
       return;
@@ -109,14 +113,17 @@ function bindImageInput() {
 
     // 미리보기 표시 및 Lambda 업로드
     const reader = new FileReader();
-    reader.onload = async (e) => {
+    reader.onload = async e => {
       setProfilePreview(e.target.result);
 
       // Lambda로 이미지 업로드 (imageApi.js의 uploadImageToS3 사용)
       try {
         const result = await uploadImageToS3({ file, imageType: 'PROFILE' });
         state.profileImageMetadata = result;
-        logger.debug('[프로필 수정] Lambda 업로드 완료:', state.profileImageMetadata);
+        logger.debug(
+          '[프로필 수정] Lambda 업로드 완료:',
+          state.profileImageMetadata
+        );
       } catch (error) {
         logger.error('[프로필 수정] Lambda 업로드 실패:', error);
         showError(profileError, '이미지 업로드에 실패했습니다.');
@@ -172,7 +179,10 @@ async function loadInitialData() {
       return;
     }
 
-    showToast(error.message || '사용자 정보를 불러오는 데 실패했습니다.', 'error');
+    showToast(
+      error.message || '사용자 정보를 불러오는 데 실패했습니다.',
+      'error'
+    );
     window.location.href = '/profile';
   }
 }
@@ -287,7 +297,8 @@ async function handleSubmit(event) {
   }
 
   // 닉네임이 변경되었고 중복 체크가 안 되었으면 체크
-  const nicknameChanged = state.currentUser && state.currentUser.nickname !== nickname;
+  const nicknameChanged =
+    state.currentUser && state.currentUser.nickname !== nickname;
   if (nicknameChanged && !state.nicknameAvailable) {
     const available = await checkNickname(nickname);
     if (!available) {
@@ -319,7 +330,10 @@ async function handleSubmit(event) {
       );
       isValid = false;
     } else if (currentPassword && newPassword === currentPassword) {
-      showError(newPasswordError, '현재 비밀번호와 다른 비밀번호를 입력해주세요.');
+      showError(
+        newPasswordError,
+        '현재 비밀번호와 다른 비밀번호를 입력해주세요.'
+      );
       isValid = false;
     }
 
@@ -351,7 +365,10 @@ async function handleSubmit(event) {
     if (state.profileImageMetadata) {
       // 새 이미지 업로드
       try {
-        logger.debug('[프로필 수정] 메타데이터 저장 요청:', state.profileImageMetadata);
+        logger.debug(
+          '[프로필 수정] 메타데이터 저장 요청:',
+          state.profileImageMetadata
+        );
         const imageResult = await saveImageMetadata(state.profileImageMetadata);
         logger.debug('[프로필 수정] 메타데이터 저장 응답:', imageResult);
 
@@ -426,9 +443,13 @@ function initEventListeners() {
   form.addEventListener('submit', handleSubmit);
 
   // 모든 input 필드에서 Enter 키로 폼 제출 방지
-  form.addEventListener('keydown', (e) => {
+  form.addEventListener('keydown', e => {
     // Enter 키이고, textarea가 아니고, 한글 조합 중이 아닐 때
-    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && !e.isComposing) {
+    if (
+      e.key === 'Enter' &&
+      e.target.tagName !== 'TEXTAREA' &&
+      !e.isComposing
+    ) {
       e.preventDefault();
     }
   });
@@ -465,7 +486,9 @@ function initEventListeners() {
   // 새 비밀번호 확인 실시간 검증
   const newPasswordInput = document.getElementById('newPassword');
   const newPasswordConfirmInput = document.getElementById('newPasswordConfirm');
-  const newPasswordConfirmError = document.getElementById('newPasswordConfirmError');
+  const newPasswordConfirmError = document.getElementById(
+    'newPasswordConfirmError'
+  );
   const newPasswordError = document.getElementById('newPasswordError');
   const newPasswordValidIcon = document.getElementById('newPasswordValidIcon');
   const passwordMatchIcon = document.getElementById('passwordMatchIcon');
@@ -477,10 +500,14 @@ function initEventListeners() {
 
     // 새 비밀번호 조건 검증
     const isNewPasswordValid = validatePassword(newPassword);
-    const isSameAsCurrent = newPassword && currentPw && newPassword === currentPw;
+    const isSameAsCurrent =
+      newPassword && currentPw && newPassword === currentPw;
 
     if (isSameAsCurrent) {
-      showError(newPasswordError, '현재 비밀번호와 다른 비밀번호를 입력해주세요.');
+      showError(
+        newPasswordError,
+        '현재 비밀번호와 다른 비밀번호를 입력해주세요.'
+      );
       newPasswordValidIcon.hidden = true;
     } else if (newPassword && !isNewPasswordValid) {
       // 입력은 있지만 조건 불충족 - 에러는 blur 시에만 표시

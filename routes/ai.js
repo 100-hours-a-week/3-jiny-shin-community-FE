@@ -9,7 +9,8 @@ const express = require('express');
 const router = express.Router();
 
 // Gemini API 설정
-const GEMINI_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models';
+const GEMINI_ENDPOINT =
+  'https://generativelanguage.googleapis.com/v1beta/models';
 const MODELS = {
   PROMPT_GENERATOR: 'gemini-2.5-flash',
   IMAGE_GENERATOR: 'gemini-2.5-flash-image',
@@ -70,7 +71,11 @@ router.post('/generate-prompt', validateApiKey, async (req, res) => {
 
     // 시스템 프롬프트 생성 (참조 이미지 유무 전달)
     const hasReferenceImage = !!referenceImageBase64;
-    const systemPrompt = buildSystemPrompt(postContent, options, hasReferenceImage);
+    const systemPrompt = buildSystemPrompt(
+      postContent,
+      options,
+      hasReferenceImage
+    );
 
     // 요청 본문 구성 (mimeType 기본값: image/jpeg)
     const parts = [
@@ -206,16 +211,28 @@ router.post('/generate-image', validateApiKey, async (req, res) => {
     };
 
     // 디버깅: 요청 본문 로깅 (base64 데이터는 길이만 표시)
-    console.log('[AI Proxy] 이미지 생성 요청:', JSON.stringify({
-      ...requestBody,
-      contents: requestBody.contents.map(c => ({
-        parts: c.parts.map(p =>
-          p.inline_data
-            ? { inline_data: { mime_type: p.inline_data.mime_type, data: `[${p.inline_data.data.length} chars]` } }
-            : p
-        )
-      }))
-    }, null, 2));
+    console.log(
+      '[AI Proxy] 이미지 생성 요청:',
+      JSON.stringify(
+        {
+          ...requestBody,
+          contents: requestBody.contents.map(c => ({
+            parts: c.parts.map(p =>
+              p.inline_data
+                ? {
+                    inline_data: {
+                      mime_type: p.inline_data.mime_type,
+                      data: `[${p.inline_data.data.length} chars]`,
+                    },
+                  }
+                : p
+            ),
+          })),
+        },
+        null,
+        2
+      )
+    );
 
     const response = await fetch(
       `${GEMINI_ENDPOINT}/${MODELS.IMAGE_GENERATOR}:generateContent?key=${req.geminiApiKey}`,
@@ -232,7 +249,7 @@ router.post('/generate-image', validateApiKey, async (req, res) => {
       let error = {};
       try {
         error = JSON.parse(errorText);
-      } catch (e) {
+      } catch {
         error = { error: { message: errorText } };
       }
       return res.status(response.status).json({
@@ -334,7 +351,11 @@ Generate a single, concise paragraph describing the image. Use photographic term
  * @param {Object} options - 옵션 데이터
  * @returns {string} 시스템 프롬프트
  */
-function buildAdvancedSystemPrompt(content, options, hasReferenceImage = false) {
+function buildAdvancedSystemPrompt(
+  content,
+  options,
+  hasReferenceImage = false
+) {
   const optionsText = options ? JSON.stringify(options, null, 2) : '없음';
 
   const imageOrderNote = hasReferenceImage

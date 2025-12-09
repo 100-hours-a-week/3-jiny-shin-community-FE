@@ -9,7 +9,12 @@
     <!-- Favicon -->
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/assets/icon/favicon.svg" type="image/svg+xml" />
-    <link rel="icon" href="/assets/icon/favicon-96x96.png" sizes="96x96" type="image/png" />
+    <link
+      rel="icon"
+      href="/assets/icon/favicon-96x96.png"
+      sizes="96x96"
+      type="image/png"
+    />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
@@ -69,11 +74,20 @@
                   class="visually-hidden"
                 />
                 <div class="profile-upload__actions">
-                  <button type="button" class="profile-upload__btn" id="profileBtn">
+                  <button
+                    type="button"
+                    class="profile-upload__btn"
+                    id="profileBtn"
+                  >
                     <i data-lucide="camera"></i>
                     <span>사진 변경</span>
                   </button>
-                  <button type="button" class="profile-upload__btn profile-upload__btn--remove" id="profileRemoveBtn" hidden>
+                  <button
+                    type="button"
+                    class="profile-upload__btn profile-upload__btn--remove"
+                    id="profileRemoveBtn"
+                    hidden
+                  >
                     <i data-lucide="x"></i>
                     <span>사진 제거</span>
                   </button>
@@ -100,7 +114,9 @@
                 <p class="section-label">비밀번호 변경</p>
 
                 <div class="input-group">
-                  <label for="currentPassword" class="input-label">현재 비밀번호</label>
+                  <label for="currentPassword" class="input-label"
+                    >현재 비밀번호</label
+                  >
                   <input
                     type="password"
                     id="currentPassword"
@@ -112,7 +128,9 @@
                 </div>
 
                 <div class="input-group">
-                  <label for="newPassword" class="input-label">새 비밀번호</label>
+                  <label for="newPassword" class="input-label"
+                    >새 비밀번호</label
+                  >
                   <div class="input-with-icon">
                     <input
                       type="password"
@@ -121,15 +139,33 @@
                       class="input-field"
                       placeholder="8자 이상"
                     />
-                    <span class="input-icon input-icon--success" id="newPasswordValidIcon" hidden>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span
+                      class="input-icon input-icon--success"
+                      id="newPasswordValidIcon"
+                      hidden
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
                     </span>
                   </div>
                   <span class="helper-text" id="newPasswordError"></span>
                 </div>
 
                 <div class="input-group">
-                  <label for="newPasswordConfirm" class="input-label">새 비밀번호 확인</label>
+                  <label for="newPasswordConfirm" class="input-label"
+                    >새 비밀번호 확인</label
+                  >
                   <div class="input-with-icon">
                     <input
                       type="password"
@@ -138,8 +174,24 @@
                       class="input-field"
                       placeholder="새 비밀번호 확인"
                     />
-                    <span class="input-icon input-icon--success" id="passwordMatchIcon" hidden>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span
+                      class="input-icon input-icon--success"
+                      id="passwordMatchIcon"
+                      hidden
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
                     </span>
                   </div>
                   <span class="helper-text" id="newPasswordConfirmError"></span>

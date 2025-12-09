@@ -12,6 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **핵심 가치:** Authenticity(진정성), Ownership(나다움), Anonymity(익명), Narratives(서사)
 
 **기술 특징:**
+
 - Vanilla JS + ES Modules (프레임워크 없음)
 - Express 서버 (Clean URL 라우팅, Gemini AI 프록시)
 - Spring Boot 백엔드 REST API
@@ -52,6 +53,7 @@ IMAGE_UPLOAD_API=https://xxx.execute-api.region.amazonaws.com/api/images
 ### Express 서버 (`app.js`)
 
 Clean URL 라우팅 + API 프록시:
+
 - `/login`, `/signup`, `/feed`, `/post/:id`, `/profile` 등 → HTML 페이지 서빙
 - `/api/ai/*` → Gemini AI 프록시 (`routes/ai.js`)
 - `/api/image-proxy` → S3 이미지 CORS 우회
@@ -60,6 +62,7 @@ Clean URL 라우팅 + API 프록시:
 ### API 클라이언트 구조
 
 `public/services/` 도메인별 분리:
+
 - `httpClient.js`: fetch 래퍼 (get, post, patch, del)
 - `api-config.js`: 환경변수에서 BASE_URL, IMAGE_UPLOAD_API 로드
 - 도메인별: `authApi.js`, `userApi.js`, `postApi.js`, `commentApi.js`, `imageApi.js`, `aiApi.js`
@@ -109,7 +112,7 @@ import { openModal } from '/utils/layout.js';
 
 openModal('삭제 확인', '정말 삭제하시겠습니까?', () => handleDelete(), {
   confirmText: '삭제',
-  confirmVariant: 'danger'  // 'primary' | 'danger' | 'outline'
+  confirmVariant: 'danger', // 'primary' | 'danger' | 'outline'
 });
 ```
 
@@ -120,7 +123,7 @@ openModal('삭제 확인', '정말 삭제하시겠습니까?', () => handleDelet
 ```javascript
 import { showToast } from '/utils/layout.js';
 
-showToast('저장되었습니다', 'success');  // 'success' | 'error' | 'warning' | 'info'
+showToast('저장되었습니다', 'success'); // 'success' | 'error' | 'warning' | 'info'
 ```
 
 ## Naming Conventions
@@ -134,6 +137,7 @@ showToast('저장되었습니다', 'success');  // 'success' | 'error' | 'warnin
 백엔드 API 스펙: `docs/Api/api-spec.json` (OpenAPI 3.1.0)
 
 주요 엔드포인트:
+
 - 인증: `POST /api/auth/login`, `/api/auth/logout`
 - 게시글: `GET/POST /api/posts`, `GET/DELETE/PATCH /api/posts/{postId}`
 - 댓글: `GET/POST /api/posts/{postId}/comments`
@@ -146,6 +150,7 @@ showToast('저장되었습니다', 'success');  // 'success' | 'error' | 'warnin
 **커밋 전 사용자 확인 필수** (git add, commit, push, merge 등)
 
 Conventional Commits:
+
 - `feat:` 새 기능
 - `fix:` 버그 수정
 - `refactor:` 리팩토링

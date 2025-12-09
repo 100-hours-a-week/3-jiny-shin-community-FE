@@ -94,6 +94,8 @@ function checkIsActive(currentPath, navType) {
     if (path === '/') {
       return currentPath === path;
     }
-    return currentPath === path || currentPath.startsWith(path.replace('.html', ''));
+    return (
+      currentPath === path || currentPath.startsWith(path.replace('.html', ''))
+    );
   });
 }

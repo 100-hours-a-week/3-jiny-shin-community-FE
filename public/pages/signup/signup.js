@@ -277,12 +277,17 @@ signupForm.addEventListener('submit', async e => {
     // 3. 프로필 이미지가 있으면 메타데이터 저장 후 프로필 업데이트
     if (profileImageMetadata) {
       try {
-        logger.debug('[회원가입] ③ 메타데이터 저장 요청:', profileImageMetadata);
+        logger.debug(
+          '[회원가입] ③ 메타데이터 저장 요청:',
+          profileImageMetadata
+        );
         const imageResult = await saveImageMetadata(profileImageMetadata);
         logger.debug('[회원가입] ③ 메타데이터 저장 응답:', imageResult);
 
         if (imageResult?.imageId) {
-          logger.debug('[회원가입] ④ 프로필 업데이트 요청:', { profileImageId: imageResult.imageId });
+          logger.debug('[회원가입] ④ 프로필 업데이트 요청:', {
+            profileImageId: imageResult.imageId,
+          });
           await updateProfile({ profileImageId: imageResult.imageId });
           logger.debug('[회원가입] ④ 프로필 업데이트 완료');
         }

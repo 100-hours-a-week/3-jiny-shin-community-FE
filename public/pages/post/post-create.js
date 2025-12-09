@@ -104,7 +104,8 @@ function restoreDraft(draft) {
 
   if (draft.title) {
     titleInput.value = draft.title;
-    document.getElementById('title-char-count').textContent = `${draft.title.length}/26`;
+    document.getElementById('title-char-count').textContent =
+      `${draft.title.length}/26`;
   }
 
   if (draft.content) {
@@ -182,12 +183,21 @@ function validateContent() {
 function validateImageFile(file) {
   const fileExtension = file.name.split('.').pop().toLowerCase();
 
-  if (!ALLOWED_TYPES.includes(file.type) && !ALLOWED_EXTENSIONS.includes(fileExtension)) {
-    return { valid: false, message: 'jpg, jpeg, png, webp 형식의 이미지만 업로드할 수 있습니다.' };
+  if (
+    !ALLOWED_TYPES.includes(file.type) &&
+    !ALLOWED_EXTENSIONS.includes(fileExtension)
+  ) {
+    return {
+      valid: false,
+      message: 'jpg, jpeg, png, webp 형식의 이미지만 업로드할 수 있습니다.',
+    };
   }
 
   if (file.size > MAX_FILE_SIZE) {
-    return { valid: false, message: '이미지 파일은 최대 5MB까지 업로드할 수 있습니다.' };
+    return {
+      valid: false,
+      message: '이미지 파일은 최대 5MB까지 업로드할 수 있습니다.',
+    };
   }
 
   return { valid: true };
@@ -215,14 +225,16 @@ function renderImagePreviews(force = false) {
     return;
   }
 
-  if (imageCount) imageCount.textContent = `${uploadedImages.length}/${getMaxImages()}`;
+  if (imageCount)
+    imageCount.textContent = `${uploadedImages.length}/${getMaxImages()}`;
   if (helpText) helpText.style.display = 'block';
 
   // UI상 대표 이미지: primaryImageIndex 기반 (기본값 0)
   // 인덱스가 범위를 벗어나면 0으로 리셋
-  const effectivePrimaryIndex = (primaryImageIndex >= 0 && primaryImageIndex < uploadedImages.length)
-    ? primaryImageIndex
-    : 0;
+  const effectivePrimaryIndex =
+    primaryImageIndex >= 0 && primaryImageIndex < uploadedImages.length
+      ? primaryImageIndex
+      : 0;
 
   uploadedImages.forEach((imageData, index) => {
     const item = document.createElement('div');
@@ -266,7 +278,8 @@ function renderImagePreviews(force = false) {
     removeBtn.type = 'button';
     removeBtn.className = 'image-preview-item__remove';
     removeBtn.draggable = false; // 버튼 드래그 방지
-    removeBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+    removeBtn.innerHTML =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
     removeBtn.addEventListener('click', e => {
       e.stopPropagation();
       e.preventDefault();
@@ -284,7 +297,11 @@ function renderImagePreviews(force = false) {
 function getProfileImageUrl(user) {
   if (!user) return null;
   // 문자열 형태 우선, 객체 형태는 getImageUrl로 처리
-  return user.profileImageUrl || user.profileImage || getImageUrl(user.profileImageUrls);
+  return (
+    user.profileImageUrl ||
+    user.profileImage ||
+    getImageUrl(user.profileImageUrls)
+  );
 }
 
 function hasProfileImage() {
@@ -294,8 +311,13 @@ function hasProfileImage() {
     return false;
   }
   // 기본 아바타 URL 패턴 체크 (필요 시 조정)
-  const defaultAvatarPatterns = ['/assets/icon/profile_default', 'default_avatar'];
-  const isDefault = defaultAvatarPatterns.some(pattern => profileUrl.includes(pattern));
+  const defaultAvatarPatterns = [
+    '/assets/icon/profile_default',
+    'default_avatar',
+  ];
+  const isDefault = defaultAvatarPatterns.some(pattern =>
+    profileUrl.includes(pattern)
+  );
   logger.debug('[프로필 체크] URL:', profileUrl, '기본아바타:', isDefault);
   return !isDefault;
 }
@@ -487,7 +509,9 @@ async function addImages(files) {
 
   if (fileArray.length > remainingSlots) {
     const modeText = imageMode === 'ai' ? '참조 이미지는' : '이미지는';
-    showToast(`${modeText} 최대 ${maxImages}장까지 업로드할 수 있습니다. ${remainingSlots}장만 추가됩니다.`);
+    showToast(
+      `${modeText} 최대 ${maxImages}장까지 업로드할 수 있습니다. ${remainingSlots}장만 추가됩니다.`
+    );
   }
 
   // 1단계: 모든 파일의 프리뷰를 먼저 즉시 표시
@@ -517,44 +541,46 @@ async function addImages(files) {
   renderImagePreviews();
 
   // 2단계: 백그라운드에서 각 이미지 업로드 (병렬 처리)
-  const uploadPromises = imagesToUpload.map(async ({ file, tempImage, previewUrl }) => {
-    try {
-      // Lambda 업로드
-      logger.debug('[이미지 업로드] Lambda 업로드 시작:', file.name);
-      const s3Result = await uploadImageToS3({ file, imageType: 'POST' });
-      logger.debug('[이미지 업로드] Lambda 응답:', s3Result);
+  const uploadPromises = imagesToUpload.map(
+    async ({ file, tempImage, previewUrl }) => {
+      try {
+        // Lambda 업로드
+        logger.debug('[이미지 업로드] Lambda 업로드 시작:', file.name);
+        const s3Result = await uploadImageToS3({ file, imageType: 'POST' });
+        logger.debug('[이미지 업로드] Lambda 응답:', s3Result);
 
-      // Metadata 저장
-      logger.debug('[이미지 업로드] Metadata 저장 시작');
-      const metadataResult = await saveImageMetadata(s3Result);
-      logger.debug('[이미지 업로드] Metadata 응답:', metadataResult);
+        // Metadata 저장
+        logger.debug('[이미지 업로드] Metadata 저장 시작');
+        const metadataResult = await saveImageMetadata(s3Result);
+        logger.debug('[이미지 업로드] Metadata 응답:', metadataResult);
 
-      // 응답 검증
-      if (!metadataResult || !metadataResult.imageId) {
-        throw new Error('이미지 메타데이터 응답에 imageId가 없습니다.');
+        // 응답 검증
+        if (!metadataResult || !metadataResult.imageId) {
+          throw new Error('이미지 메타데이터 응답에 imageId가 없습니다.');
+        }
+
+        // 상태 업데이트
+        tempImage.imageId = metadataResult.imageId;
+        tempImage.storedFilename = s3Result.storedFilename;
+        tempImage.uploadedAt = new Date();
+        tempImage.isUploading = false;
+        logger.debug('[이미지 업로드] 성공 - imageId:', tempImage.imageId);
+
+        // 개별 업로드 완료 시 렌더링 갱신
+        renderImagePreviews();
+      } catch (error) {
+        logger.error('[이미지 업로드] 실패:', error);
+        // 실패 시 제거
+        const idx = uploadedImages.indexOf(tempImage);
+        if (idx > -1) {
+          uploadedImages.splice(idx, 1);
+        }
+        URL.revokeObjectURL(previewUrl);
+        showToast(error.message || '이미지 업로드에 실패했습니다.', 'error');
+        renderImagePreviews();
       }
-
-      // 상태 업데이트
-      tempImage.imageId = metadataResult.imageId;
-      tempImage.storedFilename = s3Result.storedFilename;
-      tempImage.uploadedAt = new Date();
-      tempImage.isUploading = false;
-      logger.debug('[이미지 업로드] 성공 - imageId:', tempImage.imageId);
-
-      // 개별 업로드 완료 시 렌더링 갱신
-      renderImagePreviews();
-    } catch (error) {
-      logger.error('[이미지 업로드] 실패:', error);
-      // 실패 시 제거
-      const idx = uploadedImages.indexOf(tempImage);
-      if (idx > -1) {
-        uploadedImages.splice(idx, 1);
-      }
-      URL.revokeObjectURL(previewUrl);
-      showToast(error.message || '이미지 업로드에 실패했습니다.', 'error');
-      renderImagePreviews();
     }
-  });
+  );
 
   // 진행 중인 업로드 Promise 추적
   pendingUploads.push(...uploadPromises);
@@ -651,9 +677,11 @@ function initDragAndDrop() {
       const targetIndex = parseInt(item.dataset.index, 10);
       if (draggedIndex !== null && targetIndex !== draggedIndex) {
         // 기존 drag-over 제거 후 현재 타겟에만 추가
-        container.querySelectorAll('.image-preview-item.drag-over').forEach(el => {
-          if (el !== item) el.classList.remove('drag-over');
-        });
+        container
+          .querySelectorAll('.image-preview-item.drag-over')
+          .forEach(el => {
+            if (el !== item) el.classList.remove('drag-over');
+          });
         item.classList.add('drag-over');
       }
     }
@@ -691,15 +719,25 @@ function initDragAndDrop() {
 
     const targetIndex = parseInt(item.dataset.index, 10);
 
-    if (draggedIndex !== null && draggedIndex !== targetIndex && !isNaN(targetIndex)) {
+    if (
+      draggedIndex !== null &&
+      draggedIndex !== targetIndex &&
+      !isNaN(targetIndex)
+    ) {
       // primaryImageIndex 조정 (드래그로 순서 변경 시)
       if (primaryImageIndex === draggedIndex) {
         // 대표 이미지를 드래그한 경우 → 새 위치로 이동
         primaryImageIndex = targetIndex;
-      } else if (draggedIndex < primaryImageIndex && targetIndex >= primaryImageIndex) {
+      } else if (
+        draggedIndex < primaryImageIndex &&
+        targetIndex >= primaryImageIndex
+      ) {
         // 대표보다 앞에서 뒤로 이동 → 대표 인덱스 감소
         primaryImageIndex--;
-      } else if (draggedIndex > primaryImageIndex && targetIndex <= primaryImageIndex) {
+      } else if (
+        draggedIndex > primaryImageIndex &&
+        targetIndex <= primaryImageIndex
+      ) {
         // 대표보다 뒤에서 앞으로 이동 → 대표 인덱스 증가
         primaryImageIndex++;
       }
@@ -847,14 +885,18 @@ async function handleAiGenerate() {
     const mimeType = result.imageMimeType || 'image/png';
     aiGeneratedImage = {
       imageId: result.imageId,
-      previewUrl: result.imageUrl || `data:${mimeType};base64,${result.imageData || ''}`,
+      previewUrl:
+        result.imageUrl || `data:${mimeType};base64,${result.imageData || ''}`,
     };
 
     renderAiResultPreview();
 
     // 남은 횟수 갱신
     const remaining = await updateAiRemainingCount();
-    showToast(`AI 이미지가 생성되었습니다. (오늘 ${remaining}회 남음)`, 'success');
+    showToast(
+      `AI 이미지가 생성되었습니다. (오늘 ${remaining}회 남음)`,
+      'success'
+    );
   } catch (error) {
     logger.error('[AI 생성] 실패:', error);
     showToast(error.message || 'AI 이미지 생성에 실패했습니다.', 'error');
@@ -910,7 +952,9 @@ function buildCreatePostRequest() {
 
   if (imageMode === 'manual') {
     // 직접 업로드 모드
-    const completedImages = uploadedImages.filter(img => !img.isUploading && img.imageId);
+    const completedImages = uploadedImages.filter(
+      img => !img.isUploading && img.imageId
+    );
     const imageIds = completedImages.map(img => img.imageId);
 
     // 대표 이미지: primaryImageIndex에 해당하는 이미지의 imageId
@@ -948,8 +992,8 @@ function buildCreatePostRequest() {
 
 function checkExpiredImages() {
   const now = Date.now();
-  const expiredImages = uploadedImages.filter(img =>
-    img.uploadedAt && (now - img.uploadedAt.getTime()) > IMAGE_EXPIRY_MS
+  const expiredImages = uploadedImages.filter(
+    img => img.uploadedAt && now - img.uploadedAt.getTime() > IMAGE_EXPIRY_MS
   );
 
   if (expiredImages.length > 0) {
@@ -1039,7 +1083,11 @@ function handleCancel() {
   const titleInput = document.getElementById('post-title');
   const contentInput = document.getElementById('post-content');
 
-  if (titleInput.value.trim() || contentInput.value.trim() || uploadedImages.length > 0) {
+  if (
+    titleInput.value.trim() ||
+    contentInput.value.trim() ||
+    uploadedImages.length > 0
+  ) {
     openModal(
       '작성 취소',
       '작성 중인 내용이 있습니다. 임시 저장된 내용은 다음에 다시 불러올 수 있습니다.',

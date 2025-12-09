@@ -155,7 +155,7 @@ function handleImageSelect(e) {
     clearBtn.style.display = 'block';
 
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = event => {
       previewImage.src = event.target.result;
       preview.classList.add('show');
     };
@@ -252,8 +252,10 @@ function handleCancel() {
   const contentInput = document.getElementById('post-content');
 
   const isChanged =
-    (currentPost && titleInput.value.trim() !== (currentPost.title ?? '').trim()) ||
-    (currentPost && contentInput.value.trim() !== (currentPost.content ?? '').trim()) ||
+    (currentPost &&
+      titleInput.value.trim() !== (currentPost.title ?? '').trim()) ||
+    (currentPost &&
+      contentInput.value.trim() !== (currentPost.content ?? '').trim()) ||
     selectedImage ||
     removeCurrentImage;
 
@@ -292,7 +294,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const form = document.getElementById('post-form');
   const cancelBtn = document.getElementById('cancel-btn');
 
-  titleInput.addEventListener('input', (e) => {
+  titleInput.addEventListener('input', e => {
     const count = e.target.value.length;
     document.getElementById('title-char-count').textContent = `${count}/26`;
 

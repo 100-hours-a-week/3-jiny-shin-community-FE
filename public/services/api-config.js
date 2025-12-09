@@ -26,7 +26,10 @@ async function fetchConfig() {
       return config;
     })
     .catch(err => {
-      logger.warn('[API Config] 서버 설정 로드 실패, 기본값 사용:', err.message);
+      logger.warn(
+        '[API Config] 서버 설정 로드 실패, 기본값 사용:',
+        err.message
+      );
       // live-server 개발 환경 등에서 /config가 없을 때 fallback
       configCache = {
         API_BASE_URL: '/api/',

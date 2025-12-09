@@ -14,7 +14,13 @@ const AI_DAILY_LIMIT = 5;
 export async function getAiGenerationRemaining() {
   try {
     const response = await get('/ai-generations/remaining');
-    return response.data ?? { remaining: AI_DAILY_LIMIT, limit: AI_DAILY_LIMIT, used: 0 };
+    return (
+      response.data ?? {
+        remaining: AI_DAILY_LIMIT,
+        limit: AI_DAILY_LIMIT,
+        used: 0,
+      }
+    );
   } catch (error) {
     // API 미구현 시 fallback (개발용)
     logger.warn('[AI 횟수] API 미구현, fallback 사용:', error.message);
@@ -33,7 +39,8 @@ export async function checkAiGenerationLimit() {
     return {
       canGenerate: false,
       remaining: 0,
-      message: '오늘 AI 이미지 생성 횟수를 모두 사용했어요. 내일 다시 시도해주세요.',
+      message:
+        '오늘 AI 이미지 생성 횟수를 모두 사용했어요. 내일 다시 시도해주세요.',
     };
   }
 
@@ -186,10 +193,7 @@ export async function generateAndUploadAiImage({
   };
 }
 
-const VALID_TYPES = new Set([
-  'PROFILE',
-  'POST',
-]);
+const VALID_TYPES = new Set(['PROFILE', 'POST']);
 
 /**
  * Lambda를 통해 S3에 이미지 업로드

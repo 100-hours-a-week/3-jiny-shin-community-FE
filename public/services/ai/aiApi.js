@@ -41,7 +41,9 @@ export async function generatePrompt({
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.error || `프롬프트 생성 실패: ${response.status}`);
+    throw new Error(
+      errorData.error || `프롬프트 생성 실패: ${response.status}`
+    );
   }
 
   const data = await response.json();

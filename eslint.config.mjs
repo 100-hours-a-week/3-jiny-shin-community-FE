@@ -52,6 +52,7 @@ export default [
         module: 'readonly',
         __dirname: 'readonly',
         process: 'readonly',
+        Buffer: 'readonly',
       },
     },
   },

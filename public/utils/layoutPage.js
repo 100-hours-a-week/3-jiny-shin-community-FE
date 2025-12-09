@@ -41,12 +41,12 @@ export async function renderPageLayout(templateId) {
     throw new Error(`Layout template "${templateId}" not found in document`);
   }
 
-  const fragment = template.content
-    ? template.content.cloneNode(true)
-    : null;
+  const fragment = template.content ? template.content.cloneNode(true) : null;
 
   if (!fragment) {
-    throw new Error(`Layout template "${templateId}" does not contain any content`);
+    throw new Error(
+      `Layout template "${templateId}" does not contain any content`
+    );
   }
 
   const layoutRoot = await createLayoutRoot();

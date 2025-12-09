@@ -14,7 +14,8 @@ function getLoginErrorMessage(errorCode) {
     invalid_password: '이메일 또는 비밀번호가 올바르지 않습니다.',
     account_locked: '계정이 잠겼습니다. 잠시 후 다시 시도해주세요.',
     account_disabled: '비활성화된 계정입니다. 관리자에게 문의해주세요.',
-    too_many_attempts: '로그인 시도가 너무 많습니다. 잠시 후 다시 시도해주세요.',
+    too_many_attempts:
+      '로그인 시도가 너무 많습니다. 잠시 후 다시 시도해주세요.',
   };
 
   // 에러 코드가 정의된 메시지에 있으면 해당 메시지 반환

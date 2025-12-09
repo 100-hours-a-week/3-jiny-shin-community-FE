@@ -121,7 +121,7 @@ export function escapeHtml(text) {
     "'": '&#039;',
   };
 
-  return String(text).replace(/[&<>"']/g, (char) => map[char]);
+  return String(text).replace(/[&<>"']/g, char => map[char]);
 }
 
 /**
@@ -150,7 +150,9 @@ let _supportsWebp = null;
 export function supportsWebp() {
   if (_supportsWebp === null) {
     const canvas = document.createElement('canvas');
-    _supportsWebp = canvas.toDataURL('image/webp').startsWith('data:image/webp');
+    _supportsWebp = canvas
+      .toDataURL('image/webp')
+      .startsWith('data:image/webp');
   }
   return _supportsWebp;
 }

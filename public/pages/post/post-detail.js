@@ -1,8 +1,16 @@
 import { openModal, showToast } from '../../../utils/layout.js';
 import { renderPageLayout } from '../../../utils/layoutPage.js';
-import { formatCount, formatDate, escapeHtml, getImageUrl } from '../../../utils/format.js';
+import {
+  formatCount,
+  formatDate,
+  escapeHtml,
+  getImageUrl,
+} from '../../../utils/format.js';
 import { getPost, deletePost } from '../../../services/post/postApi.js';
-import { addPostLike, removePostLike } from '../../../services/post/postLikeApi.js';
+import {
+  addPostLike,
+  removePostLike,
+} from '../../../services/post/postLikeApi.js';
 import {
   getComments,
   createComment as createCommentApi,
@@ -74,7 +82,9 @@ function renderImageCarousel(images) {
   }
 
   // position 순으로 정렬
-  const sortedImages = [...images].sort((a, b) => (a.position || 0) - (b.position || 0));
+  const sortedImages = [...images].sort(
+    (a, b) => (a.position || 0) - (b.position || 0)
+  );
 
   totalSlides = sortedImages.length;
   currentSlide = 0;
@@ -278,7 +288,7 @@ function renderPost(post) {
   const contentElement = document.getElementById('post-content');
   contentElement.innerHTML = (post.content || '')
     .split('\n')
-    .map((line) => `<p>${escapeHtml(line)}</p>`)
+    .map(line => `<p>${escapeHtml(line)}</p>`)
     .join('');
 
   document.getElementById('likes-count').textContent = formatCount(
@@ -341,7 +351,7 @@ function renderComments(comments, totalCount) {
 
   commentsEmpty.classList.remove('show');
   const fragment = document.createDocumentFragment();
-  comments.forEach((comment) => {
+  comments.forEach(comment => {
     fragment.appendChild(createCommentElement(comment));
   });
   commentsList.replaceChildren(fragment);
@@ -464,7 +474,8 @@ async function handleTogglePostLike() {
 
       const likeCountElement = document.getElementById('likes-count');
       if (likeCountElement) {
-        const currentCount = parseInt(likeCountElement.textContent.replace(/,/g, '')) || 0;
+        const currentCount =
+          parseInt(likeCountElement.textContent.replace(/,/g, '')) || 0;
         const newCount = Math.max(0, currentCount - 1);
         likeCountElement.textContent = formatCount(newCount);
       }
@@ -478,12 +489,6 @@ async function handleTogglePostLike() {
     logger.error('게시글 좋아요 토글 에러:', error);
     showToast(error.message || '좋아요 처리에 실패했습니다.', 'error');
   }
-}
-
-// @deprecated 수정 기능 비활성화 - UI에서 버튼 숨김 처리됨
-function handleEditPost() {
-  const postId = getPostIdFromUrl();
-  if (!postId) return;
 }
 
 function handleDeletePost() {
@@ -541,7 +546,12 @@ async function loadPost() {
     renderPost(post);
     await loadComments();
   } catch (error) {
-    logger.error('[post-detail] 게시글 로드 에러:', error, 'status:', error.status);
+    logger.error(
+      '[post-detail] 게시글 로드 에러:',
+      error,
+      'status:',
+      error.status
+    );
     // 게시글 로드 실패 시 404 콘텐츠 렌더링 (URL 유지)
     render404Content();
   }
@@ -593,7 +603,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (commentTextarea) {
     commentTextarea.addEventListener('input', () => {
       commentTextarea.style.height = 'auto';
-      commentTextarea.style.height = Math.min(commentTextarea.scrollHeight, 100) + 'px';
+      commentTextarea.style.height =
+        Math.min(commentTextarea.scrollHeight, 100) + 'px';
     });
   }
 

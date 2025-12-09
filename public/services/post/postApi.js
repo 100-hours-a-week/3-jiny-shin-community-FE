@@ -30,13 +30,18 @@ function normalizeImageIds(imageIds, { defaultValue } = {}) {
     throw new Error('imageIds는 배열이어야 합니다.');
   }
 
-  return imageIds.map((id) => Number(id)).filter((id) => !Number.isNaN(id));
+  return imageIds.map(id => Number(id)).filter(id => !Number.isNaN(id));
 }
 
 /**
  * 게시글 작성
  */
-export async function createPost({ title, content, imageIds, primaryImageId } = {}) {
+export async function createPost({
+  title,
+  content,
+  imageIds,
+  primaryImageId,
+} = {}) {
   validateTitle(title);
   validateContent(content);
 
@@ -49,7 +54,10 @@ export async function createPost({ title, content, imageIds, primaryImageId } = 
   };
 
   // 대표 이미지 ID가 있고 imageIds에 포함되어 있으면 추가
-  if (primaryImageId !== undefined && normalizedImageIds.includes(primaryImageId)) {
+  if (
+    primaryImageId !== undefined &&
+    normalizedImageIds.includes(primaryImageId)
+  ) {
     body.primaryImageId = primaryImageId;
   }
 

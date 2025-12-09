@@ -24,8 +24,7 @@ async function loadProfile() {
     }
 
     // 사용자 정보 표시
-    document.getElementById('userEmail').textContent =
-      currentUser.email ?? '';
+    document.getElementById('userEmail').textContent = currentUser.email ?? '';
     document.getElementById('userNickname').textContent =
       currentUser.nickname ?? '';
 
@@ -70,7 +69,10 @@ async function loadProfile() {
       return;
     }
 
-    showToast(error.message || '사용자 정보를 불러오는 데 실패했습니다.', 'error');
+    showToast(
+      error.message || '사용자 정보를 불러오는 데 실패했습니다.',
+      'error'
+    );
   }
 }
 
@@ -184,7 +186,10 @@ async function handleDeleteAccount() {
     localStorage.removeItem('anoo_post_draft');
     window.location.href = '/login';
   } catch (error) {
-    showToast(error.message || '회원 탈퇴에 실패했습니다. 다시 시도해주세요.', 'error');
+    showToast(
+      error.message || '회원 탈퇴에 실패했습니다. 다시 시도해주세요.',
+      'error'
+    );
   }
 }
 
@@ -211,12 +216,9 @@ function initEventListeners() {
   // 로그아웃 버튼
   document.getElementById('logoutBtn').addEventListener('click', () => {
     closeSettingsMenu();
-    openModal(
-      '로그아웃',
-      '로그아웃 하시겠습니까?',
-      handleLogout,
-      { confirmText: '로그아웃' }
-    );
+    openModal('로그아웃', '로그아웃 하시겠습니까?', handleLogout, {
+      confirmText: '로그아웃',
+    });
   });
 
   // 회원 탈퇴 버튼

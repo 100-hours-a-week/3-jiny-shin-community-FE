@@ -87,7 +87,8 @@
 }
 
 .profile-upload__image.show + .profile-upload__placeholder,
-.profile-upload__preview:has(.profile-upload__image.show) .profile-upload__placeholder {
+.profile-upload__preview:has(.profile-upload__image.show)
+  .profile-upload__placeholder {
   display: none;
 }
 

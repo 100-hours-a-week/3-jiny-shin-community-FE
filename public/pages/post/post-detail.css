@@ -1,7 +1,8 @@
 .post-detail-container {
   max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: var(--content-padding-top) var(--content-padding-x) var(--content-padding-bottom);
+  padding: var(--content-padding-top) var(--content-padding-x)
+    var(--content-padding-bottom);
 }
 
 /* 게시글 상세 */

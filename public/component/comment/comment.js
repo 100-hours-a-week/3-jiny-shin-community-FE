@@ -98,7 +98,7 @@ export function createComment(commentData) {
   }
 
   const paragraph = document.createElement('p');
-  paragraph.textContent = isDeleted ? '삭제된 댓글입니다.' : content ?? '';
+  paragraph.textContent = isDeleted ? '삭제된 댓글입니다.' : (content ?? '');
   contentWrapper.appendChild(paragraph);
 
   bodyEl.appendChild(metaRow);
@@ -117,7 +117,10 @@ export function createComment(commentData) {
  */
 function formatDate(date) {
   // 이미 포맷팅된 문자열이면 그대로 반환
-  if (typeof date === 'string' && date.match(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/)) {
+  if (
+    typeof date === 'string' &&
+    date.match(/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/)
+  ) {
     return date;
   }
 
@@ -152,7 +155,7 @@ export function renderComments(container, comments) {
   }
 
   // 각 댓글 렌더링
-  comments.forEach((comment) => {
+  comments.forEach(comment => {
     const commentEl = createComment(comment);
     container.appendChild(commentEl);
   });
