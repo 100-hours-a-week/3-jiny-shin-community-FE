@@ -61,11 +61,39 @@ Clean URL 라우팅 + API 프록시:
 
 ### API 클라이언트 구조
 
-`public/services/` 도메인별 분리:
+`public/services/` 도메인별 폴더로 분리:
 
-- `httpClient.js`: fetch 래퍼 (get, post, patch, del)
-- `api-config.js`: 환경변수에서 BASE_URL, IMAGE_UPLOAD_API 로드
-- 도메인별: `authApi.js`, `userApi.js`, `postApi.js`, `commentApi.js`, `imageApi.js`, `aiApi.js`, `feedbackApi.js`
+```
+services/
+├── httpClient.js      # fetch 래퍼 (get, post, patch, del)
+├── api-config.js      # 환경변수에서 BASE_URL, IMAGE_UPLOAD_API 로드
+├── index.js           # 모든 API 함수 re-export
+├── auth/              # 인증 (login, logout, checkAuth)
+├── user/              # 사용자 (getMe, updateMe, deleteMe)
+├── post/              # 게시글 CRUD, 좋아요
+├── comment/           # 댓글 CRUD
+├── image/             # 이미지 업로드 (S3 + 메타데이터)
+├── ai/                # AI 이미지 생성
+└── feedback/          # 피드백 제출
+```
+
+**httpClient 사용법:**
+
+```javascript
+import { get, post, patch, del } from '/services/httpClient.js';
+
+// GET with query params
+const { data } = await get('posts', { query: { page: 1, size: 10 } });
+
+// POST with body
+await post('posts', { body: { title, content } });
+
+// PATCH
+await patch(`users/me`, { body: { nickname } });
+
+// DELETE
+await del(`posts/${postId}`);
+```
 
 ### 이미지 업로드 플로우
 
@@ -79,6 +107,21 @@ Clean URL 라우팅 + API 프록시:
 2. `POST /api/ai/generate-image` - 프롬프트 + 프로필 사진 → 생성된 이미지 (Gemini 2.5 Flash Image)
 
 프로필 사진은 **1번째 이미지**로 항상 전달되어 인물 외형 분석에 사용됨.
+
+### 페이지 라우트 매핑
+
+| Clean URL | 파일 경로 |
+|-----------|----------|
+| `/` | `public/index.html` (랜딩) |
+| `/login` | `public/pages/login/login.html` |
+| `/signup` | `public/pages/signup/signup.html` |
+| `/onboarding` | `public/pages/onboarding/onboarding.html` |
+| `/feed`, `/home` | `public/pages/home/home.html` |
+| `/write` | `public/pages/post/post-create.html` |
+| `/post/:id` | `public/pages/post/post-detail.html` |
+| `/profile` | `public/pages/profile/profile.html` |
+| `/profile/edit` | `public/pages/profile/profile-edit.html` |
+| `/feedback` | `public/pages/feedback/feedback.html` |
 
 ## Code Patterns
 
