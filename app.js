@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const path = require('path');
 const express = require('express');
+const packageJson = require('./package.json');
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.get('/config', (req, res) => {
   res.json({
     API_BASE_URL: process.env.API_BASE_URL || '/api/',
     IMAGE_UPLOAD_API: process.env.IMAGE_UPLOAD_API || '',
+    APP_VERSION: packageJson.version,
   });
 });
 
@@ -121,6 +123,13 @@ app.get('/terms', (req, res) => {
 app.get('/privacy', (req, res) => {
   res.sendFile(
     path.join(ROOT_DIR, 'public', 'pages', 'privacy', 'privacy.html')
+  );
+});
+
+// Feedback Route
+app.get('/feedback', (req, res) => {
+  res.sendFile(
+    path.join(ROOT_DIR, 'public', 'pages', 'feedback', 'feedback.html')
   );
 });
 

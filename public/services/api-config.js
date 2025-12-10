@@ -8,7 +8,7 @@ let configPromise = null;
 
 /**
  * 서버에서 설정을 가져옵니다 (캐싱 적용)
- * @returns {Promise<{API_BASE_URL: string, IMAGE_UPLOAD_API: string}>}
+ * @returns {Promise<{API_BASE_URL: string, IMAGE_UPLOAD_API: string, APP_VERSION: string}>}
  */
 async function fetchConfig() {
   if (configCache) {
@@ -34,6 +34,7 @@ async function fetchConfig() {
       configCache = {
         API_BASE_URL: '/api/',
         IMAGE_UPLOAD_API: '',
+        APP_VERSION: '0.0.0',
       };
       return configCache;
     });
@@ -65,6 +66,15 @@ export async function getApiBaseUrl() {
 export async function getImageUploadApi() {
   const config = await fetchConfig();
   return config.IMAGE_UPLOAD_API;
+}
+
+/**
+ * 앱 버전 반환
+ * @returns {Promise<string>}
+ */
+export async function getAppVersion() {
+  const config = await fetchConfig();
+  return config.APP_VERSION;
 }
 
 // 동기적 접근을 위한 기본 설정 (초기화 전 사용 시)

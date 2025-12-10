@@ -381,6 +381,13 @@ function initEventListeners() {
     closeSettingsMenu();
     window.open('/privacy', '_blank');
   });
+
+  // 개발자에게 의견 남기기 버튼
+  document.getElementById('feedbackBtn').addEventListener('click', e => {
+    e.preventDefault();
+    closeSettingsMenu();
+    window.location.href = '/feedback';
+  });
 }
 
 // ============ 초기화 ============
