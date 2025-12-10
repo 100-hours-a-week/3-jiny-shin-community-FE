@@ -1282,6 +1282,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       {
         confirmText: '이어서 작성',
         cancelText: '새로 작성',
+        onCancel: () => {
+          clearDraft();
+        },
       }
     );
   }
