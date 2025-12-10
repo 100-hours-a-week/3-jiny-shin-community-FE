@@ -54,7 +54,7 @@ IMAGE_UPLOAD_API=https://xxx.execute-api.region.amazonaws.com/api/images
 
 Clean URL 라우팅 + API 프록시:
 
-- `/login`, `/signup`, `/feed`, `/post/:id`, `/profile` 등 → HTML 페이지 서빙
+- `/login`, `/signup`, `/feed`, `/post/:id`, `/profile`, `/feedback` 등 → HTML 페이지 서빙
 - `/api/ai/*` → Gemini AI 프록시 (`routes/ai.js`)
 - `/api/image-proxy` → S3 이미지 CORS 우회
 - `/config` → 클라이언트에 환경변수 전달 (API_BASE_URL, IMAGE_UPLOAD_API)
@@ -65,7 +65,7 @@ Clean URL 라우팅 + API 프록시:
 
 - `httpClient.js`: fetch 래퍼 (get, post, patch, del)
 - `api-config.js`: 환경변수에서 BASE_URL, IMAGE_UPLOAD_API 로드
-- 도메인별: `authApi.js`, `userApi.js`, `postApi.js`, `commentApi.js`, `imageApi.js`, `aiApi.js`
+- 도메인별: `authApi.js`, `userApi.js`, `postApi.js`, `commentApi.js`, `imageApi.js`, `aiApi.js`, `feedbackApi.js`
 
 ### 이미지 업로드 플로우
 
@@ -81,6 +81,12 @@ Clean URL 라우팅 + API 프록시:
 프로필 사진은 **1번째 이미지**로 항상 전달되어 인물 외형 분석에 사용됨.
 
 ## Code Patterns
+
+### 새 페이지 작성 시
+
+- 유사한 기존 페이지의 HTML/CSS/JS 구조를 먼저 확인하고 따를 것
+- 특히 반응형 스타일은 기존 페이지와 일관성 유지
+- 공통 레이아웃(header, layout.css 등)과 중복되는 요소 만들지 않기
 
 ### 동적 컴포넌트 로딩 (layout.js)
 
